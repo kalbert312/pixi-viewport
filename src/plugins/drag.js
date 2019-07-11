@@ -165,7 +165,7 @@ export class Drag extends Plugin
                     this.last = newPoint
                     if (!this.moved)
                     {
-                        this.parent.emit('drag-start', { screen: new PIXI.Point(this.last.x, this.last.y), world: this.parent.toWorld(new PIXI.Point(this.last.x, this.last.y)), viewport: this.parent})
+                        this.parent.emit('drag-start', { interactionEvent: event, screen: new PIXI.Point(this.last.x, this.last.y), world: this.parent.toWorld(new PIXI.Point(this.last.x, this.last.y)), viewport: this.parent})
                     }
                     this.moved = true
                     this.parent.emit('moved', { viewport: this.parent, type: 'drag' })
@@ -183,7 +183,7 @@ export class Drag extends Plugin
      * @param {PIXI.interaction.InteractionEvent} event
      * @returns {boolean}
      */
-    up()
+    up(event)
     {
         const touches = this.parent.input.touches
         if (touches.length === 1)
@@ -202,7 +202,7 @@ export class Drag extends Plugin
             if (this.moved)
             {
                 const screen = new PIXI.Point(this.last.x, this.last.y)
-                this.parent.emit('drag-end', {screen, world: this.parent.toWorld(screen), viewport: this.parent})
+                this.parent.emit('drag-end', { interactionEvent: event, screen, world: this.parent.toWorld(screen), viewport: this.parent })
                 this.last = null
                 this.moved = false
                 return true

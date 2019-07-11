@@ -171,6 +171,7 @@ interface OutOfBounds
 
 interface ClickEventData
 {
+    interactionEvent: PIXI.interaction.InteractionEvent
     screen: PIXI.Point
     viewport: Viewport
     world: PIXI.Point
@@ -178,7 +179,6 @@ interface ClickEventData
 
 interface PaintEventData extends ClickEventData
 {
-    interactionEvent: PIXI.interaction.InteractionEvent
     screenStart: PIXI.Point
     worldStart: PIXI.Point
 }
