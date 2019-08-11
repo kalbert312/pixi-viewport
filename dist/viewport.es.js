@@ -595,7 +595,7 @@ class Plugin
  * @property {(boolean|string)} [clampWheel=false] clamp wheel(to avoid weird bounce with mouse wheel)
  * @property {string} [underflow=center] where to place world if too small for screen
  * @property {number} [factor=1] factor to multiply drag to increase the speed of movement
- * @property {string} [mouseButtons=all] changes which mouse buttons trigger drag, use: 'all', 'left', right' 'middle', or some combination, like, 'middle-right'
+ * @property {string} [mouseButtons=all] changes which mouse buttons trigger drag, use: 'all', 'left', right' 'middle', or some combination, like, 'middle-right'; you may want to set viewport.options.disableOnContextMenu if you want to use right-click dragging
  */
 
 const dragOptions = {
@@ -1641,7 +1641,7 @@ class Decelerate extends Plugin
         {
             this.parent.x += this.x * elapsed;
             this.x *= this.percentChangeX;
-            if (Math.abs(this.x) < this.minSpeed)
+            if (Math.abs(this.x) < this.options.minSpeed)
             {
                 this.x = 0;
             }
@@ -1651,7 +1651,7 @@ class Decelerate extends Plugin
         {
             this.parent.y += this.y * elapsed;
             this.y *= this.percentChangeY;
-            if (Math.abs(this.y) < this.minSpeed)
+            if (Math.abs(this.y) < this.options.minSpeed)
             {
                 this.y = 0;
             }
@@ -2227,7 +2227,7 @@ class Snap extends Plugin
         this.y = y;
         if (this.options.forceStart)
         {
-            this.startEase();
+            this.snapStart();
         }
     }
 
@@ -2371,6 +2371,7 @@ class SnapZoom extends Plugin
     {
         super(parent);
         this.options = Object.assign({}, snapZoomOptions, options);
+        this.ease = ease(this.options.ease);
         if (this.options.width > 0)
         {
             this.x_scale = parent.screenWidth / this.options.width;
@@ -2487,8 +2488,8 @@ class SnapZoom extends Plugin
             else
             {
                 const snapping = this.snapping;
-                this.parent.scale.x = ease(snapping.time, snapping.startX, snapping.deltaX, this.options.time);
-                this.parent.scale.y = ease(snapping.time, snapping.startY, snapping.deltaY, this.options.time);
+                this.parent.scale.x = this.ease(snapping.time, snapping.startX, snapping.deltaX, this.options.time);
+                this.parent.scale.y = this.ease(snapping.time, snapping.startY, snapping.deltaY, this.options.time);
             }
             const clamp = this.parent.plugins.get('clamp-zoom');
             if (clamp)
@@ -2569,6 +2570,7 @@ class Follow extends Plugin
                 return
             }
         }
+
         const deltaX = toX - center.x;
         const deltaY = toY - center.y;
         if (deltaX || deltaY)
@@ -2814,15 +2816,15 @@ class MouseEdges extends Plugin
         {
             this.left = distance;
             this.top = distance;
-            this.right = window.innerWidth - distance;
-            this.bottom = window.innerHeight - distance;
+            this.right = this.parent.worldScreenWidth - distance;
+            this.bottom = this.parent.worldScreenHeight - distance;
         }
         else if (!this.radius)
         {
             this.left = this.options.left;
             this.top = this.options.top;
-            this.right = this.options.right === null ? null : window.innerWidth - this.options.right;
-            this.bottom = this.options.bottom === null ? null : window.innerHeight - this.options.bottom;
+            this.right = this.options.right === null ? null : this.parent.worldScreenWidth - this.options.right;
+            this.bottom = this.options.bottom === null ? null : this.parent.worldScreenHeight - this.options.bottom;
         }
     }
 
@@ -2974,7 +2976,7 @@ class MouseEdges extends Plugin
  * @property {PIXI.Ticker} [ticker=PIXI.Ticker.shared] use this PIXI.ticker for updates
  * @property {PIXI.InteractionManager} [interaction=null] InteractionManager, available from instantiated WebGLRenderer/CanvasRenderer.plugins.interaction - used to calculate pointer postion relative to canvas location on screen
  * @property {HTMLElement} [divWheel=document.body] div to attach the wheel event
- * @property {boolean} [noOnContextMenu] remove oncontextmenu=() => {} from the divWheel element (this is enabled to allow for right-click dragging)
+ * @property {boolean} [disableOnContextMenu] remove oncontextmenu=() => {} from the divWheel element
  */
 
 const viewportOptions = {
@@ -2988,7 +2990,7 @@ const viewportOptions = {
     forceHitArea: null,
     noTicker: false,
     interaction: null,
-    noOnContextMenu: false
+    disableOnContextMenu: false
 };
 
 /**
@@ -3030,6 +3032,7 @@ class Viewport extends Container
      * @fires moved-end
      * @fires zoomed
      * @fires zoomed-end
+     * @fires frame-end
      */
     constructor(options = {})
     {
@@ -3076,7 +3079,7 @@ class Viewport extends Container
 
         this.options.divWheel = this.options.divWheel || document.body;
 
-        if (!this.options.noOnContextMenu)
+        if (this.options.disableOnContextMenu)
         {
             this.options.divWheel.oncontextmenu = e => e.preventDefault();
         }
@@ -3169,6 +3172,7 @@ class Viewport extends Container
                 scaleX: this.scale.x,
                 scaleY: this.scale.y
             };
+            this.emit('frame-end', this);
         }
     }
 
@@ -3580,6 +3584,19 @@ class Viewport extends Container
     }
 
     /**
+     * changes scale of viewport and maintains center of viewport--same as calling setScale(scale, true)
+     * @type {number}
+     */
+    set scaled(scale)
+    {
+        this.setZoom(scale, true);
+    }
+    get scaled()
+    {
+        return this.scale.x
+    }
+
+    /**
      * @param {SnapZoomOptions} options
      */
     snapZoom(options)
@@ -3700,6 +3717,7 @@ class Viewport extends Container
 
     /**
      * enable one-finger touch to drag
+     * NOTE: if you expect users to use right-click dragging, you should enable viewport.options.disableOnContextMenu to avoid the context menu popping up on each right-click drag
      * @param {DragOptions} [options]
      * @returns {Viewport} this
      */
@@ -3736,6 +3754,7 @@ class Viewport extends Container
 
     /**
      * decelerate after a move
+     * NOTE: this fires 'moved' event during deceleration
      * @param {DecelerateOptions} [options]
      * @return {Viewport} this
      */
@@ -3747,7 +3766,9 @@ class Viewport extends Container
 
     /**
      * bounce on borders
-     * NOTE: screenWidth, screenHeight, worldWidth, and worldHeight needs to be set for this to work properly
+     * NOTES:
+     *    screenWidth, screenHeight, worldWidth, and worldHeight needs to be set for this to work properly
+     *    fires 'moved', 'bounce-x-start', 'bounce-y-start', 'bounce-x-end', and 'bounce-y-end' events
      * @param {object} [options]
      * @param {string} [options.sides=all] all, horizontal, vertical, or combination of top, bottom, right, left (e.g., 'top-bottom-right')
      * @param {number} [options.friction=0.5] friction to apply to decelerate if active
@@ -3789,9 +3810,10 @@ class Viewport extends Container
     /**
      * follow a target
      * NOTES:
-     *    - uses the (x, y) as the center to follow; for PIXI.Sprite to work properly, use sprite.anchor.set(0.5)
-     *    - options.acceleration is not perfect as it doesn't know the velocity of the target
-     *    - it adds acceleration to the start of movement and deceleration to the end of movement when the target is stopped
+     *    uses the (x, y) as the center to follow; for PIXI.Sprite to work properly, use sprite.anchor.set(0.5)
+     *    options.acceleration is not perfect as it doesn't know the velocity of the target
+     *    it adds acceleration to the start of movement and deceleration to the end of movement when the target is stopped
+     *    fires 'moved' event
      * @param {PIXI.DisplayObject} target to follow
      * @param {FollowOptions} [options]
      * @returns {Viewport} this
@@ -3826,6 +3848,7 @@ class Viewport extends Container
 
     /**
      * Scroll viewport when mouse hovers near one of the edges or radius-distance from center of screen.
+     * NOTE: fires 'moved' event
      * @param {MouseEdgesOptions} [options]
      */
     mouseEdges(options)
@@ -4051,14 +4074,20 @@ class Viewport extends Container
  */
 
 /**
- * fires when viewport stops moving for any reason
+ * fires when viewport stops moving
  * @event Viewport#moved-end
  * @type {Viewport}
  */
 
 /**
- * fires when viewport stops zooming for any reason
+ * fires when viewport stops zooming
  * @event Viewport#zoomed-end
+ * @type {Viewport}
+ */
+
+ /**
+ * fires at the end of an update frame
+ * @event Viewport#frame-end
  * @type {Viewport}
  */
 

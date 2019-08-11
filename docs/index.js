@@ -598,15 +598,14 @@
             {
                 window.Int32Array = Array;
             }
-            //# sourceMappingURL=polyfill.es.js.map
 
             var isMobile_min = createCommonjsModule(function (module) {
             !function(e){var n=/iPhone/i,t=/iPod/i,r=/iPad/i,a=/\bAndroid(?:.+)Mobile\b/i,p=/Android/i,l=/\bAndroid(?:.+)SD4930UR\b/i,b=/\bAndroid(?:.+)(?:KF[A-Z]{2,4})\b/i,f=/Windows Phone/i,u=/\bWindows(?:.+)ARM\b/i,c=/BlackBerry/i,s=/BB10/i,v=/Opera Mini/i,h=/\b(CriOS|Chrome)(?:.+)Mobile/i,w=/\Mobile(?:.+)Firefox\b/i;function m(e,i){return e.test(i)}function i(e){var i=e||("undefined"!=typeof navigator?navigator.userAgent:""),o=i.split("[FBAN");void 0!==o[1]&&(i=o[0]),void 0!==(o=i.split("Twitter"))[1]&&(i=o[0]);var d={apple:{phone:m(n,i)&&!m(f,i),ipod:m(t,i),tablet:!m(n,i)&&m(r,i)&&!m(f,i),device:(m(n,i)||m(t,i)||m(r,i))&&!m(f,i)},amazon:{phone:m(l,i),tablet:!m(l,i)&&m(b,i),device:m(l,i)||m(b,i)},android:{phone:!m(f,i)&&m(l,i)||!m(f,i)&&m(a,i),tablet:!m(f,i)&&!m(l,i)&&!m(a,i)&&(m(b,i)||m(p,i)),device:!m(f,i)&&(m(l,i)||m(b,i)||m(a,i)||m(p,i))},windows:{phone:m(f,i),tablet:m(u,i),device:m(f,i)||m(u,i)},other:{blackberry:m(c,i),blackberry10:m(s,i),opera:m(v,i),firefox:m(w,i),chrome:m(h,i),device:m(c,i)||m(s,i)||m(v,i)||m(w,i)||m(h,i)}};return d.any=d.apple.device||d.android.device||d.windows.device||d.other.device,d.phone=d.apple.phone||d.android.phone||d.windows.phone,d.tablet=d.apple.tablet||d.android.tablet||d.windows.tablet,d}module.exports&&"undefined"==typeof window?module.exports=i:module.exports&&"undefined"!=typeof window?module.exports=i():e.isMobile=i();}(commonjsGlobal);
             });
 
             /*!
-             * @pixi/settings - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/settings - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/settings is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -706,6 +705,18 @@
                  * @default PIXI.MIPMAP_MODES.POW2
                  */
                 MIPMAP_TEXTURES: 1,
+
+                /**
+                 * Default anisotropic filtering level of textures.
+                 * Usually from 0 to 16
+                 *
+                 * @static
+                 * @name ANISOTROPIC_LEVEL
+                 * @memberof PIXI.settings
+                 * @type {number}
+                 * @default 16
+                 */
+                ANISOTROPIC_LEVEL: 0,
 
                 /**
                  * Default resolution / device pixel ratio of the renderer.
@@ -903,7 +914,6 @@
                  */
                 ROUND_PIXELS: false,
             };
-            //# sourceMappingURL=settings.es.js.map
 
             var eventemitter3 = createCommonjsModule(function (module) {
 
@@ -5029,8 +5039,8 @@
             }
 
             /*!
-             * @pixi/constants - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/constants - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/constants is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -5358,11 +5368,10 @@
                 MEDIUM: 'mediump',
                 HIGH: 'highp',
             };
-            //# sourceMappingURL=constants.es.js.map
 
             /*!
-             * @pixi/utils - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/utils - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/utils is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -5380,8 +5389,21 @@
              */
             settings.RETINA_PREFIX = /@([0-9\.]+)x/;
 
+            /**
+             * Should the `failIfMajorPerformanceCaveat` flag be enabled as a context option used in the `isWebGLSupported` function.
+             * For most scenarios this should be left as true, as otherwise the user may have a poor experience.
+             * However, it can be useful to disable under certain scenarios, such as headless unit tests.
+             *
+             * @static
+             * @name FAIL_IF_MAJOR_PERFORMANCE_CAVEAT
+             * @memberof PIXI.settings
+             * @type {boolean}
+             * @default true
+             */
+            settings.FAIL_IF_MAJOR_PERFORMANCE_CAVEAT = true;
+
             var saidHello = false;
-            var VERSION = '5.0.4';
+            var VERSION = '5.1.0';
 
             /**
              * Skips the hello message of renderers that are created after this is run.
@@ -5397,7 +5419,7 @@
             /**
              * Logs out the version and renderer information for this running instance of PIXI.
              * If you don't want to see this message you can run `PIXI.utils.skipHello()` before
-             * creating your renderer. Keep in mind that doing that will forever makes you a jerk face.
+             * creating your renderer. Keep in mind that doing that will forever make you a jerk face.
              *
              * @static
              * @function sayHello
@@ -5450,7 +5472,10 @@
                 {
                     supported = (function supported()
                     {
-                        var contextOptions = { stencil: true, failIfMajorPerformanceCaveat: true };
+                        var contextOptions = {
+                            stencil: true,
+                            failIfMajorPerformanceCaveat: settings.FAIL_IF_MAJOR_PERFORMANCE_CAVEAT,
+                        };
 
                         try
                         {
@@ -5714,32 +5739,38 @@
             /**
              * Generic Mask Stack data structure
              *
-             * @memberof PIXI
+             * @memberof PIXI.utils
              * @function createIndicesForQuads
-             * @private
              * @param {number} size - Number of quads
-             * @return {Uint16Array} indices
+             * @param {Uint16Array|Uint32Array} [outBuffer] - Buffer for output, length has to be `6 * size`
+             * @return {Uint16Array|Uint32Array} - Resulting index buffer
              */
-            function createIndicesForQuads(size)
+            function createIndicesForQuads(size, outBuffer)
             {
-                // the total number of indices in our array, there are 6 points per quad.
+                if ( outBuffer === void 0 ) outBuffer = null;
 
+                // the total number of indices in our array, there are 6 points per quad.
                 var totalIndices = size * 6;
 
-                var indices = new Uint16Array(totalIndices);
+                outBuffer = outBuffer || new Uint16Array(totalIndices);
+
+                if (outBuffer.length !== totalIndices)
+                {
+                    throw new Error(("Out buffer length is incorrect, got " + (outBuffer.length) + " and expected " + totalIndices));
+                }
 
                 // fill the indices with the quads to draw
                 for (var i = 0, j = 0; i < totalIndices; i += 6, j += 4)
                 {
-                    indices[i + 0] = j + 0;
-                    indices[i + 1] = j + 1;
-                    indices[i + 2] = j + 2;
-                    indices[i + 3] = j + 0;
-                    indices[i + 4] = j + 2;
-                    indices[i + 5] = j + 3;
+                    outBuffer[i + 0] = j + 0;
+                    outBuffer[i + 1] = j + 1;
+                    outBuffer[i + 2] = j + 2;
+                    outBuffer[i + 3] = j + 0;
+                    outBuffer[i + 4] = j + 2;
+                    outBuffer[i + 5] = j + 3;
                 }
 
-                return indices;
+                return outBuffer;
             }
 
             /**
@@ -6291,7 +6322,6 @@
 
                 warnings[message] = true;
             }
-            //# sourceMappingURL=utils.es.js.map
 
             var utils_es = /*#__PURE__*/Object.freeze({
                         BaseTextureCache: BaseTextureCache,
@@ -6332,8 +6362,8 @@
             });
 
             /*!
-             * @pixi/math - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/math - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/math is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -7121,48 +7151,66 @@
 
             Object.defineProperties( Matrix, staticAccessors );
 
-            // Your friendly neighbour https://en.wikipedia.org/wiki/Dihedral_group of order 16
+            // Your friendly neighbour https://en.wikipedia.org/wiki/Dihedral_group
+
+            /*
+             * Transform matrix for operation n is:
+             * | ux | vx |
+             * | uy | vy |
+             */
 
             var ux = [1, 1, 0, -1, -1, -1, 0, 1, 1, 1, 0, -1, -1, -1, 0, 1];
             var uy = [0, 1, 1, 1, 0, -1, -1, -1, 0, 1, 1, 1, 0, -1, -1, -1];
             var vx = [0, -1, -1, -1, 0, 1, 1, 1, 0, 1, 1, 1, 0, -1, -1, -1];
             var vy = [1, 1, 0, -1, -1, -1, 0, 1, -1, -1, 0, 1, 1, 1, 0, -1];
-            var tempMatrices = [];
 
-            var mul = [];
+            /**
+             * [Cayley Table]{@link https://en.wikipedia.org/wiki/Cayley_table}
+             * for the composition of each rotation in the dihederal group D8.
+             *
+             * @type number[][]
+             * @private
+             */
+            var rotationCayley = [];
 
-            function signum(x)
-            {
-                if (x < 0)
-                {
-                    return -1;
-                }
-                if (x > 0)
-                {
-                    return 1;
-                }
+            /**
+             * Matrices for each `GD8Symmetry` rotation.
+             *
+             * @type Matrix[]
+             * @private
+             */
+            var rotationMatrices = [];
 
-                return 0;
-            }
+            /*
+             * Alias for {@code Math.sign}.
+             */
+            var signum = Math.sign;
 
+            /*
+             * Initializes `rotationCayley` and `rotationMatrices`. It is called
+             * only once below.
+             */
             function init$1()
             {
                 for (var i = 0; i < 16; i++)
                 {
                     var row = [];
 
-                    mul.push(row);
+                    rotationCayley.push(row);
 
                     for (var j = 0; j < 16; j++)
                     {
+                        /* Multiplies rotation matrices i and j. */
                         var _ux = signum((ux[i] * ux[j]) + (vx[i] * uy[j]));
                         var _uy = signum((uy[i] * ux[j]) + (vy[i] * uy[j]));
                         var _vx = signum((ux[i] * vx[j]) + (vx[i] * vy[j]));
                         var _vy = signum((uy[i] * vx[j]) + (vy[i] * vy[j]));
 
+                        /* Finds rotation matrix matching the product and pushes it. */
                         for (var k = 0; k < 16; k++)
                         {
-                            if (ux[k] === _ux && uy[k] === _uy && vx[k] === _vx && vy[k] === _vy)
+                            if (ux[k] === _ux && uy[k] === _uy
+                                  && vx[k] === _vx && vy[k] === _vy)
                             {
                                 row.push(k);
                                 break;
@@ -7176,77 +7224,261 @@
                     var mat = new Matrix();
 
                     mat.set(ux[i$1], uy[i$1], vx[i$1], vy[i$1], 0, 0);
-                    tempMatrices.push(mat);
+                    rotationMatrices.push(mat);
                 }
             }
 
             init$1();
 
             /**
-             * Implements Dihedral Group D_8, see [group D4]{@link http://mathworld.wolfram.com/DihedralGroupD4.html},
-             * D8 is the same but with diagonals. Used for texture rotations.
+             * @memberof PIXI
+             * @typedef {number} GD8Symmetry
+             * @see PIXI.GroupD8
+             */
+
+            /**
+             * Implements the dihedral group D8, which is similar to
+             * [group D4]{@link http://mathworld.wolfram.com/DihedralGroupD4.html};
+             * D8 is the same but with diagonals, and it is used for texture
+             * rotations.
              *
-             * Vector xX(i), xY(i) is U-axis of sprite with rotation i
-             * Vector yY(i), yY(i) is V-axis of sprite with rotation i
-             * Rotations: 0 grad (0), 90 grad (2), 180 grad (4), 270 grad (6)
-             * Mirrors: vertical (8), main diagonal (10), horizontal (12), reverse diagonal (14)
-             * This is the small part of gameofbombs.com portal system. It works.
+             * The directions the U- and V- axes after rotation
+             * of an angle of `a: GD8Constant` are the vectors `(uX(a), uY(a))`
+             * and `(vX(a), vY(a))`. These aren't necessarily unit vectors.
              *
+             * **Origin:**<br>
+             *  This is the small part of gameofbombs.com portal system. It works.
+             *
+             * @see PIXI.GroupD8.E
+             * @see PIXI.GroupD8.SE
+             * @see PIXI.GroupD8.S
+             * @see PIXI.GroupD8.SW
+             * @see PIXI.GroupD8.W
+             * @see PIXI.GroupD8.NW
+             * @see PIXI.GroupD8.N
+             * @see PIXI.GroupD8.NE
              * @author Ivan @ivanpopelyshev
              * @class
              * @memberof PIXI
              */
             var GroupD8 = {
+                /**
+                 * | Rotation | Direction |
+                 * |----------|-----------|
+                 * | 0°       | East      |
+                 *
+                 * @constant {PIXI.GD8Symmetry}
+                 */
                 E: 0,
-                SE: 1,
-                S: 2,
-                SW: 3,
-                W: 4,
-                NW: 5,
-                N: 6,
-                NE: 7,
-                MIRROR_VERTICAL: 8,
-                MIRROR_HORIZONTAL: 12,
-                uX: function (ind) { return ux[ind]; },
-                uY: function (ind) { return uy[ind]; },
-                vX: function (ind) { return vx[ind]; },
-                vY: function (ind) { return vy[ind]; },
-                inv: function (rotation) {
-                    if (rotation & 8)
-                    {
-                        return rotation & 15;
-                    }
-
-                    return (-rotation) & 7;
-                },
-                add: function (rotationSecond, rotationFirst) { return mul[rotationSecond][rotationFirst]; },
-                sub: function (rotationSecond, rotationFirst) { return mul[rotationSecond][GroupD8.inv(rotationFirst)]; },
 
                 /**
-                 * Adds 180 degrees to rotation. Commutative operation.
+                 * | Rotation | Direction |
+                 * |----------|-----------|
+                 * | 45°↻     | Southeast |
+                 *
+                 * @constant {PIXI.GD8Symmetry}
+                 */
+                SE: 1,
+
+                /**
+                 * | Rotation | Direction |
+                 * |----------|-----------|
+                 * | 90°↻     | South     |
+                 *
+                 * @constant {PIXI.GD8Symmetry}
+                 */
+                S: 2,
+
+                /**
+                 * | Rotation | Direction |
+                 * |----------|-----------|
+                 * | 135°↻    | Southwest |
+                 *
+                 * @constant {PIXI.GD8Symmetry}
+                 */
+                SW: 3,
+
+                /**
+                 * | Rotation | Direction |
+                 * |----------|-----------|
+                 * | 180°     | West      |
+                 *
+                 * @constant {PIXI.GD8Symmetry}
+                 */
+                W: 4,
+
+                /**
+                 * | Rotation    | Direction    |
+                 * |-------------|--------------|
+                 * | -135°/225°↻ | Northwest    |
+                 *
+                 * @constant {PIXI.GD8Symmetry}
+                 */
+                NW: 5,
+
+                /**
+                 * | Rotation    | Direction    |
+                 * |-------------|--------------|
+                 * | -90°/270°↻  | North        |
+                 *
+                 * @constant {PIXI.GD8Symmetry}
+                 */
+                N: 6,
+
+                /**
+                 * | Rotation    | Direction    |
+                 * |-------------|--------------|
+                 * | -45°/315°↻  | Northeast    |
+                 *
+                 * @constant {PIXI.GD8Symmetry}
+                 */
+                NE: 7,
+
+                /**
+                 * Reflection about Y-axis.
+                 *
+                 * @constant {PIXI.GD8Symmetry}
+                 */
+                MIRROR_VERTICAL: 8,
+
+                /**
+                 * Reflection about the main diagonal.
+                 *
+                 * @constant {PIXI.GD8Symmetry}
+                 */
+                MAIN_DIAGONAL: 10,
+
+                /**
+                 * Reflection about X-axis.
+                 *
+                 * @constant {PIXI.GD8Symmetry}
+                 */
+                MIRROR_HORIZONTAL: 12,
+
+                /**
+                 * Reflection about reverse diagonal.
+                 *
+                 * @constant {PIXI.GD8Symmetry}
+                 */
+                REVERSE_DIAGONAL: 14,
+
+                /**
+                 * @memberof PIXI.GroupD8
+                 * @param {PIXI.GD8Symmetry} ind - sprite rotation angle.
+                 * @return {PIXI.GD8Symmetry} The X-component of the U-axis
+                 *    after rotating the axes.
+                 */
+                uX: function (ind) { return ux[ind]; },
+
+                /**
+                 * @memberof PIXI.GroupD8
+                 * @param {PIXI.GD8Symmetry} ind - sprite rotation angle.
+                 * @return {PIXI.GD8Symmetry} The Y-component of the U-axis
+                 *    after rotating the axes.
+                 */
+                uY: function (ind) { return uy[ind]; },
+
+                /**
+                 * @memberof PIXI.GroupD8
+                 * @param {PIXI.GD8Symmetry} ind - sprite rotation angle.
+                 * @return {PIXI.GD8Symmetry} The X-component of the V-axis
+                 *    after rotating the axes.
+                 */
+                vX: function (ind) { return vx[ind]; },
+
+                /**
+                 * @memberof PIXI.GroupD8
+                 * @param {PIXI.GD8Symmetry} ind - sprite rotation angle.
+                 * @return {PIXI.GD8Symmetry} The Y-component of the V-axis
+                 *    after rotating the axes.
+                 */
+                vY: function (ind) { return vy[ind]; },
+
+                /**
+                 * @memberof PIXI.GroupD8
+                 * @param {PIXI.GD8Symmetry} rotation - symmetry whose opposite
+                 *   is needed. Only rotations have opposite symmetries while
+                 *   reflections don't.
+                 * @return {PIXI.GD8Symmetry} The opposite symmetry of `rotation`
+                 */
+                inv: function (rotation) {
+                    if (rotation & 8)// true only if between 8 & 15 (reflections)
+                    {
+                        return rotation & 15;// or rotation % 16
+                    }
+
+                    return (-rotation) & 7;// or (8 - rotation) % 8
+                },
+
+                /**
+                 * Composes the two D8 operations.
+                 *
+                 * Taking `^` as reflection:
+                 *
+                 * |       | E=0 | S=2 | W=4 | N=6 | E^=8 | S^=10 | W^=12 | N^=14 |
+                 * |-------|-----|-----|-----|-----|------|-------|-------|-------|
+                 * | E=0   | E   | S   | W   | N   | E^   | S^    | W^    | N^    |
+                 * | S=2   | S   | W   | N   | E   | S^   | W^    | N^    | E^    |
+                 * | W=4   | W   | N   | E   | S   | W^   | N^    | E^    | S^    |
+                 * | N=6   | N   | E   | S   | W   | N^   | E^    | S^    | W^    |
+                 * | E^=8  | E^  | N^  | W^  | S^  | E    | N     | W     | S     |
+                 * | S^=10 | S^  | E^  | N^  | W^  | S    | E     | N     | W     |
+                 * | W^=12 | W^  | S^  | E^  | N^  | W    | S     | E     | N     |
+                 * | N^=14 | N^  | W^  | S^  | E^  | N    | W     | S     | E     |
+                 *
+                 * [This is a Cayley table]{@link https://en.wikipedia.org/wiki/Cayley_table}
+                 * @memberof PIXI.GroupD8
+                 * @param {PIXI.GD8Symmetry} rotationSecond - Second operation, which
+                 *   is the row in the above cayley table.
+                 * @param {PIXI.GD8Symmetry} rotationFirst - First operation, which
+                 *   is the column in the above cayley table.
+                 * @return {PIXI.GD8Symmetry} Composed operation
+                 */
+                add: function (rotationSecond, rotationFirst) { return (
+                    rotationCayley[rotationSecond][rotationFirst]
+                ); },
+
+                /**
+                 * Reverse of `add`.
+                 *
+                 * @memberof PIXI.GroupD8
+                 * @param {PIXI.GD8Symmetry} rotationSecond - Second operation
+                 * @param {PIXI.GD8Symmetry} rotationFirst - First operation
+                 * @return {PIXI.GD8Symmetry} Result
+                 */
+                sub: function (rotationSecond, rotationFirst) { return (
+                    rotationCayley[rotationSecond][GroupD8.inv(rotationFirst)]
+                ); },
+
+                /**
+                 * Adds 180 degrees to rotation, which is a commutative
+                 * operation.
                  *
                  * @memberof PIXI.GroupD8
                  * @param {number} rotation - The number to rotate.
-                 * @returns {number} rotated number
+                 * @returns {number} Rotated number
                  */
                 rotate180: function (rotation) { return rotation ^ 4; },
 
                 /**
-                 * Direction of main vector can be horizontal, vertical or diagonal.
-                 * Some objects work with vertical directions different.
+                 * Checks if the rotation angle is vertical, i.e. south
+                 * or north. It doesn't work for reflections.
                  *
                  * @memberof PIXI.GroupD8
-                 * @param {number} rotation - The number to check.
+                 * @param {PIXI.GD8Symmetry} rotation - The number to check.
                  * @returns {boolean} Whether or not the direction is vertical
                  */
-                isVertical: function (rotation) { return (rotation & 3) === 2; },
+                isVertical: function (rotation) { return (rotation & 3) === 2; }, // rotation % 4 === 2
 
                 /**
-                 * @memberof PIXI.GroupD8
-                 * @param {number} dx - TODO
-                 * @param {number} dy - TODO
+                 * Approximates the vector `V(dx,dy)` into one of the
+                 * eight directions provided by `GroupD8`.
                  *
-                 * @return {number} TODO
+                 * @memberof PIXI.GroupD8
+                 * @param {number} dx - X-component of the vector
+                 * @param {number} dy - Y-component of the vector
+                 * @return {PIXI.GD8Symmetry} Approximation of the vector into
+                 *  one of the eight symmetries.
                  */
                 byDirection: function (dx, dy) {
                     if (Math.abs(dx) * 2 <= Math.abs(dy))
@@ -7289,7 +7521,7 @@
                  *
                  * @memberof PIXI.GroupD8
                  * @param {PIXI.Matrix} matrix - sprite world matrix
-                 * @param {number} rotation - The rotation factor to use.
+                 * @param {PIXI.GD8Symmetry} rotation - The rotation factor to use.
                  * @param {number} tx - sprite anchoring
                  * @param {number} ty - sprite anchoring
                  */
@@ -7298,7 +7530,7 @@
                     if ( ty === void 0 ) ty = 0;
 
                     // Packer used "rotation", we use "inv(rotation)"
-                    var mat = tempMatrices[GroupD8.inv(rotation)];
+                    var mat = rotationMatrices[GroupD8.inv(rotation)];
 
                     mat.tx = tx;
                     mat.ty = ty;
@@ -7315,14 +7547,14 @@
             var Transform = function Transform()
             {
                 /**
-                 * The global matrix transform. It can be swapped temporarily by some functions like getLocalBounds()
+                 * The world transformation matrix.
                  *
                  * @member {PIXI.Matrix}
                  */
                 this.worldTransform = new Matrix();
 
                 /**
-                 * The local matrix transform
+                 * The local transformation matrix.
                  *
                  * @member {PIXI.Matrix}
                  */
@@ -7356,17 +7588,82 @@
                  */
                 this.skew = new ObservablePoint(this.updateSkew, this, 0, 0);
 
+                /**
+                 * The rotation amount.
+                 *
+                 * @protected
+                 * @member {number}
+                 */
                 this._rotation = 0;
 
-                this._cx = 1; // cos rotation + skewY;
-                this._sx = 0; // sin rotation + skewY;
-                this._cy = 0; // cos rotation + Math.PI/2 - skewX;
-                this._sy = 1; // sin rotation + Math.PI/2 - skewX;
+                /**
+                 * The X-coordinate value of the normalized local X axis,
+                 * the first column of the local transformation matrix without a scale.
+                 *
+                 * @protected
+                 * @member {number}
+                 */
+                this._cx = 1;
 
+                /**
+                 * The Y-coordinate value of the normalized local X axis,
+                 * the first column of the local transformation matrix without a scale.
+                 *
+                 * @protected
+                 * @member {number}
+                 */
+                this._sx = 0;
+
+                /**
+                 * The X-coordinate value of the normalized local Y axis,
+                 * the second column of the local transformation matrix without a scale.
+                 *
+                 * @protected
+                 * @member {number}
+                 */
+                this._cy = 0;
+
+                /**
+                 * The Y-coordinate value of the normalized local Y axis,
+                 * the second column of the local transformation matrix without a scale.
+                 *
+                 * @protected
+                 * @member {number}
+                 */
+                this._sy = 1;
+
+                /**
+                 * The locally unique ID of the local transform.
+                 *
+                 * @protected
+                 * @member {number}
+                 */
                 this._localID = 0;
+
+                /**
+                 * The locally unique ID of the local transform
+                 * used to calculate the current local transformation matrix.
+                 *
+                 * @protected
+                 * @member {number}
+                 */
                 this._currentLocalID = 0;
 
+                /**
+                 * The locally unique ID of the world transform.
+                 *
+                 * @protected
+                 * @member {number}
+                 */
                 this._worldID = 0;
+
+                /**
+                 * The locally unique ID of the parent's world transform
+                 * used to calculate the current world transformation matrix.
+                 *
+                 * @protected
+                 * @member {number}
+                 */
                 this._parentID = 0;
             };
 
@@ -7375,7 +7672,7 @@
             /**
              * Called when a value changes.
              *
-             * @private
+             * @protected
              */
             Transform.prototype.onChange = function onChange ()
             {
@@ -7383,9 +7680,9 @@
             };
 
             /**
-             * Called when skew or rotation changes
+             * Called when the skew or the rotation changes.
              *
-             * @private
+             * @protected
              */
             Transform.prototype.updateSkew = function updateSkew ()
             {
@@ -7398,7 +7695,7 @@
             };
 
             /**
-             * Updates only local matrix
+             * Updates the local transformation matrix.
              */
             Transform.prototype.updateLocalTransform = function updateLocalTransform ()
             {
@@ -7422,9 +7719,9 @@
             };
 
             /**
-             * Updates the values of the object and applies the parent's transform.
+             * Updates the local and the world transformation matrices.
              *
-             * @param {PIXI.Transform} parentTransform - The transform of the parent of this object
+             * @param {PIXI.Transform} parentTransform - The parent transform
              */
             Transform.prototype.updateTransform = function updateTransform (parentTransform)
             {
@@ -7498,7 +7795,23 @@
 
             Object.defineProperties( Transform.prototype, prototypeAccessors$1$1 );
 
+            /**
+             * A default (identity) transform
+             *
+             * @static
+             * @constant
+             * @member {PIXI.Transform}
+             */
             Transform.IDENTITY = new Transform();
+
+            /**
+             * Size object, contains width and height
+             *
+             * @memberof PIXI
+             * @typedef {object} ISize
+             * @property {number} width - Width component
+             * @property {number} height - Height component
+             */
 
             /**
              * Rectangle object is an area defined by its position, as indicated by its top-left corner
@@ -8142,11 +8455,10 @@
 
                 return false;
             };
-            //# sourceMappingURL=math.es.js.map
 
             /*!
-             * @pixi/display - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/display - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/display is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -8646,7 +8958,7 @@
                     /**
                      * The original, cached mask of the object.
                      *
-                     * @member {PIXI.Graphics|PIXI.Sprite}
+                     * @member {PIXI.Graphics|PIXI.Sprite|null}
                      * @protected
                      */
                     this._mask = null;
@@ -9214,7 +9526,7 @@
                  * sprite.mask = graphics;
                  * @todo At the moment, PIXI.CanvasRenderer doesn't support PIXI.Sprite as mask.
                  *
-                 * @member {PIXI.Graphics|PIXI.Sprite}
+                 * @member {PIXI.Graphics|PIXI.Sprite|null}
                  */
                 prototypeAccessors.mask.get = function ()
                 {
@@ -9243,7 +9555,13 @@
                 return DisplayObject;
             }(eventemitter3));
 
-            // performance increase to avoid using call.. (10x faster)
+            /**
+             * DisplayObject default updateTransform, does not update children of container.
+             * Will crash if there's no parent element.
+             *
+             * @memberof PIXI.DisplayObject#
+             * @function displayObjectUpdateTransform
+             */
             DisplayObject.prototype.displayObjectUpdateTransform = DisplayObject.prototype.updateTransform;
 
             function sortChildren(a, b)
@@ -9931,11 +10249,10 @@
 
             // performance increase to avoid using call.. (10x faster)
             Container.prototype.containerUpdateTransform = Container.prototype.updateTransform;
-            //# sourceMappingURL=display.es.js.map
 
             /*!
-             * @pixi/accessibility - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/accessibility - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/accessibility is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -10473,6 +10790,8 @@
                 var interactionManager = this.renderer.plugins.interaction;
 
                 interactionManager.dispatchEvent(e.target.displayObject, 'click', interactionManager.eventData);
+                interactionManager.dispatchEvent(e.target.displayObject, 'pointertap', interactionManager.eventData);
+                interactionManager.dispatchEvent(e.target.displayObject, 'tap', interactionManager.eventData);
             };
 
             /**
@@ -10562,7 +10881,6 @@
                 this.children = null;
                 this.renderer = null;
             };
-            //# sourceMappingURL=accessibility.es.js.map
 
             var accessibility_es = /*#__PURE__*/Object.freeze({
                         AccessibilityManager: AccessibilityManager,
@@ -10570,8 +10888,8 @@
             });
 
             /*!
-             * @pixi/runner - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/runner - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/runner is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -10760,11 +11078,10 @@
              * @see PIXI.Runner#emit
              */
             Runner.prototype.run = Runner.prototype.emit;
-            //# sourceMappingURL=runner.es.js.map
 
             /*!
-             * @pixi/ticker - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/ticker - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/ticker is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -11397,12 +11714,17 @@
                     elapsedMS *= this.speed;
 
                     // if not enough time has passed, exit the function.
-                    // We give an extra ms to elapsedMS for this check, because the nature of
-                    // request animation frame means that not all browsers will return precise values.
+                    // We give a padding (5% of minElapsedMS) to elapsedMS for this check, because the
+                    // nature of request animation frame means that not all browsers will return precise values.
                     // However, because rAF works based on v-sync, it's won't change the effective FPS.
-                    if (this._minElapsedMS && elapsedMS + 1 < this._minElapsedMS)
+                    if (this._minElapsedMS)
                     {
-                        return;
+                        var elapsedMSPadding = this._minElapsedMS * 0.05;
+
+                        if (elapsedMS + elapsedMSPadding < this._minElapsedMS)
+                        {
+                            return;
+                        }
                     }
 
                     this.deltaMS = elapsedMS;
@@ -11476,28 +11798,28 @@
             };
 
             /**
-             * Manages the minimum amount of milliseconds allowed to
+             * Manages the minimum amount of milliseconds required to
              * elapse between invoking {@link PIXI.Ticker#update}.
              * This will effect the measured value of {@link PIXI.Ticker#FPS}.
-             * When setting this property it is clamped to a value between
-             * `1` and `TARGET_FPMS * 1000`.
+             * If it is set to `0`, then there is no limit; PixiJS will render as many frames as it can.
+             * Otherwise it will be at least `minFPS`
              *
              * @member {number}
-             * @default 60
+             * @default 0
              */
             prototypeAccessors$4.maxFPS.get = function ()
             {
                 if (this._minElapsedMS)
                 {
-                    return 1000 / this._minElapsedMS;
+                    return Math.round(1000 / this._minElapsedMS);
                 }
 
-                return settings.TARGET_FPMS * 1000;
+                return 0;
             };
 
             prototypeAccessors$4.maxFPS.set = function (fps)
             {
-                if (fps / 1000 >= settings.TARGET_FPMS)
+                if (fps === 0)
                 {
                     this._minElapsedMS = 0;
                 }
@@ -11506,10 +11828,7 @@
                     // Max must be at least the minFPS
                     var maxFPS = Math.max(this.minFPS, fps);
 
-                    // Must be at least 1, but below 1 / settings.TARGET_FPMS
-                    var maxFPMS = Math.min(Math.max(1, maxFPS) / 1000, settings.TARGET_FPMS);
-
-                    this._minElapsedMS = 1 / maxFPMS;
+                    this._minElapsedMS = 1 / (maxFPS / 1000);
                 }
             };
 
@@ -11700,11 +12019,10 @@
                     oldTicker.destroy();
                 }
             };
-            //# sourceMappingURL=ticker.es.js.map
 
             /*!
-             * @pixi/core - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/core - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/core is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -12344,10 +12662,10 @@
              *        or any other resource that can be auto-detected. If not resource is
              *        detected, it's assumed to be an ImageResource.
              * @param {object} [options] - Pass-through options to use for Resource
-             * @param {number} [options.width] - BufferResource's width
-             * @param {number} [options.height] - BufferResource's height
+             * @param {number} [options.width] - Width of BufferResource or SVG rasterization
+             * @param {number} [options.height] - Height of BufferResource or SVG rasterization
              * @param {boolean} [options.autoLoad=true] - Image, SVG and Video flag to start loading
-             * @param {number} [options.scale=1] - SVG source scale
+             * @param {number} [options.scale=1] - SVG source scale. Overridden by width, height
              * @param {boolean} [options.createBitmap=PIXI.settings.CREATE_IMAGE_BITMAP] - Image option to create Bitmap object
              * @param {boolean} [options.crossorigin=true] - Image and Video option to set crossOrigin
              * @param {boolean} [options.autoPlay=true] - Video option to start playing video immediately
@@ -12459,26 +12777,15 @@
                         glTexture.width = baseTexture.width;
                         glTexture.height = baseTexture.height;
 
-                        var internalFormat = baseTexture.format;
-
-                        // guess sized format by type and format
-                        // https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texImage2D
-                        if (renderer.context.webGLVersion === 2
-                            && baseTexture.type === renderer.gl.FLOAT
-                            && baseTexture.format === renderer.gl.RGBA)
-                        {
-                            internalFormat = renderer.gl.RGBA32F;
-                        }
-
                         gl.texImage2D(
                             baseTexture.target,
                             0,
-                            internalFormat,
+                            glTexture.internalFormat,
                             baseTexture.width,
                             baseTexture.height,
                             0,
                             baseTexture.format,
-                            baseTexture.type,
+                            glTexture.type,
                             this.data
                         );
                     }
@@ -12531,6 +12838,7 @@
              *        into a Resource.
              * @param {Object} [options] - Collection of options
              * @param {PIXI.MIPMAP_MODES} [options.mipmap=PIXI.settings.MIPMAP_TEXTURES] - If mipmapping is enabled for texture
+             * @param {number} [options.anisotropicLevel=PIXI.settings.ANISOTROPIC_LEVEL] - Anisotropic filtering level of texture
              * @param {PIXI.WRAP_MODES} [options.wrapMode=PIXI.settings.WRAP_MODE] - Wrap mode for textures
              * @param {PIXI.SCALE_MODES} [options.scaleMode=PIXI.settings.SCALE_MODE] - Default scale mode, linear, nearest
              * @param {PIXI.FORMATS} [options.format=PIXI.FORMATS.RGBA] - GL format type
@@ -12539,6 +12847,7 @@
              * @param {boolean} [options.premultiplyAlpha=true] - Pre multiply the image alpha
              * @param {number} [options.width=0] - Width of the texture
              * @param {number} [options.height=0] - Height of the texture
+             * @param {number} [options.resolution] - Resolution of the base texture
              * @param {object} [options.resourceOptions] - Optional resource options,
              *        see {@link PIXI.resources.autoDetectResource autoDetectResource}
              */
@@ -12554,6 +12863,7 @@
 
                     var premultiplyAlpha = options.premultiplyAlpha;
                     var mipmap = options.mipmap;
+                    var anisotropicLevel = options.anisotropicLevel;
                     var scaleMode = options.scaleMode;
                     var width = options.width;
                     var height = options.height;
@@ -12602,6 +12912,14 @@
                      * @default PIXI.settings.MIPMAP_TEXTURES
                      */
                     this.mipmap = mipmap !== undefined ? mipmap : settings.MIPMAP_TEXTURES;
+
+                    /**
+                     * Anisotropic filtering level of texture
+                     *
+                     * @member {number}
+                     * @default PIXI.settings.ANISOTROPIC_LEVEL
+                     */
+                    this.anisotropicLevel = anisotropicLevel !== undefined ? anisotropicLevel : settings.ANISOTROPIC_LEVEL;
 
                     /**
                      * How the texture wraps
@@ -12686,8 +13004,9 @@
 
                     /**
                      * Used by TextureSystem to only update texture to the GPU when needed.
+                     * Please call `update()` to increment it.
                      *
-                     * @protected
+                     * @readonly
                      * @member {number}
                      */
                     this.dirtyId = 0;
@@ -12814,7 +13133,7 @@
                  */
                 prototypeAccessors.realWidth.get = function ()
                 {
-                    return this.width * this.resolution;
+                    return Math.ceil(this.width * this.resolution);
                 };
 
                 /**
@@ -12825,7 +13144,7 @@
                  */
                 prototypeAccessors.realHeight.get = function ()
                 {
-                    return this.height * this.resolution;
+                    return Math.ceil(this.height * this.resolution);
                 };
 
                 /**
@@ -12889,8 +13208,8 @@
                 BaseTexture.prototype.setRealSize = function setRealSize (realWidth, realHeight, resolution)
                 {
                     this.resolution = resolution || this.resolution;
-                    this.width = realWidth / this.resolution;
-                    this.height = realHeight / this.resolution;
+                    this.width = Math.ceil(realWidth / this.resolution);
+                    this.height = Math.ceil(realHeight / this.resolution);
                     this._refreshPOT();
                     this.update();
 
@@ -12926,8 +13245,8 @@
 
                     if (this.valid)
                     {
-                        this.width = this.width * oldResolution / resolution;
-                        this.height = this.height * oldResolution / resolution;
+                        this.width = Math.ceil(this.width * oldResolution / resolution);
+                        this.height = Math.ceil(this.height * oldResolution / resolution);
                         this.emit('update', this);
                     }
 
@@ -13426,6 +13745,10 @@
             }(Resource));
 
             /**
+             * @interface OffscreenCanvas
+             */
+
+            /**
              * Resource type for HTMLCanvasElement.
              * @class
              * @extends PIXI.resources.BaseImageResource
@@ -13443,7 +13766,15 @@
 
                 CanvasResource.test = function test (source)
                 {
-                    return (source instanceof HTMLCanvasElement);
+                    var OffscreenCanvas = window.OffscreenCanvas;
+
+                    // Check for browsers that don't yet support OffscreenCanvas
+                    if (OffscreenCanvas && source instanceof OffscreenCanvas)
+                    {
+                        return true;
+                    }
+
+                    return source instanceof HTMLCanvasElement;
                 };
 
                 return CanvasResource;
@@ -13547,7 +13878,9 @@
              * @memberof PIXI.resources
              * @param {string} source - Base64 encoded SVG element or URL for SVG file.
              * @param {object} [options] - Options to use
-             * @param {number} [options.scale=1] Scale to apply to SVG.
+             * @param {number} [options.scale=1] Scale to apply to SVG. Overridden by...
+             * @param {number} [options.width] Rasterize SVG this wide. Aspect ratio preserved if height not specified.
+             * @param {number} [options.height] Rasterize SVG this high. Aspect ratio preserved if width not specified.
              * @param {boolean} [options.autoLoad=true] Start loading right away.
              */
             var SVGResource = /*@__PURE__*/(function (BaseImageResource) {
@@ -13556,6 +13889,8 @@
                     options = options || {};
 
                     BaseImageResource.call(this, document.createElement('canvas'));
+                    this._width = 0;
+                    this._height = 0;
 
                     /**
                      * Base64 encoded SVG element or URL for SVG file
@@ -13565,11 +13900,25 @@
                     this.svg = source;
 
                     /**
-                     * The source scale to apply to render
+                     * The source scale to apply when rasterizing on load
                      * @readonly
                      * @member {number}
                      */
                     this.scale = options.scale || 1;
+
+                    /**
+                     * A width override for rasterization on load
+                     * @readonly
+                     * @member {number}
+                     */
+                    this._overrideWidth = options.width;
+
+                    /**
+                     * A height override for rasterization on load
+                     * @readonly
+                     * @member {number}
+                     */
+                    this._overrideHeight = options.height;
 
                     /**
                      * Call when completely loaded
@@ -13658,9 +14007,17 @@
                             throw new Error('The SVG image must have width and height defined (in pixels), canvas API needs them.');
                         }
 
-                        // Scale realWidth and realHeight
-                        var width = Math.round(svgWidth * this$1.scale);
-                        var height = Math.round(svgHeight * this$1.scale);
+                        // Set render size
+                        var width = svgWidth * this$1.scale;
+                        var height = svgHeight * this$1.scale;
+
+                        if (this$1._overrideWidth || this$1._overrideHeight)
+                        {
+                            width = this$1._overrideWidth || this$1._overrideHeight / svgHeight * svgWidth;
+                            height = this$1._overrideHeight || this$1._overrideWidth / svgWidth * svgHeight;
+                        }
+                        width = Math.round(width);
+                        height = Math.round(height);
 
                         // Create a canvas element
                         var canvas = this$1.source;
@@ -13680,20 +14037,11 @@
                 };
 
                 /**
-                 * Typedef for Size object.
-                 *
-                 * @memberof PIXI.resources.SVGResource
-                 * @typedef {object} Size
-                 * @property {number} width - Width component
-                 * @property {number} height - Height component
-                 */
-
-                /**
                  * Get size from an svg string using regexp.
                  *
                  * @method
                  * @param {string} svgString - a serialized svg element
-                 * @return {PIXI.resources.SVGResource.Size} image extension
+                 * @return {PIXI.ISize} image extension
                  */
                 SVGResource.getSize = function getSize (svgString)
                 {
@@ -14117,8 +14465,33 @@
              */
             VideoResource.TYPES = ['mp4', 'm4v', 'webm', 'ogg', 'ogv', 'h264', 'avi', 'mov'];
 
+            /**
+             * Resource type for ImageBitmap.
+             * @class
+             * @extends PIXI.resources.BaseImageResource
+             * @memberof PIXI.resources
+             * @param {ImageBitmap} source - Image element to use
+             */
+            var ImageBitmapResource = /*@__PURE__*/(function (BaseImageResource) {
+                function ImageBitmapResource () {
+                    BaseImageResource.apply(this, arguments);
+                }
+
+                if ( BaseImageResource ) ImageBitmapResource.__proto__ = BaseImageResource;
+                ImageBitmapResource.prototype = Object.create( BaseImageResource && BaseImageResource.prototype );
+                ImageBitmapResource.prototype.constructor = ImageBitmapResource;
+
+                ImageBitmapResource.test = function test (source)
+                {
+                    return !!window.createImageBitmap && source instanceof ImageBitmap;
+                };
+
+                return ImageBitmapResource;
+            }(BaseImageResource));
+
             INSTALLED.push(
                 ImageResource,
+                ImageBitmapResource,
                 CanvasResource,
                 VideoResource,
                 SVGResource,
@@ -14135,6 +14508,7 @@
                 CanvasResource: CanvasResource,
                 CubeResource: CubeResource,
                 ImageResource: ImageResource,
+                ImageBitmapResource: ImageBitmapResource,
                 SVGResource: SVGResource,
                 VideoResource: VideoResource,
                 Resource: Resource,
@@ -14156,18 +14530,6 @@
                  * @member {PIXI.Renderer}
                  */
                 this.renderer = renderer;
-
-                this.renderer.runners.contextChange.add(this);
-            };
-
-            /**
-             * Generic method called when there is a WebGL context change.
-             *
-             * @param {WebGLRenderingContext} gl new webgl context
-             */
-            System.prototype.contextChange = function contextChange (gl) // eslint-disable-line no-unused-vars
-            {
-                // do some codes init!
             };
 
             /**
@@ -14175,7 +14537,6 @@
              */
             System.prototype.destroy = function destroy ()
             {
-                this.renderer.runners.contextChange.remove(this);
                 this.renderer = null;
             };
 
@@ -14533,15 +14894,22 @@
                     BaseTexture.prototype.destroy.call(this, true);
 
                     this.framebuffer = null;
-
-                    this.renderer = null;
                 };
 
                 return BaseRenderTexture;
             }(BaseTexture));
 
             /**
-             * A standard object to store the Uvs of a texture
+             * Stores a texture's frame in UV coordinates, in
+             * which everything lies in the rectangle `[(0,0), (1,0),
+             * (1,1), (0,1)]`.
+             *
+             * | Corner       | Coordinates |
+             * |--------------|-------------|
+             * | Top-Left     | `(x0,y0)`   |
+             * | Top-Right    | `(x1,y1)`   |
+             * | Bottom-Right | `(x2,y2)`   |
+             * | Bottom-Left  | `(x3,y3)`   |
              *
              * @class
              * @protected
@@ -14549,16 +14917,60 @@
              */
             var TextureUvs = function TextureUvs()
             {
+                /**
+                 * X-component of top-left corner `(x0,y0)`.
+                 *
+                 * @member {number}
+                 */
                 this.x0 = 0;
+
+                /**
+                 * Y-component of top-left corner `(x0,y0)`.
+                 *
+                 * @member {number}
+                 */
                 this.y0 = 0;
 
+                /**
+                 * X-component of top-right corner `(x1,y1)`.
+                 *
+                 * @member {number}
+                 */
                 this.x1 = 1;
+
+                /**
+                 * Y-component of top-right corner `(x1,y1)`.
+                 *
+                 * @member {number}
+                 */
                 this.y1 = 0;
 
+                /**
+                 * X-component of bottom-right corner `(x2,y2)`.
+                 *
+                 * @member {number}
+                 */
                 this.x2 = 1;
+
+                /**
+                 * Y-component of bottom-right corner `(x2,y2)`.
+                 *
+                 * @member {number}
+                 */
                 this.y2 = 1;
 
+                /**
+                 * X-component of bottom-left corner `(x3,y3)`.
+                 *
+                 * @member {number}
+                 */
                 this.x3 = 0;
+
+                /**
+                 * Y-component of bottom-right corner `(x3,y3)`.
+                 *
+                 * @member {number}
+                 */
                 this.y3 = 1;
 
                 this.uvsFloat32 = new Float32Array(8);
@@ -15442,6 +15854,200 @@
                 return RenderTexture;
             }(Texture));
 
+            /**
+             * Experimental!
+             *
+             * Texture pool, used by FilterSystem and plugins
+             * Stores collection of temporary pow2 or screen-sized renderTextures
+             *
+             * @class
+             * @memberof PIXI
+             */
+            var RenderTexturePool = function RenderTexturePool(textureOptions)
+            {
+                this.texturePool = {};
+                this.textureOptions = textureOptions || {};
+                /**
+                 * Allow renderTextures of the same size as screen, not just pow2
+                 *
+                 * Automatically sets to true after `setScreenSize`
+                 *
+                 * @member {boolean}
+                 * @default false
+                 */
+                this.enableFullScreen = false;
+
+                this._pixelsWidth = 0;
+                this._pixelsHeight = 0;
+            };
+
+            /**
+             * creates of texture with params that were specified in pool constructor
+             *
+             * @param {number} realWidth width of texture in pixels
+             * @param {number} realHeight height of texture in pixels
+             * @returns {RenderTexture}
+             */
+            RenderTexturePool.prototype.createTexture = function createTexture (realWidth, realHeight)
+            {
+                var baseRenderTexture = new BaseRenderTexture(Object.assign({
+                    width: realWidth,
+                    height: realHeight,
+                }, this.textureOptions));
+
+                return new RenderTexture(baseRenderTexture);
+            };
+
+            /**
+             * Gets a Power-of-Two render texture or fullScreen texture
+             *
+             * @protected
+             * @param {number} minWidth - The minimum width of the render texture in real pixels.
+             * @param {number} minHeight - The minimum height of the render texture in real pixels.
+             * @param {number} [resolution=1] - The resolution of the render texture.
+             * @return {PIXI.RenderTexture} The new render texture.
+             */
+            RenderTexturePool.prototype.getOptimalTexture = function getOptimalTexture (minWidth, minHeight, resolution)
+            {
+                    if ( resolution === void 0 ) resolution = 1;
+
+                var key = RenderTexturePool.SCREEN_KEY;
+
+                minWidth *= resolution;
+                minHeight *= resolution;
+
+                if (!this.enableFullScreen || minWidth !== this._pixelsWidth || minHeight !== this._pixelsHeight)
+                {
+                    minWidth = nextPow2(minWidth);
+                    minHeight = nextPow2(minHeight);
+                    key = ((minWidth & 0xFFFF) << 16) | (minHeight & 0xFFFF);
+                }
+
+                if (!this.texturePool[key])
+                {
+                    this.texturePool[key] = [];
+                }
+
+                var renderTexture = this.texturePool[key].pop();
+
+                if (!renderTexture)
+                {
+                    renderTexture = this.createTexture(minWidth, minHeight);
+                }
+
+                renderTexture.filterPoolKey = key;
+                renderTexture.setResolution(resolution);
+
+                return renderTexture;
+            };
+
+            /**
+             * Gets extra texture of the same size as current renderTexture
+             *
+             * @param {number} [resolution] resolution, by default its the same as in current renderTexture
+             * @returns {PIXI.RenderTexture}
+             */
+            RenderTexturePool.prototype.getFilterTexture = function getFilterTexture (resolution)
+            {
+                var rt = this.renderer.renderTexture.current;
+
+                var filterTexture = this.getOptimalTexture(rt.width, rt.height, resolution || rt.baseTexture.resolution);
+
+                filterTexture.filterFrame = rt.filterFrame;
+
+                return filterTexture;
+            };
+
+            /**
+             * Place a render texture back into the pool.
+             * @param {PIXI.RenderTexture} renderTexture - The renderTexture to free
+             */
+            RenderTexturePool.prototype.returnTexture = function returnTexture (renderTexture)
+            {
+                var key = renderTexture.filterPoolKey;
+
+                renderTexture.filterFrame = null;
+                this.texturePool[key].push(renderTexture);
+            };
+
+            /**
+             * Alias for returnTexture, to be compliant with FilterSystem interface
+             * @param {PIXI.RenderTexture} renderTexture - The renderTexture to free
+             */
+            RenderTexturePool.prototype.returnFilterTexture = function returnFilterTexture (renderTexture)
+            {
+                this.returnTexture(renderTexture);
+            };
+
+            /**
+             * Clears the pool
+             *
+             * @param {boolean} [destroyTextures=true] destroy all stored textures
+             */
+            RenderTexturePool.prototype.clear = function clear (destroyTextures)
+            {
+                destroyTextures = destroyTextures !== false;
+                if (destroyTextures)
+                {
+                    for (var i in this.texturePool)
+                    {
+                        var textures = this.texturePool[i];
+
+                        if (textures)
+                        {
+                            for (var j = 0; j < textures.length; j++)
+                            {
+                                textures[j].destroy(true);
+                            }
+                        }
+                    }
+                }
+
+                this.texturePool = {};
+            };
+
+            /**
+             * If screen size was changed, drops all screen-sized textures,
+             * sets new screen size, sets `enableFullScreen` to true
+             *
+             * Size is measured in pixels, `renderer.view` can be passed here.
+             *
+             * @param {PIXI.ISize} size - Initial size of screen
+             */
+            RenderTexturePool.prototype.setScreenSize = function setScreenSize (size)
+            {
+                if (size.width === this._pixelsWidth
+                    && size.height === this._pixelsHeight)
+                {
+                    return;
+                }
+
+                var screenKey = RenderTexturePool.SCREEN_KEY;
+                var textures = this.texturePool[screenKey];
+
+                this.enableFullScreen = size.width > 0 && size.height > 0;
+
+                if (textures)
+                {
+                    for (var j = 0; j < textures.length; j++)
+                    {
+                        textures[j].destroy(true);
+                    }
+                }
+                this.texturePool[screenKey] = [];
+
+                this._pixelsWidth = size.width;
+                this._pixelsHeight = size.height;
+            };
+
+            /**
+             * Key that is used to store fullscreen renderTextures in a pool
+             *
+             * @static
+             * @const {string}
+             */
+            RenderTexturePool.SCREEN_KEY = 'screen';
+
             /* eslint-disable max-len */
 
             /**
@@ -15721,6 +16327,11 @@
 
                 this.instanced = false;
 
+                /**
+                 * Number of instances in this geometry, pass it to `GeometrySystem.draw()`
+                 * @member {number}
+                 * @default 1
+                 */
                 this.instanceCount = 1;
 
                 this._size = null;
@@ -15729,7 +16340,7 @@
 
                 /**
                  * Count of existing (not destroyed) meshes that reference this geometry
-                 * @member {boolean}
+                 * @member {number}
                  */
                 this.refCount = 0;
             };
@@ -16119,6 +16730,7 @@
              *
              * @class
              * @memberof PIXI
+             * @extends PIXI.Geometry
              */
             var QuadUv = /*@__PURE__*/(function (Geometry) {
                 function QuadUv()
@@ -16352,8 +16964,6 @@
                 this.renderTexture = null;
             };
 
-            var screenKey = 'screen';
-
             /**
              * System plugin to the renderer to manage the filters.
              *
@@ -16377,7 +16987,9 @@
                      * stores a bunch of PO2 textures used for filtering
                      * @member {Object}
                      */
-                    this.texturePool = {};
+                    this.texturePool = new RenderTexturePool();
+
+                    this.texturePool.setScreenSize(renderer.view);
 
                     /**
                      * a pool for storing filter states, save us creating new ones each tick
@@ -16628,7 +17240,7 @@
                     // because it does at the moment cos of global uniforms.
                     // they need to get resynced
 
-                    renderer.state.setState(filter.state);
+                    renderer.state.set(filter.state);
                     renderer.shader.bind(filter);
 
                     if (filter.legacy)
@@ -16675,28 +17287,15 @@
 
                 /**
                  * Destroys this Filter System.
-                 *
-                 * @param {boolean} [contextLost=false] context was lost, do not free shaders
-                 *
                  */
-                FilterSystem.prototype.destroy = function destroy (contextLost)
+                FilterSystem.prototype.destroy = function destroy ()
                 {
-                    if ( contextLost === void 0 ) contextLost = false;
-
-                    if (!contextLost)
-                    {
-                        this.emptyPool();
-                    }
-                    else
-                    {
-                        this.texturePool = {};
-                    }
+                    // Those textures has to be destroyed by RenderTextureSystem or FramebufferSystem
+                    this.texturePool.clear(false);
                 };
 
                 /**
                  * Gets a Power-of-Two render texture or fullScreen texture
-                 *
-                 * TODO move to a separate class could be on renderer?
                  *
                  * @protected
                  * @param {number} minWidth - The minimum width of the render texture in real pixels.
@@ -16708,37 +17307,7 @@
                 {
                     if ( resolution === void 0 ) resolution = 1;
 
-                    var key = screenKey;
-
-                    minWidth *= resolution;
-                    minHeight *= resolution;
-
-                    if (minWidth !== this._pixelsWidth || minHeight !== this._pixelsHeight)
-                    {
-                        minWidth = nextPow2(minWidth);
-                        minHeight = nextPow2(minHeight);
-                        key = ((minWidth & 0xFFFF) << 16) | (minHeight & 0xFFFF);
-                    }
-
-                    if (!this.texturePool[key])
-                    {
-                        this.texturePool[key] = [];
-                    }
-
-                    var renderTexture = this.texturePool[key].pop();
-
-                    if (!renderTexture)
-                    {
-                        renderTexture = RenderTexture.create({
-                            width: minWidth,
-                            height: minHeight,
-                        });
-                    }
-
-                    renderTexture.filterPoolKey = key;
-                    renderTexture.setResolution(resolution);
-
-                    return renderTexture;
+                    return this.texturePool.getOptimalTexture(minWidth, minHeight, resolution);
                 };
 
                 /**
@@ -16750,8 +17319,7 @@
                 FilterSystem.prototype.getFilterTexture = function getFilterTexture (resolution)
                 {
                     var rt = this.activeState.renderTexture;
-
-                    var filterTexture = this.getOptimalFilterTexture(rt.width, rt.height, resolution || rt.baseTexture.resolution);
+                    var filterTexture = this.texturePool.getOptimalTexture(rt.width, rt.height, resolution || rt.resolution);
 
                     filterTexture.filterFrame = rt.filterFrame;
 
@@ -16765,105 +17333,94 @@
                  */
                 FilterSystem.prototype.returnFilterTexture = function returnFilterTexture (renderTexture)
                 {
-                    var key = renderTexture.filterPoolKey;
-
-                    renderTexture.filterFrame = null;
-                    this.texturePool[key].push(renderTexture);
+                    this.texturePool.returnTexture(renderTexture);
                 };
 
                 /**
                  * Empties the texture pool.
-                 *
                  */
                 FilterSystem.prototype.emptyPool = function emptyPool ()
                 {
-                    for (var i in this.texturePool)
-                    {
-                        var textures = this.texturePool[i];
-
-                        if (textures)
-                        {
-                            for (var j = 0; j < textures.length; j++)
-                            {
-                                textures[j].destroy(true);
-                            }
-                        }
-                    }
-
-                    this.texturePool = {};
+                    this.texturePool.clear(true);
                 };
 
+                /**
+                 * calls `texturePool.resize()`, affects fullScreen renderTextures
+                 */
                 FilterSystem.prototype.resize = function resize ()
                 {
-                    var textures = this.texturePool[screenKey];
-
-                    if (textures)
-                    {
-                        for (var j = 0; j < textures.length; j++)
-                        {
-                            textures[j].destroy(true);
-                        }
-                    }
-                    this.texturePool[screenKey] = [];
-
-                    this._pixelsWidth = this.renderer.view.width;
-                    this._pixelsHeight = this.renderer.view.height;
+                    this.texturePool.setScreenSize(this.renderer.view);
                 };
 
                 return FilterSystem;
             }(System));
 
             /**
-             * Base for a common object renderer that can be used as a system renderer plugin.
+             * Base for a common object renderer that can be used as a
+             * system renderer plugin.
              *
              * @class
              * @extends PIXI.System
              * @memberof PIXI
              */
-            var ObjectRenderer = /*@__PURE__*/(function (System) {
-                function ObjectRenderer () {
-                    System.apply(this, arguments);
-                }
-
-                if ( System ) ObjectRenderer.__proto__ = System;
-                ObjectRenderer.prototype = Object.create( System && System.prototype );
-                ObjectRenderer.prototype.constructor = ObjectRenderer;
-
-                ObjectRenderer.prototype.start = function start ()
-                {
-                    // set the shader..
-                };
-
+            var ObjectRenderer = function ObjectRenderer(renderer)
+            {
                 /**
-                 * Stops the renderer
+                 * The renderer this manager works for.
                  *
+                 * @member {PIXI.Renderer}
                  */
-                ObjectRenderer.prototype.stop = function stop ()
-                {
-                    this.flush();
-                };
+                this.renderer = renderer;
+            };
 
-                /**
-                 * Stub method for rendering content and emptying the current batch.
-                 *
-                 */
-                ObjectRenderer.prototype.flush = function flush ()
-                {
-                    // flush!
-                };
+            /**
+             * Stub method that should be used to empty the current
+             * batch by rendering objects now.
+             */
+            ObjectRenderer.prototype.flush = function flush ()
+            {
+                // flush!
+            };
 
-                /**
-                 * Renders an object
-                 *
-                 * @param {PIXI.DisplayObject} object - The object to render.
-                 */
-                ObjectRenderer.prototype.render = function render (object) // eslint-disable-line no-unused-vars
-                {
-                    // render the object
-                };
+            /**
+             * Generic destruction method that frees all resources. This
+             * should be called by subclasses.
+             */
+            ObjectRenderer.prototype.destroy = function destroy ()
+            {
+                this.renderer = null;
+            };
 
-                return ObjectRenderer;
-            }(System));
+            /**
+             * Stub method that initializes any state required before
+             * rendering starts. It is different from the `prerender`
+             * signal, which occurs every frame, in that it is called
+             * whenever an object requests _this_ renderer specifically.
+             */
+            ObjectRenderer.prototype.start = function start ()
+            {
+                // set the shader..
+            };
+
+            /**
+             * Stops the renderer. It should free up any state and
+             * become dormant.
+             */
+            ObjectRenderer.prototype.stop = function stop ()
+            {
+                this.flush();
+            };
+
+            /**
+             * Keeps the object to render. It doesn't have to be
+             * rendered immediately.
+             *
+             * @param {PIXI.DisplayObject} object - The object to render.
+             */
+            ObjectRenderer.prototype.render = function render (object) // eslint-disable-line no-unused-vars
+            {
+                // render the object
+            };
 
             /**
              * System plugin to the renderer to manage batching.
@@ -16982,6 +17539,7 @@
                      * @property {OES_texture_float} floatTexture - WebGL v1 extension
                      * @property {WEBGL_lose_context} loseContext - WebGL v1 extension
                      * @property {OES_vertex_array_object} vertexArrayObject - WebGL v1 extension
+                     * @property {EXT_texture_filter_anisotropic} anisotropicFiltering - WebGL v1 and v2 extension
                      */
                     this.extensions = {};
 
@@ -17016,6 +17574,8 @@
                 ContextSystem.prototype.contextChange = function contextChange (gl)
                 {
                     this.gl = gl;
+                    this.renderer.gl = gl;
+                    this.renderer.CONTEXT_UID = CONTEXT_UID++;
 
                     // restore a context if it was previously lost
                     if (gl.isContextLost() && gl.getExtension('WEBGL_lose_context'))
@@ -17111,16 +17671,28 @@
                         Object.assign(this.extensions, {
                             drawBuffers: gl.getExtension('WEBGL_draw_buffers'),
                             depthTexture: gl.getExtension('WEBKIT_WEBGL_depth_texture'),
-                            floatTexture: gl.getExtension('OES_texture_float'),
                             loseContext: gl.getExtension('WEBGL_lose_context'),
                             vertexArrayObject: gl.getExtension('OES_vertex_array_object')
                                 || gl.getExtension('MOZ_OES_vertex_array_object')
                                 || gl.getExtension('WEBKIT_OES_vertex_array_object'),
+                            anisotropicFiltering: gl.getExtension('EXT_texture_filter_anisotropic'),
                             uint32ElementIndex: gl.getExtension('OES_element_index_uint'),
+                            // Floats and half-floats
+                            floatTexture: gl.getExtension('OES_texture_float'),
+                            floatTextureLinear: gl.getExtension('OES_texture_float_linear'),
+                            textureHalfFloat: gl.getExtension('OES_texture_half_float'),
+                            textureHalfFloatLinear: gl.getExtension('OES_texture_half_float_linear'),
                         });
                     }
-
-                    // we don't use any specific WebGL 2 ones yet!
+                    else if (this.webGLVersion === 2)
+                    {
+                        Object.assign(this.extensions, {
+                            anisotropicFiltering: gl.getExtension('EXT_texture_filter_anisotropic'),
+                            // Floats and half-floats
+                            colorBufferFloat: gl.getExtension('EXT_color_buffer_float'),
+                            floatTextureLinear: gl.getExtension('OES_texture_float_linear'),
+                        });
+                    }
                 };
 
                 /**
@@ -17620,7 +18192,7 @@
 
                     this.managedFramebuffers = [];
 
-                    for (var i = 0; i < list.count; i++)
+                    for (var i = 0; i < list.length; i++)
                     {
                         this.disposeFramebuffer(list[i], contextLost);
                     }
@@ -17786,9 +18358,9 @@
 
                 /**
                  * Binds geometry so that is can be drawn. Creating a Vao if required
-                 * @protected
+                 *
                  * @param {PIXI.Geometry} geometry instance of geometry to bind
-                 * @param {PIXI.Shader} shader instance of shader to bind
+                 * @param {PIXI.Shader} [shader] instance of shader to use vao for
                  */
                 GeometrySystem.prototype.bind = function bind (geometry, shader)
                 {
@@ -19117,6 +19689,11 @@
              */
             var Shader = function Shader(program, uniforms)
             {
+                /**
+                 * Program that the shader uses
+                 *
+                 * @member {PIXI.Program}
+                 */
                 this.program = program;
 
                 // lets see whats been passed in
@@ -19684,10 +20261,27 @@
             {
                 this._texture = texture;
 
+                /**
+                 * Matrix operation that converts texture region coords to texture coords
+                 * @member {PIXI.Matrix}
+                 * @readonly
+                 */
                 this.mapCoord = new Matrix();
 
+                /**
+                 * Clamp region for normalized coords, left-top pixel center in xy , bottom-right in zw.
+                 * Calculated based on clampOffset.
+                 * @member {Float32Array}
+                 * @readonly
+                 */
                 this.uClampFrame = new Float32Array(4);
 
+                /**
+                 * Normalized clamp offset.
+                 * Calculated based on clampOffset.
+                 * @member {Float32Array}
+                 * @readonly
+                 */
                 this.uClampOffset = new Float32Array(2);
 
                 /**
@@ -20688,6 +21282,7 @@
                 ShaderSystem.prototype.contextChange = function contextChange (gl)
                 {
                     this.gl = gl;
+                    this.reset();
                 };
 
                 /**
@@ -21027,7 +21622,7 @@
 
                     this.blendModes = mapWebGLBlendModesToPixi(gl);
 
-                    this.setState(this.defaultState);
+                    this.set(this.defaultState);
 
                     this.reset();
                 };
@@ -21037,7 +21632,7 @@
                  *
                  * @param {*} state - The state to set.
                  */
-                StateSystem.prototype.setState = function setState (state)
+                StateSystem.prototype.set = function set (state)
                 {
                     state = state || this.defaultState;
 
@@ -21296,7 +21891,7 @@
                     this.maxIdle = settings.GC_MAX_IDLE;
 
                     /**
-                     * Maximum number of itesm to check
+                     * Maximum number of item to check
                      * @member {number}
                      * @see PIXI.settings.GC_MAX_CHECK_COUNT
                      */
@@ -21413,7 +22008,16 @@
                  */
                 this.texture = texture;
 
+                /**
+                 * Width of texture that was used in texImage2D
+                 * @member {number}
+                 */
                 this.width = -1;
+
+                /**
+                 * Height of texture that was used in texImage2D
+                 * @member {number}
+                 */
                 this.height = -1;
 
                 /**
@@ -21439,6 +22043,18 @@
                  * @member {number}
                  */
                 this.wrapMode = 33071;
+
+                /**
+                 * Type copied from baseTexture
+                 * @member {number}
+                 */
+                this.type = 6408;
+
+                /**
+                 * Type copied from baseTexture
+                 * @member {number}
+                 */
+                this.internalFormat = 5121;
             };
 
             /**
@@ -21674,6 +22290,34 @@
                     return glTexture;
                 };
 
+                TextureSystem.prototype.initTextureType = function initTextureType (texture, glTexture)
+                {
+                    glTexture.internalFormat = texture.format;
+                    glTexture.type = texture.type;
+                    if (this.webGLVersion !== 2)
+                    {
+                        return;
+                    }
+                    var gl = this.renderer.gl;
+
+                    if (texture.type === gl.FLOAT
+                        && texture.format === gl.RGBA)
+                    {
+                        glTexture.internalFormat = gl.RGBA32F;
+                    }
+                    // that's WebGL1 HALF_FLOAT_OES
+                    // we have to convert it to WebGL HALF_FLOAT
+                    if (texture.type === TYPES.HALF_FLOAT)
+                    {
+                        glTexture.type = gl.HALF_FLOAT;
+                    }
+                    if (glTexture.type === gl.HALF_FLOAT
+                        && texture.format === gl.RGBA)
+                    {
+                        glTexture.internalFormat = gl.RGBA16F;
+                    }
+                };
+
                 /**
                  * Update a texture
                  *
@@ -21683,7 +22327,15 @@
                 TextureSystem.prototype.updateTexture = function updateTexture (texture)
                 {
                     var glTexture = texture._glTextures[this.CONTEXT_UID];
+
+                    if (!glTexture)
+                    {
+                        return;
+                    }
+
                     var renderer = this.renderer;
+
+                    this.initTextureType(texture, glTexture);
 
                     if (texture.resource && texture.resource.upload(renderer, texture, glTexture))
                     ;
@@ -21702,12 +22354,12 @@
                             glTexture.height = height;
 
                             gl.texImage2D(texture.target, 0,
-                                texture.format,
+                                glTexture.internalFormat,
                                 width,
                                 height,
                                 0,
                                 texture.format,
-                                texture.type,
+                                glTexture.type,
                                 null);
                         }
                     }
@@ -21815,6 +22467,15 @@
                         /* eslint-disable max-len */
                         gl.texParameteri(texture.target, gl.TEXTURE_MIN_FILTER, texture.scaleMode ? gl.LINEAR_MIPMAP_LINEAR : gl.NEAREST_MIPMAP_NEAREST);
                         /* eslint-disable max-len */
+
+                        var anisotropicExt = this.renderer.context.extensions.anisotropicFiltering;
+
+                        if (anisotropicExt && texture.anisotropicLevel > 0 && texture.scaleMode === SCALE_MODES.LINEAR)
+                        {
+                            var level = Math.min(texture.anisotropicLevel, gl.getParameter(anisotropicExt.MAX_TEXTURE_MAX_ANISOTROPY_EXT));
+
+                            gl.texParameterf(texture.target, anisotropicExt.TEXTURE_MAX_ANISOTROPY_EXT, level);
+                        }
                     }
                     else
                     {
@@ -22075,7 +22736,7 @@
                  * @param {number} resolution - The resolution / device pixel ratio of the texture being generated.
                  * @param {PIXI.Rectangle} [region] - The region of the displayObject, that shall be rendered,
                  *        if no region is specified, defaults to the local bounds of the displayObject.
-                 * @return {PIXI.Texture} A texture of the graphics object.
+                 * @return {PIXI.RenderTexture} A texture of the graphics object.
                  */
                 AbstractRenderer.prototype.generateTexture = function generateTexture (displayObject, scaleMode, resolution, region)
                 {
@@ -22539,6 +23200,11 @@
                 {
                     this.runners.destroy.run();
 
+                    for (var r in this.runners)
+                    {
+                        this.runners[r].destroy();
+                    }
+
                     // call base destroy
                     AbstractRenderer.prototype.destroy.call(this, removeView);
 
@@ -22640,6 +23306,895 @@
             }(BaseTexture));
 
             /**
+             * Used by the batcher to draw batches.
+             * Each one of these contains all information required to draw a bound geometry.
+             *
+             * @class
+             * @memberof PIXI
+             */
+            var BatchDrawCall = function BatchDrawCall()
+            {
+                this.textures = [];
+                this.ids = [];
+                this.blend = 0;
+                this.textureCount = 0;
+                this.start = 0;
+                this.size = 0;
+                this.type = 4;
+            };
+
+            /**
+             * Flexible wrapper around `ArrayBuffer` that also provides
+             * typed array views on demand.
+             *
+             * @class
+             * @memberof PIXI
+             */
+            var ViewableBuffer = function ViewableBuffer(size)
+            {
+                /**
+                 * Underlying `ArrayBuffer` that holds all the data
+                 * and is of capacity `size`.
+                 *
+                 * @member {ArrayBuffer}
+                 */
+                this.rawBinaryData = new ArrayBuffer(size);
+
+                /**
+                 * View on the raw binary data as a `Uint32Array`.
+                 *
+                 * @member {Uint32Array}
+                 */
+                this.uint32View = new Uint32Array(this.rawBinaryData);
+
+                /**
+                 * View on the raw binary data as a `Float32Array`.
+                 *
+                 * @member {Float32Array}
+                 */
+                this.float32View = new Float32Array(this.rawBinaryData);
+            };
+
+            var prototypeAccessors$5$1 = { int8View: { configurable: true },uint8View: { configurable: true },int16View: { configurable: true },uint16View: { configurable: true },int32View: { configurable: true } };
+
+            /**
+             * View on the raw binary data as a `Int8Array`.
+             *
+             * @member {Int8Array}
+             */
+            prototypeAccessors$5$1.int8View.get = function ()
+            {
+                if (!this._int8View)
+                {
+                    this._int8View = new Int8Array(this.rawBinaryData);
+                }
+
+                return this._int8View;
+            };
+
+            /**
+             * View on the raw binary data as a `Uint8Array`.
+             *
+             * @member {Uint8Array}
+             */
+            prototypeAccessors$5$1.uint8View.get = function ()
+            {
+                if (!this._uint8View)
+                {
+                    this._uint8View = new Uint8Array(this.rawBinaryData);
+                }
+
+                return this._uint8View;
+            };
+
+            /**
+             * View on the raw binary data as a `Int16Array`.
+             *
+             * @member {Int16Array}
+             */
+            prototypeAccessors$5$1.int16View.get = function ()
+            {
+                if (!this._int16View)
+                {
+                    this._int16View = new Int16Array(this.rawBinaryData);
+                }
+
+                return this._int16View;
+            };
+
+            /**
+             * View on the raw binary data as a `Uint16Array`.
+             *
+             * @member {Uint16Array}
+             */
+            prototypeAccessors$5$1.uint16View.get = function ()
+            {
+                if (!this._uint16View)
+                {
+                    this._uint16View = new Uint16Array(this.rawBinaryData);
+                }
+
+                return this._uint16View;
+            };
+
+            /**
+             * View on the raw binary data as a `Int32Array`.
+             *
+             * @member {Int32Array}
+             */
+            prototypeAccessors$5$1.int32View.get = function ()
+            {
+                if (!this._int32View)
+                {
+                    this._int32View = new Int32Array(this.rawBinaryData);
+                }
+
+                return this._int32View;
+            };
+
+            /**
+             * Returns the view of the given type.
+             *
+             * @param {string} type - One of `int8`, `uint8`, `int16`,
+             *`uint16`, `int32`, `uint32`, and `float32`.
+             * @return {object} typed array of given type
+             */
+            ViewableBuffer.prototype.view = function view (type)
+            {
+                return this[(type + "View")];
+            };
+
+            /**
+             * Destroys all buffer references. Do not use after calling
+             * this.
+             */
+            ViewableBuffer.prototype.destroy = function destroy ()
+            {
+                this.rawBinaryData = null;
+                this._int8View = null;
+                this._uint8View = null;
+                this._int16View = null;
+                this._uint16View = null;
+                this._int32View = null;
+                this.uint32View = null;
+                this.float32View = null;
+            };
+
+            ViewableBuffer.sizeOf = function sizeOf (type)
+            {
+                switch (type)
+                {
+                    case 'int8':
+                    case 'uint8':
+                        return 1;
+                    case 'int16':
+                    case 'uint16':
+                        return 2;
+                    case 'int32':
+                    case 'uint32':
+                    case 'float32':
+                        return 4;
+                    default:
+                        throw new Error((type + " isn't a valid view type"));
+                }
+            };
+
+            Object.defineProperties( ViewableBuffer.prototype, prototypeAccessors$5$1 );
+
+            /**
+             * Renderer dedicated to drawing and batching sprites.
+             *
+             * This is the default batch renderer. It buffers objects
+             * with texture-based geometries and renders them in
+             * batches. It uploads multiple textures to the GPU to
+             * reduce to the number of draw calls.
+             *
+             * @class
+             * @protected
+             * @memberof PIXI
+             * @extends PIXI.ObjectRenderer
+             */
+            var AbstractBatchRenderer = /*@__PURE__*/(function (ObjectRenderer) {
+                function AbstractBatchRenderer(renderer)
+                {
+                    ObjectRenderer.call(this, renderer);
+
+                    /**
+                     * This is used to generate a shader that can
+                     * color each vertex based on a `aTextureId`
+                     * attribute that points to an texture in `uSampler`.
+                     *
+                     * This enables the objects with different textures
+                     * to be drawn in the same draw call.
+                     *
+                     * You can customize your shader by creating your
+                     * custom shader generator.
+                     *
+                     * @member {PIXI.BatchShaderGenerator}
+                     * @protected
+                     */
+                    this.shaderGenerator = null;
+
+                    /**
+                     * The class that represents the geometry of objects
+                     * that are going to be batched with this.
+                     *
+                     * @member {object}
+                     * @default PIXI.BatchGeometry
+                     * @protected
+                     */
+                    this.geometryClass = null;
+
+                    /**
+                     * Size of data being buffered per vertex in the
+                     * attribute buffers (in floats). By default, the
+                     * batch-renderer plugin uses 6:
+                     *
+                     * | aVertexPosition | 2 |
+                     * |-----------------|---|
+                     * | aTextureCoords  | 2 |
+                     * | aColor          | 1 |
+                     * | aTextureId      | 1 |
+                     *
+                     * @member {number}
+                     * @readonly
+                     */
+                    this.vertexSize = null;
+
+                    /**
+                     * The WebGL state in which this renderer will work.
+                     *
+                     * @member {PIXI.State}
+                     * @readonly
+                     */
+                    this.state = State.for2d();
+
+                    /**
+                     * The number of bufferable objects before a flush
+                     * occurs automatically.
+                     *
+                     * @member {number}
+                     * @default settings.SPRITE_MAX_TEXTURES
+                     */
+                    this.size = 2000 * 4;// settings.SPRITE_BATCH_SIZE, 2000 is a nice balance between mobile/desktop
+
+                    /**
+                     * Total count of all vertices used by the currently
+                     * buffered objects.
+                     *
+                     * @member {number}
+                     * @private
+                     */
+                    this._vertexCount = 0;
+
+                    /**
+                     * Total count of all indices used by the currently
+                     * buffered objects.
+                     *
+                     * @member {number}
+                     * @private
+                     */
+                    this._indexCount = 0;
+
+                    /**
+                     * Buffer of objects that are yet to be rendered.
+                     *
+                     * @member {PIXI.DisplayObject[]}
+                     * @private
+                     */
+                    this._bufferedElements = [];
+
+                    /**
+                     * Number of elements that are buffered and are
+                     * waiting to be flushed.
+                     *
+                     * @member {number}
+                     * @private
+                     */
+                    this._bufferSize = 0;
+
+                    /**
+                     * This shader is generated by `this.shaderGenerator`.
+                     *
+                     * It is generated specifically to handle the required
+                     * number of textures being batched together.
+                     *
+                     * @member {PIXI.Shader}
+                     * @protected
+                     */
+                    this._shader = null;
+
+                    /**
+                     * Pool of `this.geometryClass` geometry objects
+                     * that store buffers. They are used to pass data
+                     * to the shader on each draw call.
+                     *
+                     * These are never re-allocated again, unless a
+                     * context change occurs; however, the pool may
+                     * be expanded if required.
+                     *
+                     * @member {PIXI.Geometry[]}
+                     * @private
+                     * @see PIXI.AbstractBatchRenderer.contextChange
+                     */
+                    this._packedGeometries = [];
+
+                    /**
+                     * Size of `this._packedGeometries`. It can be expanded
+                     * if more than `this._packedGeometryPoolSize` flushes
+                     * occur in a single frame.
+                     *
+                     * @member {number}
+                     * @private
+                     */
+                    this._packedGeometryPoolSize = 2;
+
+                    /**
+                     * A flush may occur multiple times in a single
+                     * frame. On iOS devices or when
+                     * `settings.CAN_UPLOAD_SAME_BUFFER` is false, the
+                     * batch renderer does not upload data to the same
+                     * `WebGLBuffer` for performance reasons.
+                     *
+                     * This is the index into `packedGeometries` that points to
+                     * geometry holding the most recent buffers.
+                     *
+                     * @member {number}
+                     * @private
+                     */
+                    this._flushId = 0;
+
+                    /**
+                     * Pool of `BatchDrawCall` objects that `flush` used
+                     * to create "batches" of the objects being rendered.
+                     *
+                     * These are never re-allocated again.
+                     *
+                     * @member BatchDrawCall[]
+                     * @private
+                     */
+                    this._drawCalls = [];
+
+                    for (var k = 0; k < this.size / 4; k++)
+                    { // initialize the draw-calls pool to max size.
+                        this._drawCalls[k] = new BatchDrawCall();
+                    }
+
+                    /**
+                     * Pool of `ViewableBuffer` objects that are sorted in
+                     * order of increasing size. The flush method uses
+                     * the buffer with the least size above the amount
+                     * it requires. These are used for passing attributes.
+                     *
+                     * The first buffer has a size of 8; each subsequent
+                     * buffer has double capacity of its previous.
+                     *
+                     * @member {PIXI.ViewableBuffer}
+                     * @private
+                     * @see PIXI.AbstractBatchRenderer#getAttributeBuffer
+                     */
+                    this._aBuffers = {};
+
+                    /**
+                     * Pool of `Uint16Array` objects that are sorted in
+                     * order of increasing size. The flush method uses
+                     * the buffer with the least size above the amount
+                     * it requires. These are used for passing indices.
+                     *
+                     * The first buffer has a size of 12; each subsequent
+                     * buffer has double capacity of its previous.
+                     *
+                     * @member {Uint16Array[]}
+                     * @private
+                     * @see PIXI.AbstractBatchRenderer#getIndexBuffer
+                     */
+                    this._iBuffers = {};
+
+                    /**
+                     * Maximum number of textures that can be uploaded to
+                     * the GPU under the current context. It is initialized
+                     * properly in `this.contextChange`.
+                     *
+                     * @member {number}
+                     * @see PIXI.AbstractBatchRenderer#contextChange
+                     * @readonly
+                     */
+                    this.MAX_TEXTURES = 1;
+
+                    this.renderer.on('prerender', this.onPrerender, this);
+                    renderer.runners.contextChange.add(this);
+                }
+
+                if ( ObjectRenderer ) AbstractBatchRenderer.__proto__ = ObjectRenderer;
+                AbstractBatchRenderer.prototype = Object.create( ObjectRenderer && ObjectRenderer.prototype );
+                AbstractBatchRenderer.prototype.constructor = AbstractBatchRenderer;
+
+                /**
+                 * Handles the `contextChange` signal.
+                 *
+                 * It calculates `this.MAX_TEXTURES` and allocating the
+                 * packed-geometry object pool.
+                 */
+                AbstractBatchRenderer.prototype.contextChange = function contextChange ()
+                {
+                    var gl = this.renderer.gl;
+
+                    if (settings.PREFER_ENV === ENV.WEBGL_LEGACY)
+                    {
+                        this.MAX_TEXTURES = 1;
+                    }
+                    else
+                    {
+                        // step 1: first check max textures the GPU can handle.
+                        this.MAX_TEXTURES = Math.min(
+                            gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS),
+                            settings.SPRITE_MAX_TEXTURES);
+
+                        // step 2: check the maximum number of if statements the shader can have too..
+                        this.MAX_TEXTURES = checkMaxIfStatementsInShader(
+                            this.MAX_TEXTURES, gl);
+                    }
+
+                    this._shader = this.shaderGenerator.generateShader(this.MAX_TEXTURES);
+
+                    // we use the second shader as the first one depending on your browser
+                    // may omit aTextureId as it is not used by the shader so is optimized out.
+                    for (var i = 0; i < this._packedGeometryPoolSize; i++)
+                    {
+                        /* eslint-disable max-len */
+                        this._packedGeometries[i] = new (this.geometryClass)();
+                    }
+                };
+
+                /**
+                 * Handles the `prerender` signal.
+                 *
+                 * It ensures that flushes start from the first geometry
+                 * object again.
+                 */
+                AbstractBatchRenderer.prototype.onPrerender = function onPrerender ()
+                {
+                    this._flushId = 0;
+                };
+
+                /**
+                 * Buffers the "batchable" object. It need not be rendered
+                 * immediately.
+                 *
+                 * @param {PIXI.Sprite} sprite - the sprite to render when
+                 *    using this spritebatch
+                 */
+                AbstractBatchRenderer.prototype.render = function render (element)
+                {
+                    if (!element._texture.valid)
+                    {
+                        return;
+                    }
+
+                    if (this._vertexCount + (element.vertexData.length / 2) > this.size)
+                    {
+                        this.flush();
+                    }
+
+                    this._vertexCount += element.vertexData.length / 2;
+                    this._indexCount += element.indices.length;
+                    this._bufferedElements[this._bufferSize++] = element;
+                };
+
+                /**
+                 * Renders the content _now_ and empties the current batch.
+                 */
+                AbstractBatchRenderer.prototype.flush = function flush ()
+                {
+                    if (this._vertexCount === 0)
+                    {
+                        return;
+                    }
+
+                    var attributeBuffer = this.getAttributeBuffer(this._vertexCount);
+                    var indexBuffer = this.getIndexBuffer(this._indexCount);
+                    var gl = this.renderer.gl;
+
+                    var ref = this;
+                    var elements = ref._bufferedElements;
+                    var drawCalls = ref._drawCalls;
+                    var MAX_TEXTURES = ref.MAX_TEXTURES;
+                    var packedGeometries = ref._packedGeometries;
+                    var vertexSize = ref.vertexSize;
+
+                    var touch = this.renderer.textureGC.count;
+
+                    var index = 0;
+                    var _indexCount = 0;
+
+                    var nextTexture;
+                    var currentTexture;
+                    var textureCount = 0;
+
+                    var currentGroup = drawCalls[0];
+                    var groupCount = 0;
+
+                    var blendMode = -1;// blend-mode of previous element/sprite/object!
+
+                    currentGroup.textureCount = 0;
+                    currentGroup.start = 0;
+                    currentGroup.blend = blendMode;
+
+                    var TICK = ++BaseTexture._globalBatch;
+                    var i;
+
+                    for (i = 0; i < this._bufferSize; ++i)
+                    {
+                        var sprite = elements[i];
+
+                        elements[i] = null;
+                        nextTexture = sprite._texture.baseTexture;
+
+                        var spriteBlendMode = premultiplyBlendMode[
+                            nextTexture.premultiplyAlpha ? 1 : 0][sprite.blendMode];
+
+                        if (blendMode !== spriteBlendMode)
+                        {
+                            blendMode = spriteBlendMode;
+
+                            // force the batch to break!
+                            currentTexture = null;
+                            textureCount = MAX_TEXTURES;
+                            TICK++;
+                        }
+
+                        if (currentTexture !== nextTexture)
+                        {
+                            currentTexture = nextTexture;
+
+                            if (nextTexture._batchEnabled !== TICK)
+                            {
+                                if (textureCount === MAX_TEXTURES)
+                                {
+                                    TICK++;
+
+                                    textureCount = 0;
+
+                                    currentGroup.size = _indexCount - currentGroup.start;
+
+                                    currentGroup = drawCalls[groupCount++];
+                                    currentGroup.textureCount = 0;
+                                    currentGroup.blend = blendMode;
+                                    currentGroup.start = _indexCount;
+                                }
+
+                                nextTexture.touched = touch;
+                                nextTexture._batchEnabled = TICK;
+                                nextTexture._id = textureCount;
+
+                                currentGroup.textures[currentGroup.textureCount++] = nextTexture;
+                                textureCount++;
+                            }
+                        }
+
+                        this.packInterleavedGeometry(sprite, attributeBuffer,
+                            indexBuffer, index, _indexCount);
+
+                        // push a graphics..
+                        index += (sprite.vertexData.length / 2) * vertexSize;
+                        _indexCount += sprite.indices.length;
+                    }
+
+                    BaseTexture._globalBatch = TICK;
+                    currentGroup.size = _indexCount - currentGroup.start;
+
+                    if (!settings.CAN_UPLOAD_SAME_BUFFER)
+                    { /* Usually on iOS devices, where the browser doesn't
+                        like uploads to the same buffer in a single frame. */
+                        if (this._packedGeometryPoolSize <= this._flushId)
+                        {
+                            this._packedGeometryPoolSize++;
+                            packedGeometries[this._flushId] = new (this.geometryClass)();
+                        }
+
+                        packedGeometries[this._flushId]._buffer.update(attributeBuffer.rawBinaryData, 0);
+                        packedGeometries[this._flushId]._indexBuffer.update(indexBuffer, 0);
+
+                        this.renderer.geometry.bind(packedGeometries[this._flushId]);
+                        this.renderer.geometry.updateBuffers();
+                        this._flushId++;
+                    }
+                    else
+                    {
+                        // lets use the faster option, always use buffer number 0
+                        packedGeometries[this._flushId]._buffer.update(attributeBuffer.rawBinaryData, 0);
+                        packedGeometries[this._flushId]._indexBuffer.update(indexBuffer, 0);
+
+                        this.renderer.geometry.updateBuffers();
+                    }
+
+                    var textureSystem = this.renderer.texture;
+                    var stateSystem = this.renderer.state;
+
+                    // Upload textures and do the draw calls
+                    for (i = 0; i < groupCount; i++)
+                    {
+                        var group = drawCalls[i];
+                        var groupTextureCount = group.textureCount;
+
+                        for (var j = 0; j < groupTextureCount; j++)
+                        {
+                            textureSystem.bind(group.textures[j], j);
+                            group.textures[j] = null;
+                        }
+
+                        stateSystem.setBlendMode(group.blend);
+                        gl.drawElements(group.type, group.size, gl.UNSIGNED_SHORT, group.start * 2);
+                    }
+
+                    // reset elements for the next flush
+                    this._bufferSize = 0;
+                    this._vertexCount = 0;
+                    this._indexCount = 0;
+                };
+
+                /**
+                 * Starts a new sprite batch.
+                 */
+                AbstractBatchRenderer.prototype.start = function start ()
+                {
+                    this.renderer.state.set(this.state);
+
+                    this.renderer.shader.bind(this._shader);
+
+                    if (settings.CAN_UPLOAD_SAME_BUFFER)
+                    {
+                        // bind buffer #0, we don't need others
+                        this.renderer.geometry.bind(this._packedGeometries[this._flushId]);
+                    }
+                };
+
+                /**
+                 * Stops and flushes the current batch.
+                 */
+                AbstractBatchRenderer.prototype.stop = function stop ()
+                {
+                    this.flush();
+                };
+
+                /**
+                 * Destroys this `AbstractBatchRenderer`. It cannot be used again.
+                 */
+                AbstractBatchRenderer.prototype.destroy = function destroy ()
+                {
+                    for (var i = 0; i < this._packedGeometryPoolSize; i++)
+                    {
+                        if (this._packedGeometries[i])
+                        {
+                            this._packedGeometries[i].destroy();
+                        }
+                    }
+
+                    this.renderer.off('prerender', this.onPrerender, this);
+
+                    this._aBuffers = null;
+                    this._iBuffers = null;
+                    this._packedGeometries = null;
+                    this._drawCalls = null;
+
+                    if (this._shader)
+                    {
+                        this._shader.destroy();
+                        this._shader = null;
+                    }
+
+                    ObjectRenderer.prototype.destroy.call(this);
+                };
+
+                /**
+                 * Fetches an attribute buffer from `this._aBuffers` that
+                 * can hold atleast `size` floats.
+                 *
+                 * @param {number} size - minimum capacity required
+                 * @return {ViewableBuffer} - buffer than can hold atleast `size` floats
+                 * @private
+                 */
+                AbstractBatchRenderer.prototype.getAttributeBuffer = function getAttributeBuffer (size)
+                {
+                    // 8 vertices is enough for 2 quads
+                    var roundedP2 = nextPow2(Math.ceil(size / 8));
+                    var roundedSizeIndex = log2(roundedP2);
+                    var roundedSize = roundedP2 * 8;
+
+                    if (this._aBuffers.length <= roundedSizeIndex)
+                    {
+                        this._iBuffers.length = roundedSizeIndex + 1;
+                    }
+
+                    var buffer = this._aBuffers[roundedSize];
+
+                    if (!buffer)
+                    {
+                        this._aBuffers[roundedSize] = buffer = new ViewableBuffer(roundedSize * this.vertexSize * 4);
+                    }
+
+                    return buffer;
+                };
+
+                /**
+                 * Fetches an index buffer from `this._iBuffers` that can
+                 * has atleast `size` capacity.
+                 *
+                 * @param {number} size - minimum required capacity
+                 * @return {Uint16Array} - buffer that can fit `size`
+                 *    indices.
+                 * @private
+                 */
+                AbstractBatchRenderer.prototype.getIndexBuffer = function getIndexBuffer (size)
+                {
+                    // 12 indices is enough for 2 quads
+                    var roundedP2 = nextPow2(Math.ceil(size / 12));
+                    var roundedSizeIndex = log2(roundedP2);
+                    var roundedSize = roundedP2 * 12;
+
+                    if (this._iBuffers.length <= roundedSizeIndex)
+                    {
+                        this._iBuffers.length = roundedSizeIndex + 1;
+                    }
+
+                    var buffer = this._iBuffers[roundedSizeIndex];
+
+                    if (!buffer)
+                    {
+                        this._iBuffers[roundedSizeIndex] = buffer = new Uint16Array(roundedSize);
+                    }
+
+                    return buffer;
+                };
+
+                /**
+                 * Takes the four batching parameters of `element`, interleaves
+                 * and pushes them into the batching attribute/index buffers given.
+                 *
+                 * It uses these properties: `vertexData` `uvs`, `textureId` and
+                 * `indicies`. It also uses the "tint" of the base-texture, if
+                 * present.
+                 *
+                 * @param {PIXI.Sprite} element - element being rendered
+                 * @param {PIXI.ViewableBuffer} attributeBuffer - attribute buffer.
+                 * @param {Uint16Array} indexBuffer - index buffer
+                 * @param {number} aIndex - number of floats already in the attribute buffer
+                 * @param {number} iIndex - number of indices already in `indexBuffer`
+                 */
+                AbstractBatchRenderer.prototype.packInterleavedGeometry = function packInterleavedGeometry (element, attributeBuffer, indexBuffer, aIndex, iIndex)
+                {
+                    var uint32View = attributeBuffer.uint32View;
+                    var float32View = attributeBuffer.float32View;
+
+                    var packedVertices = aIndex / this.vertexSize;
+                    var uvs = element.uvs;
+                    var indicies = element.indices;
+                    var vertexData = element.vertexData;
+                    var textureId = element._texture.baseTexture._id;
+
+                    var alpha = Math.min(element.worldAlpha, 1.0);
+                    var argb = (alpha < 1.0
+                      && element._texture.baseTexture.premultiplyAlpha)
+                        ? premultiplyTint(element._tintRGB, alpha)
+                        : element._tintRGB + (alpha * 255 << 24);
+
+                    // lets not worry about tint! for now..
+                    for (var i = 0; i < vertexData.length; i += 2)
+                    {
+                        float32View[aIndex++] = vertexData[i];
+                        float32View[aIndex++] = vertexData[i + 1];
+                        float32View[aIndex++] = uvs[i];
+                        float32View[aIndex++] = uvs[i + 1];
+                        uint32View[aIndex++] = argb;
+                        float32View[aIndex++] = textureId;
+                    }
+
+                    for (var i$1 = 0; i$1 < indicies.length; i$1++)
+                    {
+                        indexBuffer[iIndex++] = packedVertices + indicies[i$1];
+                    }
+                };
+
+                return AbstractBatchRenderer;
+            }(ObjectRenderer));
+
+            /**
+             * Helper that generates batching multi-texture shader. Use it with your new BatchRenderer
+             *
+             * @class
+             * @memberof PIXI
+             */
+            var BatchShaderGenerator = function BatchShaderGenerator(vertexSrc, fragTemplate)
+            {
+                /**
+                 * Reference to the vertex shader source.
+                 *
+                 * @member {string}
+                 */
+                this.vertexSrc = vertexSrc;
+
+                /**
+                 * Reference to the fragement shader template. Must contain "%count%" and "%forloop%".
+                 *
+                 * @member {string}
+                 */
+                this.fragTemplate = fragTemplate;
+
+                this.programCache = {};
+                this.defaultGroupCache = {};
+
+                if (fragTemplate.indexOf('%count%') < 0)
+                {
+                    throw new Error('Fragment template must contain "%count%".');
+                }
+
+                if (fragTemplate.indexOf('%forloop%') < 0)
+                {
+                    throw new Error('Fragment template must contain "%forloop%".');
+                }
+            };
+
+            BatchShaderGenerator.prototype.generateShader = function generateShader (maxTextures)
+            {
+                if (!this.programCache[maxTextures])
+                {
+                    var sampleValues = new Int32Array(maxTextures);
+
+                    for (var i = 0; i < maxTextures; i++)
+                    {
+                        sampleValues[i] = i;
+                    }
+
+                    this.defaultGroupCache[maxTextures] = UniformGroup.from({ uSamplers: sampleValues }, true);
+
+                    var fragmentSrc = this.fragTemplate;
+
+                    fragmentSrc = fragmentSrc.replace(/%count%/gi, ("" + maxTextures));
+                    fragmentSrc = fragmentSrc.replace(/%forloop%/gi, this.generateSampleSrc(maxTextures));
+
+                    this.programCache[maxTextures] = new Program(this.vertexSrc, fragmentSrc);
+                }
+
+                var uniforms = {
+                    tint: new Float32Array([1, 1, 1, 1]),
+                    translationMatrix: new Matrix(),
+                    default: this.defaultGroupCache[maxTextures],
+                };
+
+                return new Shader(this.programCache[maxTextures], uniforms);
+            };
+
+            BatchShaderGenerator.prototype.generateSampleSrc = function generateSampleSrc (maxTextures)
+            {
+                var src = '';
+
+                src += '\n';
+                src += '\n';
+
+                for (var i = 0; i < maxTextures; i++)
+                {
+                    if (i > 0)
+                    {
+                        src += '\nelse ';
+                    }
+
+                    if (i < maxTextures - 1)
+                    {
+                        src += "if(vTextureId < " + i + ".5)";
+                    }
+
+                    src += '\n{';
+                    src += "\n\tcolor = texture2D(uSamplers[" + i + "], vTextureCoord);";
+                    src += '\n}';
+                }
+
+                src += '\n';
+                src += '\n';
+
+                return src;
+            };
+
+            /**
              * Geometry used to batch standard PIXI content (e.g. Mesh, Sprite, Graphics objects).
              *
              * @class
@@ -22682,662 +24237,83 @@
                 return BatchGeometry;
             }(Geometry));
 
+            var defaultVertex$2 = "precision highp float;\nattribute vec2 aVertexPosition;\nattribute vec2 aTextureCoord;\nattribute vec4 aColor;\nattribute float aTextureId;\n\nuniform mat3 projectionMatrix;\nuniform mat3 translationMatrix;\nuniform vec4 tint;\n\nvarying vec2 vTextureCoord;\nvarying vec4 vColor;\nvarying float vTextureId;\n\nvoid main(void){\n    gl_Position = vec4((projectionMatrix * translationMatrix * vec3(aVertexPosition, 1.0)).xy, 0.0, 1.0);\n\n    vTextureCoord = aTextureCoord;\n    vTextureId = aTextureId;\n    vColor = aColor * tint;\n}\n";
+
+            var defaultFragment$2 = "varying vec2 vTextureCoord;\nvarying vec4 vColor;\nvarying float vTextureId;\nuniform sampler2D uSamplers[%count%];\n\nvoid main(void){\n    vec4 color;\n    %forloop%\n    gl_FragColor = color * vColor;\n}\n";
+
             /**
-             * Used by the batcher to draw batches.
-             * Each one of these contains all information required to draw a bound geometry.
-             *
              * @class
              * @memberof PIXI
+             * @hideconstructor
              */
-            var BatchDrawCall = function BatchDrawCall()
+            var BatchPluginFactory = function BatchPluginFactory () {};
+
+            var staticAccessors$1$1 = { defaultVertexSrc: { configurable: true },defaultFragmentTemplate: { configurable: true } };
+
+            BatchPluginFactory.create = function create (options)
             {
-                this.textures = [];
-                this.ids = [];
-                this.blend = 0;
-                this.textureCount = 0;
-                this.start = 0;
-                this.size = 0;
-                this.type = 4;
+                var ref = Object.assign({
+                    vertex: defaultVertex$2,
+                    fragment: defaultFragment$2,
+                    geometryClass: BatchGeometry,
+                    vertexSize: 6,
+                }, options);
+                    var vertex = ref.vertex;
+                    var fragment = ref.fragment;
+                    var vertexSize = ref.vertexSize;
+                    var geometryClass = ref.geometryClass;
+
+                return /*@__PURE__*/(function (AbstractBatchRenderer) {
+                        function BatchPlugin(renderer)
+                    {
+                        AbstractBatchRenderer.call(this, renderer);
+
+                        this.shaderGenerator = new BatchShaderGenerator(vertex, fragment);
+                        this.geometryClass = geometryClass;
+                        this.vertexSize = vertexSize;
+                    }
+
+                        if ( AbstractBatchRenderer ) BatchPlugin.__proto__ = AbstractBatchRenderer;
+                        BatchPlugin.prototype = Object.create( AbstractBatchRenderer && AbstractBatchRenderer.prototype );
+                        BatchPlugin.prototype.constructor = BatchPlugin;
+
+                        return BatchPlugin;
+                    }(AbstractBatchRenderer));
             };
 
             /**
-             * Used by the BatchRenderer
+             * The default vertex shader source
              *
-             * @class
-             * @memberof PIXI
+             * @static
+             * @type {string}
+             * @constant
              */
-            var BatchBuffer = function BatchBuffer(size)
+            staticAccessors$1$1.defaultVertexSrc.get = function ()
             {
-                this.vertices = new ArrayBuffer(size);
-
-                /**
-                 * View on the vertices as a Float32Array for positions
-                 *
-                 * @member {Float32Array}
-                 */
-                this.float32View = new Float32Array(this.vertices);
-
-                /**
-                 * View on the vertices as a Uint32Array for uvs
-                 *
-                 * @member {Float32Array}
-                 */
-                this.uint32View = new Uint32Array(this.vertices);
+                return defaultVertex$2;
             };
 
             /**
-             * Destroys the buffer.
+             * The default fragment shader source
              *
+             * @static
+             * @type {string}
+             * @constant
              */
-            BatchBuffer.prototype.destroy = function destroy ()
+            staticAccessors$1$1.defaultFragmentTemplate.get = function ()
             {
-                this.vertices = null;
-                this.float32View = null;
-                this.uint32View = null;
+                return defaultFragment$2;
             };
 
-            var vertex$1 = "precision highp float;\nattribute vec2 aVertexPosition;\nattribute vec2 aTextureCoord;\nattribute vec4 aColor;\nattribute float aTextureId;\n\nuniform mat3 projectionMatrix;\nuniform mat3 translationMatrix;\nuniform vec4 tint;\n\nvarying vec2 vTextureCoord;\nvarying vec4 vColor;\nvarying float vTextureId;\n\nvoid main(void){\n    gl_Position = vec4((projectionMatrix * translationMatrix * vec3(aVertexPosition, 1.0)).xy, 0.0, 1.0);\n\n    vTextureCoord = aTextureCoord;\n    vTextureId = aTextureId;\n    vColor = aColor * tint;\n}\n";
-
-            var fragTemplate$1 = [
-                'varying vec2 vTextureCoord;',
-                'varying vec4 vColor;',
-                'varying float vTextureId;',
-                'uniform sampler2D uSamplers[%count%];',
-
-                'void main(void){',
-                'vec4 color;',
-                '%forloop%',
-                'gl_FragColor = color * vColor;',
-                '}' ].join('\n');
-
-            var defaultGroupCache = {};
-            var programCache = {};
-
-            function generateMultiTextureShader(gl, maxTextures)
-            {
-                if (!programCache[maxTextures])
-                {
-                    var sampleValues = new Int32Array(maxTextures);
-
-                    for (var i = 0; i < maxTextures; i++)
-                    {
-                        sampleValues[i] = i;
-                    }
-
-                    defaultGroupCache[maxTextures] = UniformGroup.from({ uSamplers: sampleValues }, true);
-
-                    var fragmentSrc = fragTemplate$1;
-
-                    fragmentSrc = fragmentSrc.replace(/%count%/gi, maxTextures);
-                    fragmentSrc = fragmentSrc.replace(/%forloop%/gi, generateSampleSrc(maxTextures));
-
-                    programCache[maxTextures] = new Program(vertex$1, fragmentSrc);
-                }
-
-                var uniforms = {
-                    tint: new Float32Array([1, 1, 1, 1]),
-                    translationMatrix: new Matrix(),
-                    default: defaultGroupCache[maxTextures],
-                };
-
-                var shader = new Shader(programCache[maxTextures], uniforms);
-
-                return shader;
-            }
-
-            function generateSampleSrc(maxTextures)
-            {
-                var src = '';
-
-                src += '\n';
-                src += '\n';
-
-                for (var i = 0; i < maxTextures; i++)
-                {
-                    if (i > 0)
-                    {
-                        src += '\nelse ';
-                    }
-
-                    if (i < maxTextures - 1)
-                    {
-                        src += "if(vTextureId < " + i + ".5)";
-                    }
-
-                    src += '\n{';
-                    src += "\n\tcolor = texture2D(uSamplers[" + i + "], vTextureCoord);";
-                    src += '\n}';
-                }
-
-                src += '\n';
-                src += '\n';
-
-                return src;
-            }
-
-            /**
-             * Renderer dedicated to drawing and batching sprites.
-             *
-             * @class
-             * @protected
-             * @memberof PIXI
-             * @extends PIXI.ObjectRenderer
-             */
-            var BatchRenderer = /*@__PURE__*/(function (ObjectRenderer) {
-                function BatchRenderer(renderer)
-                {
-                    ObjectRenderer.call(this, renderer);
-
-                    /**
-                     * Number of values sent in the vertex buffer.
-                     * aVertexPosition(2), aTextureCoord(1), aColor(1), aTextureId(1) = 5
-                     *
-                     * @member {number}
-                     */
-                    this.vertSize = 6;
-
-                    /**
-                     * The size of the vertex information in bytes.
-                     *
-                     * @member {number}
-                     */
-                    this.vertByteSize = this.vertSize * 4;
-
-                    /**
-                     * The number of images in the SpriteRenderer before it flushes.
-                     *
-                     * @member {number}
-                     */
-                    this.size = 2000 * 4;// settings.SPRITE_BATCH_SIZE; // 2000 is a nice balance between mobile / desktop
-
-                    this.currentSize = 0;
-                    this.currentIndexSize = 0;
-
-                    // the total number of bytes in our batch
-                    // let numVerts = this.size * 4 * this.vertByteSize;
-
-                    this.attributeBuffers = {};
-                    this.aBuffers = {};
-                    this.iBuffers = {};
-
-                    //     this.defualtSpriteIndexBuffer = new Buffer(createIndicesForQuads(this.size), true, true);
-
-                    /**
-                     * Holds the defualt indices of the geometry (quads) to draw
-                     *
-                     * @member {Uint16Array}
-                     */
-                    // const indicies = createIndicesForQuads(this.size);
-
-                    //  this.defaultQuadIndexBuffer = new Buffer(indicies, true, true);
-
-                    this.onlySprites = false;
-
-                    /**
-                     * The default shaders that is used if a sprite doesn't have a more specific one.
-                     * there is a shader for each number of textures that can be rendered.
-                     * These shaders will also be generated on the fly as required.
-                     * @member {PIXI.Shader[]}
-                     */
-                    this.shader = null;
-
-                    this.currentIndex = 0;
-                    this.groups = [];
-
-                    for (var k = 0; k < this.size / 4; k++)
-                    {
-                        this.groups[k] = new BatchDrawCall();
-                    }
-
-                    this.elements = [];
-
-                    this.vaos = [];
-
-                    this.vaoMax = 2;
-                    this.vertexCount = 0;
-
-                    this.renderer.on('prerender', this.onPrerender, this);
-                    this.state = State.for2d();
-                }
-
-                if ( ObjectRenderer ) BatchRenderer.__proto__ = ObjectRenderer;
-                BatchRenderer.prototype = Object.create( ObjectRenderer && ObjectRenderer.prototype );
-                BatchRenderer.prototype.constructor = BatchRenderer;
-
-                /**
-                 * Sets up the renderer context and necessary buffers.
-                 */
-                BatchRenderer.prototype.contextChange = function contextChange ()
-                {
-                    var gl = this.renderer.gl;
-
-                    if (settings.PREFER_ENV === ENV.WEBGL_LEGACY)
-                    {
-                        this.MAX_TEXTURES = 1;
-                    }
-                    else
-                    {
-                        // step 1: first check max textures the GPU can handle.
-                        this.MAX_TEXTURES = Math.min(gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS), settings.SPRITE_MAX_TEXTURES);
-
-                        // step 2: check the maximum number of if statements the shader can have too..
-                        this.MAX_TEXTURES = checkMaxIfStatementsInShader(this.MAX_TEXTURES, gl);
-                    }
-
-                    // generate generateMultiTextureProgram, may be a better move?
-                    this.shader = generateMultiTextureShader(gl, this.MAX_TEXTURES);
-
-                    // we use the second shader as the first one depending on your browser may omit aTextureId
-                    // as it is not used by the shader so is optimized out.
-                    for (var i = 0; i < this.vaoMax; i++)
-                    {
-                        /* eslint-disable max-len */
-                        this.vaos[i] = new BatchGeometry();
-                    }
-                };
-
-                /**
-                 * Called before the renderer starts rendering.
-                 *
-                 */
-                BatchRenderer.prototype.onPrerender = function onPrerender ()
-                {
-                    this.vertexCount = 0;
-                };
-
-                /**
-                 * Renders the sprite object.
-                 *
-                 * @param {PIXI.Sprite} sprite - the sprite to render when using this spritebatch
-                 */
-                BatchRenderer.prototype.render = function render (element)
-                {
-                    if (!element._texture.valid)
-                    {
-                        return;
-                    }
-
-                    if (this.currentSize + (element.vertexData.length / 2) > this.size)
-                    {
-                        this.flush();
-                    }
-
-                    this.elements[this.currentIndex++] = element;
-
-                    this.currentSize += element.vertexData.length / 2;
-                    this.currentIndexSize += element.indices.length;
-                };
-
-                BatchRenderer.prototype.getIndexBuffer = function getIndexBuffer (size)
-                {
-                    // 12 indices is enough for 2 quads
-                    var roundedP2 = nextPow2(Math.ceil(size / 12));
-                    var roundedSizeIndex = log2(roundedP2);
-                    var roundedSize = roundedP2 * 12;
-
-                    if (this.iBuffers.length <= roundedSizeIndex)
-                    {
-                        this.iBuffers.length = roundedSizeIndex + 1;
-                    }
-
-                    var buffer = this.iBuffers[roundedSizeIndex];
-
-                    if (!buffer)
-                    {
-                        this.iBuffers[roundedSizeIndex] = buffer = new Uint16Array(roundedSize);
-                    }
-
-                    return buffer;
-                };
-
-                BatchRenderer.prototype.getAttributeBuffer = function getAttributeBuffer (size)
-                {
-                    // 8 vertices is enough for 2 quads
-                    var roundedP2 = nextPow2(Math.ceil(size / 8));
-                    var roundedSizeIndex = log2(roundedP2);
-                    var roundedSize = roundedP2 * 8;
-
-                    if (this.aBuffers.length <= roundedSizeIndex)
-                    {
-                        this.iBuffers.length = roundedSizeIndex + 1;
-                    }
-
-                    var buffer = this.aBuffers[roundedSize];
-
-                    if (!buffer)
-                    {
-                        this.aBuffers[roundedSize] = buffer = new BatchBuffer(roundedSize * this.vertByteSize);
-                    }
-
-                    return buffer;
-                };
-
-                /**
-                 * Renders the content and empties the current batch.
-                 *
-                 */
-                BatchRenderer.prototype.flush = function flush ()
-                {
-                    if (this.currentSize === 0)
-                    {
-                        return;
-                    }
-
-                    var gl = this.renderer.gl;
-                    var MAX_TEXTURES = this.MAX_TEXTURES;
-
-                    var buffer = this.getAttributeBuffer(this.currentSize);
-                    var indexBuffer = this.getIndexBuffer(this.currentIndexSize);
-
-                    var elements = this.elements;
-                    var groups = this.groups;
-
-                    var float32View = buffer.float32View;
-                    var uint32View = buffer.uint32View;
-
-                    var touch = this.renderer.textureGC.count;
-
-                    var index = 0;
-                    var indexCount = 0;
-                    var nextTexture;
-                    var currentTexture;
-                    var groupCount = 0;
-
-                    var textureCount = 0;
-                    var currentGroup = groups[0];
-
-                    var blendMode = -1;// premultiplyBlendMode[elements[0]._texture.baseTexture.premultiplyAlpha ? 0 : ][elements[0].blendMode];
-
-                    currentGroup.textureCount = 0;
-                    currentGroup.start = 0;
-                    currentGroup.blend = blendMode;
-
-                    var TICK = ++BaseTexture._globalBatch;
-
-                    var i;
-
-                    for (i = 0; i < this.currentIndex; ++i)
-                    {
-                        // upload the sprite elements...
-                        // they have all ready been calculated so we just need to push them into the buffer.
-
-                        var sprite = elements[i];
-
-                        elements[i] = null;
-
-                        nextTexture = sprite._texture.baseTexture;
-
-                        var spriteBlendMode = premultiplyBlendMode[nextTexture.premultiplyAlpha ? 1 : 0][sprite.blendMode];
-
-                        if (blendMode !== spriteBlendMode)
-                        {
-                            blendMode = spriteBlendMode;
-
-                            // force the batch to break!
-                            currentTexture = null;
-                            textureCount = MAX_TEXTURES;
-                            TICK++;
-                        }
-
-                        if (currentTexture !== nextTexture)
-                        {
-                            currentTexture = nextTexture;
-
-                            if (nextTexture._batchEnabled !== TICK)
-                            {
-                                if (textureCount === MAX_TEXTURES)
-                                {
-                                    TICK++;
-
-                                    textureCount = 0;
-
-                                    currentGroup.size = indexCount - currentGroup.start;
-
-                                    currentGroup = groups[groupCount++];
-                                    currentGroup.textureCount = 0;
-                                    currentGroup.blend = blendMode;
-                                    currentGroup.start = indexCount;
-                                }
-
-                                nextTexture.touched = touch;
-                                nextTexture._batchEnabled = TICK;
-                                nextTexture._id = textureCount;
-
-                                currentGroup.textures[currentGroup.textureCount++] = nextTexture;
-                                textureCount++;
-                            }
-                        }
-
-                        this.packGeometry(sprite, float32View, uint32View, indexBuffer, index, indexCount);// argb, nextTexture._id, float32View, uint32View, indexBuffer, index, indexCount);
-
-                        // push a graphics..
-                        index += (sprite.vertexData.length / 2) * this.vertSize;
-                        indexCount += sprite.indices.length;
-                    }
-
-                    BaseTexture._globalBatch = TICK;
-
-                    currentGroup.size = indexCount - currentGroup.start;
-
-                    //        this.indexBuffer.update();
-
-                    if (!settings.CAN_UPLOAD_SAME_BUFFER)
-                    {
-                        // this is still needed for IOS performance..
-                        // it really does not like uploading to the same buffer in a single frame!
-                        if (this.vaoMax <= this.vertexCount)
-                        {
-                            this.vaoMax++;
-                            /* eslint-disable max-len */
-                            this.vaos[this.vertexCount] = new BatchGeometry();
-                        }
-
-                        this.vaos[this.vertexCount]._buffer.update(buffer.vertices, 0);
-                        this.vaos[this.vertexCount]._indexBuffer.update(indexBuffer, 0);
-
-                        //   this.vertexBuffers[this.vertexCount].update(buffer.vertices, 0);
-                        this.renderer.geometry.bind(this.vaos[this.vertexCount]);
-
-                        this.renderer.geometry.updateBuffers();
-
-                        this.vertexCount++;
-                    }
-                    else
-                    {
-                        // lets use the faster option, always use buffer number 0
-                        this.vaos[this.vertexCount]._buffer.update(buffer.vertices, 0);
-                        this.vaos[this.vertexCount]._indexBuffer.update(indexBuffer, 0);
-
-                        //   if (true)// this.spriteOnly)
-                        // {
-                        // this.vaos[this.vertexCount].indexBuffer = this.defualtSpriteIndexBuffer;
-                        // this.vaos[this.vertexCount].buffers[1] = this.defualtSpriteIndexBuffer;
-                        // }
-
-                        this.renderer.geometry.updateBuffers();
-                    }
-
-                    //   this.renderer.state.set(this.state);
-
-                    var textureSystem = this.renderer.texture;
-                    var stateSystem = this.renderer.state;
-                    // e.log(groupCount);
-                    // / render the groups..
-
-                    for (i = 0; i < groupCount; i++)
-                    {
-                        var group = groups[i];
-                        var groupTextureCount = group.textureCount;
-
-                        for (var j = 0; j < groupTextureCount; j++)
-                        {
-                            textureSystem.bind(group.textures[j], j);
-                            group.textures[j] = null;
-                        }
-
-                        // this.state.blendMode = group.blend;
-                        // this.state.blend = true;
-
-                        // this.renderer.state.setState(this.state);
-                        // set the blend mode..
-                        stateSystem.setBlendMode(group.blend);
-
-                        gl.drawElements(group.type, group.size, gl.UNSIGNED_SHORT, group.start * 2);
-                    }
-
-                    // reset elements for the next flush
-                    this.currentIndex = 0;
-                    this.currentSize = 0;
-                    this.currentIndexSize = 0;
-                };
-
-                BatchRenderer.prototype.packGeometry = function packGeometry (element, float32View, uint32View, indexBuffer, index, indexCount)
-                {
-                    var p = index / this.vertSize;// float32View.length / 6 / 2;
-                    var uvs = element.uvs;
-                    var indicies = element.indices;// geometry.getIndex().data;// indicies;
-                    var vertexData = element.vertexData;
-                    var textureId = element._texture.baseTexture._id;
-
-                    var alpha = Math.min(element.worldAlpha, 1.0);
-
-                    var argb = alpha < 1.0 && element._texture.baseTexture.premultiplyAlpha ? premultiplyTint(element._tintRGB, alpha)
-                        : element._tintRGB + (alpha * 255 << 24);
-
-                    // lets not worry about tint! for now..
-                    for (var i = 0; i < vertexData.length; i += 2)
-                    {
-                        float32View[index++] = vertexData[i];
-                        float32View[index++] = vertexData[i + 1];
-                        float32View[index++] = uvs[i];
-                        float32View[index++] = uvs[i + 1];
-                        uint32View[index++] = argb;
-                        float32View[index++] = textureId;
-                    }
-
-                    for (var i$1 = 0; i$1 < indicies.length; i$1++)
-                    {
-                        indexBuffer[indexCount++] = p + indicies[i$1];
-                    }
-                };
-                /*
-                renderQuad(vertexData, uvs, argb, textureId, float32View, uint32View, indexBuffer, index, indexCount)
-                {
-                    const p = index / 6;
-
-                    float32View[index++] = vertexData[0];
-                    float32View[index++] = vertexData[1];
-                    float32View[index++] = uvs.x0;
-                    float32View[index++] = uvs.y0;
-                    uint32View[index++] = argb;
-                    float32View[index++] = textureId;
-
-                    float32View[index++] = vertexData[2];
-                    float32View[index++] = vertexData[3];
-                    float32View[index++] = uvs.x1;
-                    float32View[index++] = uvs.y1;
-                    uint32View[index++] = argb;
-                    float32View[index++] = textureId;
-
-                    float32View[index++] = vertexData[4];
-                    float32View[index++] = vertexData[5];
-                    float32View[index++] = uvs.x2;
-                    float32View[index++] = uvs.y2;
-                    uint32View[index++] = argb;
-                    float32View[index++] = textureId;
-
-                    float32View[index++] = vertexData[6];
-                    float32View[index++] = vertexData[7];
-                    float32View[index++] = uvs.x3;
-                    float32View[index++] = uvs.y3;
-                    uint32View[index++] = argb;
-                    float32View[index++] = textureId;
-
-                    indexBuffer[indexCount++] = p + 0;
-                    indexBuffer[indexCount++] = p + 1;
-                    indexBuffer[indexCount++] = p + 2;
-                    indexBuffer[indexCount++] = p + 0;
-                    indexBuffer[indexCount++] = p + 2;
-                    indexBuffer[indexCount++] = p + 3;
-                }
-            */
-                /**
-                 * Starts a new sprite batch.
-                 */
-                BatchRenderer.prototype.start = function start ()
-                {
-                    this.renderer.state.setState(this.state);
-
-                    this.renderer.shader.bind(this.shader);
-
-                    if (settings.CAN_UPLOAD_SAME_BUFFER)
-                    {
-                        // bind buffer #0, we don't need others
-                        this.renderer.geometry.bind(this.vaos[this.vertexCount]);
-                    }
-                };
-
-                /**
-                 * Stops and flushes the current batch.
-                 *
-                 */
-                BatchRenderer.prototype.stop = function stop ()
-                {
-                    this.flush();
-                };
-
-                /**
-                 * Destroys the SpriteRenderer.
-                 *
-                 */
-                BatchRenderer.prototype.destroy = function destroy ()
-                {
-                    for (var i = 0; i < this.vaoMax; i++)
-                    {
-                        // if (this.vertexBuffers[i])
-                        // {
-                        //     this.vertexBuffers[i].destroy();
-                        // }
-                        if (this.vaos[i])
-                        {
-                            this.vaos[i].destroy();
-                        }
-                    }
-
-                    if (this.indexBuffer)
-                    {
-                        this.indexBuffer.destroy();
-                    }
-
-                    this.renderer.off('prerender', this.onPrerender, this);
-
-                    if (this.shader)
-                    {
-                        this.shader.destroy();
-                        this.shader = null;
-                    }
-
-                    // this.vertexBuffers = null;
-                    this.vaos = null;
-                    this.indexBuffer = null;
-                    this.indices = null;
-                    this.sprites = null;
-
-                    // for (let i = 0; i < this.buffers.length; ++i)
-                    // {
-                    //     this.buffers[i].destroy();
-                    // }
-
-                    ObjectRenderer.prototype.destroy.call(this);
-                };
-
-                return BatchRenderer;
-            }(ObjectRenderer));
-            //# sourceMappingURL=core.es.js.map
+            Object.defineProperties( BatchPluginFactory, staticAccessors$1$1 );
+
+            // Setup the default BatchRenderer plugin, this is what
+            // we'll actually export at the root level
+            var BatchRenderer = BatchPluginFactory.create();
 
             /*!
-             * @pixi/extract - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/extract - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/extract is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -23449,8 +24425,8 @@
                     renderer.renderTexture.bind(null);
                 }
 
-                var width = frame.width * resolution;
-                var height = frame.height * resolution;
+                var width = Math.floor(frame.width * resolution);
+                var height = Math.floor(frame.height * resolution);
 
                 var canvasBuffer = new CanvasRenderTarget(width, height, 1);
 
@@ -23472,7 +24448,7 @@
                 // add the pixels to the canvas
                 var canvasData = canvasBuffer.context.getImageData(0, 0, width, height);
 
-                canvasData.data.set(webglPixels);
+                Extract.arrayPostDivide(webglPixels, canvasData.data);
 
                 canvasBuffer.context.putImageData(canvasData, 0, 0);
 
@@ -23498,7 +24474,7 @@
              *
              * @param {PIXI.DisplayObject|PIXI.RenderTexture} target - A displayObject or renderTexture
              *  to convert. If left empty will use the main renderer
-             * @return {Uint8ClampedArray} One-dimensional array containing the pixel data of the entire texture
+             * @return {Uint8Array} One-dimensional array containing the pixel data of the entire texture
              */
             Extract.prototype.pixels = function pixels (target)
             {
@@ -23563,6 +24539,8 @@
                     renderTexture.destroy(true);
                 }
 
+                Extract.arrayPostDivide(webglPixels, webglPixels);
+
                 return webglPixels;
             };
 
@@ -23575,15 +24553,42 @@
                 this.renderer.extract = null;
                 this.renderer = null;
             };
-            //# sourceMappingURL=extract.es.js.map
+
+            /**
+             * Takes premultiplied pixel data and produces regular pixel data
+             *
+             * @private
+             * @param pixels {number[] | Uint8Array | Uint8ClampedArray} array of pixel data
+             * @param out {number[] | Uint8Array | Uint8ClampedArray} output array
+             */
+            Extract.arrayPostDivide = function arrayPostDivide (pixels, out)
+            {
+                for (var i = 0; i < pixels.length; i += 4)
+                {
+                    var alpha = out[i + 3] = pixels[i + 3];
+
+                    if (alpha !== 0)
+                    {
+                        out[i] = Math.round(Math.min(pixels[i] * 255.0 / alpha, 255.0));
+                        out[i + 1] = Math.round(Math.min(pixels[i + 1] * 255.0 / alpha, 255.0));
+                        out[i + 2] = Math.round(Math.min(pixels[i + 2] * 255.0 / alpha, 255.0));
+                    }
+                    else
+                    {
+                        out[i] = pixels[i];
+                        out[i + 1] = pixels[i + 1];
+                        out[i + 2] = pixels[i + 2];
+                    }
+                }
+            };
 
             var extract_es = /*#__PURE__*/Object.freeze({
                         Extract: Extract
             });
 
             /*!
-             * @pixi/interaction - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/interaction - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/interaction is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -23981,6 +24986,30 @@
             });
 
             /**
+             * Interface for classes that represent a hit area.
+             *
+             * It is implemented by the following classes:
+             * - {@link PIXI.Circle}
+             * - {@link PIXI.Ellipse}
+             * - {@link PIXI.Polygon}
+             * - {@link PIXI.RoundedRectangle}
+             *
+             * @interface IHitArea
+             * @memberof PIXI
+             */
+
+            /**
+             * Checks whether the x and y coordinates given are contained within this area
+             *
+             * @method
+             * @name contains
+             * @memberof PIXI.IHitArea#
+             * @param {number} x - The X coordinate of the point to test
+             * @param {number} y - The Y coordinate of the point to test
+             * @return {boolean} Whether the x/y coordinates are within this area
+             */
+
+            /**
              * Default property values of interactive objects
              * Used by {@link PIXI.interaction.InteractionManager} to automatically give all DisplayObjects these properties
              *
@@ -24030,7 +25059,7 @@
                  * const sprite = new PIXI.Sprite(texture);
                  * sprite.interactive = true;
                  * sprite.hitArea = new PIXI.Rectangle(0, 0, 100, 100);
-                 * @member {PIXI.Rectangle|PIXI.Circle|PIXI.Ellipse|PIXI.Polygon|PIXI.RoundedRectangle}
+                 * @member {PIXI.IHitArea}
                  * @memberof PIXI.DisplayObject#
                  */
                 hitArea: null,
@@ -24772,7 +25801,7 @@
                  * other DOM elements on top of the renderers Canvas element. With this you'll be bale to delegate
                  * another DOM element to receive those events.
                  *
-                 * @param {HTMLCanvasElement} element - the DOM element which will receive mouse and touch events.
+                 * @param {HTMLElement} element - the DOM element which will receive mouse and touch events.
                  * @param {number} [resolution=1] - The resolution / device pixel ratio of the new element (relative to the canvas).
                  */
                 InteractionManager.prototype.setTargetElement = function setTargetElement (element, resolution)
@@ -24967,8 +25996,6 @@
                     }
 
                     this.setCursorMode(this.cursor);
-
-                    // TODO
                 };
 
                 /**
@@ -25559,14 +26586,8 @@
 
                         interactionEvent.data.originalEvent = originalEvent;
 
-                        var interactive = event.pointerType === 'touch' ? this.moveWhenInside : true;
+                        this.processInteractive(interactionEvent, this.renderer._lastObjectRendered, this.processPointerMove, true);
 
-                        this.processInteractive(
-                            interactionEvent,
-                            this.renderer._lastObjectRendered,
-                            this.processPointerMove,
-                            interactive
-                        );
                         this.emit('pointermove', interactionEvent);
                         if (event.pointerType === 'touch') { this.emit('touchmove', interactionEvent); }
                         if (event.pointerType === 'mouse' || event.pointerType === 'pen') { this.emit('mousemove', interactionEvent); }
@@ -25938,7 +26959,6 @@
 
                 return InteractionManager;
             }(eventemitter3));
-            //# sourceMappingURL=interaction.es.js.map
 
             var interaction_es = /*#__PURE__*/Object.freeze({
                         InteractionData: InteractionData,
@@ -25949,8 +26969,8 @@
             });
 
             /*!
-             * @pixi/graphics - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/graphics - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/graphics is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -26502,7 +27522,9 @@
             {
                 var i = 0;
 
-                var points = graphicsData.points || graphicsData.shape.points;
+                var shape = graphicsData.shape;
+                var points = graphicsData.points || shape.points;
+                var closedShape = shape.type !== SHAPES.POLY || shape.closeStroke;
 
                 if (points.length === 0) { return; }
 
@@ -26510,22 +27532,22 @@
                 var indices = graphicsGeometry.indices;
                 var length = points.length / 2;
 
-                var indexStart = verts.length / 2;
-                // sort color
+                var startIndex = verts.length / 2;
+                var currentIndex = startIndex;
+
+                verts.push(points[0], points[1]);
 
                 for (i = 1; i < length; i++)
                 {
-                    var p1x = points[(i - 1) * 2];
-                    var p1y = points[((i - 1) * 2) + 1];
+                    verts.push(points[i * 2], points[(i * 2) + 1]);
+                    indices.push(currentIndex, currentIndex + 1);
 
-                    var p2x = points[i * 2];
-                    var p2y = points[(i * 2) + 1];
+                    currentIndex++;
+                }
 
-                    verts.push(p1x, p1y);
-
-                    verts.push(p2x, p2y);
-
-                    indices.push(indexStart++, indexStart++);
+                if (closedShape)
+                {
+                    indices.push(currentIndex, startIndex);
                 }
             }
 
@@ -26836,9 +27858,9 @@
                     BatchGeometry.call(this);
 
                     /**
-                     * An array of points to draw
+                     * An array of points to draw, 2 numbers per point
                      *
-                     * @member {PIXI.Point[]}
+                     * @member {number[]}
                      * @protected
                      */
                     this.points = [];
@@ -27182,7 +28204,12 @@
                 GraphicsGeometry.prototype.updateBatches = function updateBatches ()
                 {
                     if (this.dirty === this.cacheDirty) { return; }
-                    if (this.graphicsData.length === 0) { return; }
+                    if (this.graphicsData.length === 0)
+                    {
+                        this.batchable = true;
+
+                        return;
+                    }
 
                     if (this.dirty !== this.cacheDirty)
                     {
@@ -27199,20 +28226,22 @@
 
                     var uvs = this.uvs;
 
-                    var batchPart = this.batches.pop()
-                        || BATCH_POOL.pop()
-                        || new BatchPart();
+                    var batchPart = null;
+                    var currentTexture = null;
+                    var currentColor = 0;
+                    var currentNative = false;
 
-                    batchPart.style = batchPart.style
-                        || this.graphicsData[0].fillStyle
-                        || this.graphicsData[0].lineStyle;
+                    if (this.batches.length > 0)
+                    {
+                        batchPart = this.batches[this.batches.length - 1];
 
-                    var currentTexture = batchPart.style.texture.baseTexture;
-                    var currentColor = batchPart.style.color + batchPart.style.alpha;
+                        var style = batchPart.style;
 
-                    this.batches.push(batchPart);
+                        currentTexture = style.texture.baseTexture;
+                        currentColor = style.color + style.alpha;
+                        currentNative = style.native;
+                    }
 
-                    // TODO - this can be simplified
                     for (var i$1 = this.shapeIndex; i$1 < this.graphicsData.length; i$1++)
                     {
                         this.shapeIndex++;
@@ -27233,37 +28262,42 @@
 
                         for (var j = 0; j < 2; j++)
                         {
-                            var style = (j === 0) ? fillStyle : lineStyle;
+                            var style$1 = (j === 0) ? fillStyle : lineStyle;
 
-                            if (!style.visible) { continue; }
+                            if (!style$1.visible) { continue; }
 
-                            var nextTexture = style.texture.baseTexture;
+                            var nextTexture = style$1.texture.baseTexture;
 
-                            if (currentTexture !== nextTexture || (style.color + style.alpha) !== currentColor)
+                            var index$1 = this.indices.length;
+                            var attribIndex = this.points.length / 2;
+
+                            // close batch if style is different
+                            if (batchPart
+                                && (currentTexture !== nextTexture
+                                || currentColor !== (style$1.color + style$1.alpha)
+                                || currentNative !== style$1.native))
                             {
-                                // TODO use a const
-                                nextTexture.wrapMode = 10497;
-                                currentTexture = nextTexture;
-                                currentColor = style.color + style.alpha;
-
-                                var index$1 = this.indices.length;
-                                var attribIndex = this.points.length / 2;
-
                                 batchPart.size = index$1 - batchPart.start;
                                 batchPart.attribSize = attribIndex - batchPart.attribStart;
 
                                 if (batchPart.size > 0)
                                 {
-                                    batchPart = BATCH_POOL.pop() || new BatchPart();
-
-                                    this.batches.push(batchPart);
+                                    batchPart = null;
                                 }
+                            }
+                            // spawn new batch if its first batch or previous was closed
+                            if (!batchPart)
+                            {
+                                batchPart = BATCH_POOL.pop() || new BatchPart();
+                                this.batches.push(batchPart);
+                                nextTexture.wrapMode = WRAP_MODES.REPEAT;
+                                currentTexture = nextTexture;
+                                currentColor = style$1.color + style$1.alpha;
+                                currentNative = style$1.native;
 
-                                batchPart.style = style;
+                                batchPart.style = style$1;
                                 batchPart.start = index$1;
                                 batchPart.attribStart = attribIndex;
-
-                                // TODO add this to the render part..
                             }
 
                             var start = this.points.length / 2;
@@ -27293,12 +28327,21 @@
 
                             var size = (this.points.length / 2) - start;
 
-                            this.addUvs(this.points, uvs, style.texture, start, size, style.matrix);
+                            this.addUvs(this.points, uvs, style$1.texture, start, size, style$1.matrix);
                         }
                     }
 
                     var index = this.indices.length;
                     var attrib = this.points.length / 2;
+
+                    if (!batchPart)
+                    {
+                        // there are no visible styles in GraphicsData
+                        // its possible that someone wants Graphics just for the bounds
+                        this.batchable = true;
+
+                        return;
+                    }
 
                     batchPart.size = index - batchPart.start;
                     batchPart.attribSize = attrib - batchPart.attribStart;
@@ -28299,6 +29342,14 @@
                     this._transformID = -1;
                     this.batchDirty = -1;
 
+                    /**
+                     * Renderer plugin for batching
+                     *
+                     * @member {string}
+                     * @default 'batch'
+                     */
+                    this.pluginName = 'batch';
+
                     // Set default
                     this.tint = 0xFFFFFF;
                     this.blendMode = BLEND_MODES.NORMAL;
@@ -28386,7 +29437,7 @@
                  * @param {number} [width=0] - width of the line to draw, will update the objects stored style
                  * @param {number} [color=0] - color of the line to draw, will update the objects stored style
                  * @param {number} [alpha=1] - alpha of the line to draw, will update the objects stored style
-                 * @param {number} [alignment=1] - alignment of the line to draw, (0 = inner, 0.5 = middle, 1 = outter)
+                 * @param {number} [alignment=0.5] - alignment of the line to draw, (0 = inner, 0.5 = middle, 1 = outter)
                  * @param {boolean} [native=false] - If true the lines will be draw using LINES instead of TRIANGLE_STRIP
                  * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
                  */
@@ -28955,11 +30006,12 @@
                 Graphics.prototype.clear = function clear ()
                 {
                     this.geometry.clear();
+                    this._lineStyle.reset();
+                    this._fillStyle.reset();
 
                     this._matrix = null;
                     this._holeMode = false;
                     this.currentPath = null;
-                    this._spriteRect = null;
 
                     return this;
                 };
@@ -29043,10 +30095,10 @@
                             }
                         }
 
-                        renderer.batch.setObjectRenderer(renderer.plugins.batch);
-
                         if (this.batches.length)
                         {
+                            renderer.batch.setObjectRenderer(renderer.plugins[this.pluginName]);
+
                             this.calculateVertices();
                             this.calculateTints();
 
@@ -29056,7 +30108,7 @@
 
                                 batch$1.worldAlpha = this.worldAlpha * batch$1.alpha;
 
-                                renderer.plugins.batch.render(batch$1);
+                                renderer.plugins[this.pluginName].render(batch$1);
                             }
                         }
                     }
@@ -29085,7 +30137,7 @@
                                 };
 
                                 // we can bbase default shader of the batch renderers program
-                                var program =  renderer.plugins.batch.shader.program;
+                                var program =  renderer.plugins.batch._shader.program;
 
                                 defaultShader = new Shader(program, uniforms);
                             }
@@ -29118,7 +30170,7 @@
                         renderer.geometry.bind(geometry, this.shader);
 
                         // set state..
-                        renderer.state.setState(this.state);
+                        renderer.state.set(this.state);
 
                         // then render the rest of them...
                         for (var i$3 = 0; i$3 < geometry.drawCalls.length; i$3++)
@@ -29342,11 +30394,10 @@
              * @member {PIXI.Point}
              */
             Graphics._TEMP_POINT = new Point();
-            //# sourceMappingURL=graphics.es.js.map
 
             /*!
-             * @pixi/sprite - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/sprite - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/sprite is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -29387,14 +30438,20 @@
                     Container.call(this);
 
                     /**
-                     * The anchor sets the origin point of the texture.
-                     * The default is 0,0 or taken from the {@link PIXI.Texture#defaultAnchor|Texture}
-                     * passed to the constructor. A value of 0,0 means the texture's origin is the top left.
-                     * Setting the anchor to 0.5,0.5 means the texture's origin is centered.
-                     * Setting the anchor to 1,1 would mean the texture's origin point will be the bottom right corner.
-                     * Note: Updating the {@link PIXI.Texture#defaultAnchor} after a Texture is
-                     * created does _not_ update the Sprite's anchor values.
+                     * The anchor point defines the normalized coordinates
+                     * in the texture that map to the position of this
+                     * sprite.
                      *
+                     * By default, this is `(0,0)` (or `texture.defaultAnchor`
+                     * if you have modified that), which means the position
+                     * `(x,y)` of this `Sprite` will be the top-left corner.
+                     *
+                     * Note: Updating `texture.defaultAnchor` after
+                     * constructing a `Sprite` does _not_ update its anchor.
+                     *
+                     * {@link https://docs.cocos2d-x.org/cocos2d-x/en/sprites/manipulation.html}
+                     *
+                     * @default `texture.defaultAnchor`
                      * @member {PIXI.ObservablePoint}
                      * @private
                      */
@@ -29504,7 +30561,7 @@
                      * Allows to customize the rendering process without overriding '_render' & '_renderCanvas' methods.
                      *
                      * @member {string}
-                     * @default 'sprite'
+                     * @default 'batch'
                      */
                     this.pluginName = 'batch';
 
@@ -29995,11 +31052,10 @@
 
                 return Sprite;
             }(Container));
-            //# sourceMappingURL=sprite.es.js.map
 
             /*!
-             * @pixi/text - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/text - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/text is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -31480,7 +32536,21 @@
              * @private
              */
 
-            var canvas = document.createElement('canvas');
+            var canvas = (function () {
+                try
+                {
+                    // OffscreenCanvas2D measureText can be up to 40% faster.
+                    var c = new OffscreenCanvas(0, 0);
+
+                    c.getContext('2d');
+
+                    return c;
+                }
+                catch (ex)
+                {
+                    return document.createElement('canvas');
+                }
+            })();
 
             canvas.width = canvas.height = 10;
 
@@ -31896,8 +32966,8 @@
                     var padding = style.trim ? 0 : style.padding;
                     var baseTexture = texture.baseTexture;
 
-                    texture.trim.width = texture._frame.width = canvas.width / this._resolution;
-                    texture.trim.height = texture._frame.height = canvas.height / this._resolution;
+                    texture.trim.width = texture._frame.width = Math.ceil(canvas.width / this._resolution);
+                    texture.trim.height = texture._frame.height = Math.ceil(canvas.height / this._resolution);
                     texture.trim.x = -padding;
                     texture.trim.y = -padding;
 
@@ -31915,9 +32985,10 @@
                 /**
                  * Renders the object using the WebGL renderer
                  *
+                 * @private
                  * @param {PIXI.Renderer} renderer - The renderer
                  */
-                Text.prototype.render = function render (renderer)
+                Text.prototype._render = function _render (renderer)
                 {
                     if (this._autoResolution && this._resolution !== renderer.resolution)
                     {
@@ -31927,26 +32998,7 @@
 
                     this.updateText(true);
 
-                    Sprite.prototype.render.call(this, renderer);
-                };
-
-                /**
-                 * Renders the object using the Canvas renderer
-                 *
-                 * @private
-                 * @param {PIXI.CanvasRenderer} renderer - The renderer
-                 */
-                Text.prototype._renderCanvas = function _renderCanvas (renderer)
-                {
-                    if (this._autoResolution && this._resolution !== renderer.resolution)
-                    {
-                        this._resolution = renderer.resolution;
-                        this.dirty = true;
-                    }
-
-                    this.updateText(true);
-
-                    Sprite.prototype._renderCanvas.call(this, renderer);
+                    Sprite.prototype._render.call(this, renderer);
                 };
 
                 /**
@@ -31997,6 +33049,10 @@
                     {
                         return style.fill;
                     }
+                    else if (style.fill.length === 1)
+                    {
+                        return style.fill[0];
+                    }
 
                     // the gradient will be evenly spaced out according to how large the array is.
                     // ['#FF0000', '#00FF00', '#0000FF'] would created stops at 0.25, 0.5 and 0.75
@@ -32005,8 +33061,8 @@
                     var currentIteration;
                     var stop;
 
-                    var width = this.canvas.width / this._resolution;
-                    var height = this.canvas.height / this._resolution;
+                    var width = Math.ceil(this.canvas.width / this._resolution);
+                    var height = Math.ceil(this.canvas.height / this._resolution);
 
                     // make a copy of the style settings, so we can manipulate them later
                     var fill = style.fill.slice();
@@ -32238,11 +33294,10 @@
 
                 return Text;
             }(Sprite));
-            //# sourceMappingURL=text.es.js.map
 
             /*!
-             * @pixi/prepare - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/prepare - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/prepare is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -32830,7 +33885,7 @@
                     // reuploads the texture without need for preparing it again
                     if (!item._glTextures[renderer.CONTEXT_UID])
                     {
-                        renderer.textureManager.updateTexture(item);
+                        renderer.texture.bind(item);
                     }
 
                     return true;
@@ -32923,7 +33978,6 @@
             {
                 return Date.now() - this.frameStart < this.maxMilliseconds;
             };
-            //# sourceMappingURL=prepare.es.js.map
 
             var prepare_es = /*#__PURE__*/Object.freeze({
                         BasePrepare: BasePrepare,
@@ -32933,8 +33987,8 @@
             });
 
             /*!
-             * @pixi/app - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/app - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/app is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -33156,7 +34210,35 @@
             };
 
             Application.registerPlugin(ResizePlugin);
-            //# sourceMappingURL=app.es.js.map
+
+            var parseUri = function parseURI (str, opts) {
+              opts = opts || {};
+
+              var o = {
+                key: ['source', 'protocol', 'authority', 'userInfo', 'user', 'password', 'host', 'port', 'relative', 'path', 'directory', 'file', 'query', 'anchor'],
+                q: {
+                  name: 'queryKey',
+                  parser: /(?:^|&)([^&=]*)=?([^&]*)/g
+                },
+                parser: {
+                  strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
+                  loose: /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
+                }
+              };
+
+              var m = o.parser[opts.strictMode ? 'strict' : 'loose'].exec(str);
+              var uri = {};
+              var i = 14;
+
+              while (i--) uri[o.key[i]] = m[i] || '';
+
+              uri[o.q.name] = {};
+              uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
+                if ($1) uri[o.q.name][$1] = $2;
+              });
+
+              return uri
+            };
 
             var miniSignals = createCommonjsModule(function (module, exports) {
 
@@ -33325,42 +34407,17 @@
             module.exports = exports['default'];
             });
 
-            unwrapExports(miniSignals);
+            var Signal = unwrapExports(miniSignals);
 
-            var parseUri = function parseURI (str, opts) {
-              opts = opts || {};
+            /*!
+             * resource-loader - v3.0.1
+             * https://github.com/pixijs/pixi-sound
+             * Compiled Tue, 02 Jul 2019 14:06:18 UTC
+             *
+             * resource-loader is licensed under the MIT license.
+             * http://www.opensource.org/licenses/mit-license
+             */
 
-              var o = {
-                key: ['source', 'protocol', 'authority', 'userInfo', 'user', 'password', 'host', 'port', 'relative', 'path', 'directory', 'file', 'query', 'anchor'],
-                q: {
-                  name: 'queryKey',
-                  parser: /(?:^|&)([^&=]*)=?([^&]*)/g
-                },
-                parser: {
-                  strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
-                  loose: /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
-                }
-              };
-
-              var m = o.parser[opts.strictMode ? 'strict' : 'loose'].exec(str);
-              var uri = {};
-              var i = 14;
-
-              while (i--) uri[o.key[i]] = m[i] || '';
-
-              uri[o.q.name] = {};
-              uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
-                if ($1) uri[o.q.name][$1] = $2;
-              });
-
-              return uri
-            };
-
-            var async = createCommonjsModule(function (module, exports) {
-
-            exports.__esModule = true;
-            exports.eachSeries = eachSeries;
-            exports.queue = queue;
             /**
              * Smaller version of the async library constructs.
              *
@@ -33374,40 +34431,43 @@
              * @function
              * @memberof async
              */
-            function _noop() {} /* empty */
+            function _noop() {}
+            /* empty */
 
             /**
              * Iterates an array in series.
              *
              * @memberof async
+             * @function eachSeries
              * @param {Array.<*>} array - Array to iterate.
              * @param {function} iterator - Function to call for each element.
              * @param {function} callback - Function to call when done, or on error.
              * @param {boolean} [deferNext=false] - Break synchronous each loop by calling next with a setTimeout of 1.
              */
+
+
             function eachSeries(array, iterator, callback, deferNext) {
-                var i = 0;
-                var len = array.length;
+              var i = 0;
+              var len = array.length;
 
-                (function next(err) {
-                    if (err || i === len) {
-                        if (callback) {
-                            callback(err);
-                        }
+              (function next(err) {
+                if (err || i === len) {
+                  if (callback) {
+                    callback(err);
+                  }
 
-                        return;
-                    }
+                  return;
+                }
 
-                    if (deferNext) {
-                        setTimeout(function () {
-                            iterator(array[i++], next);
-                        }, 1);
-                    } else {
-                        iterator(array[i++], next);
-                    }
-                })();
+                if (deferNext) {
+                  setTimeout(function () {
+                    iterator(array[i++], next);
+                  }, 1);
+                } else {
+                  iterator(array[i++], next);
+                }
+              })();
             }
-
             /**
              * Ensures a function is only called once.
              *
@@ -33416,205 +34476,225 @@
              * @param {function} fn - The function to wrap.
              * @return {function} The wrapping function.
              */
+
             function onlyOnce(fn) {
-                return function onceWrapper() {
-                    if (fn === null) {
-                        throw new Error('Callback was already called.');
-                    }
+              return function onceWrapper() {
+                if (fn === null) {
+                  throw new Error('Callback was already called.');
+                }
 
-                    var callFn = fn;
-
-                    fn = null;
-                    callFn.apply(this, arguments);
-                };
+                var callFn = fn;
+                fn = null;
+                callFn.apply(this, arguments);
+              };
             }
-
             /**
              * Async queue implementation,
              *
              * @memberof async
+             * @function queue
              * @param {function} worker - The worker function to call for each task.
              * @param {number} concurrency - How many workers to run in parrallel.
              * @return {*} The async queue object.
              */
+
+
             function queue(worker, concurrency) {
-                if (concurrency == null) {
-                    // eslint-disable-line no-eq-null,eqeqeq
-                    concurrency = 1;
-                } else if (concurrency === 0) {
-                    throw new Error('Concurrency must not be zero');
+              if (concurrency == null) {
+                // eslint-disable-line no-eq-null,eqeqeq
+                concurrency = 1;
+              } else if (concurrency === 0) {
+                throw new Error('Concurrency must not be zero');
+              }
+
+              var workers = 0;
+              var q = {
+                _tasks: [],
+                concurrency: concurrency,
+                saturated: _noop,
+                unsaturated: _noop,
+                buffer: concurrency / 4,
+                empty: _noop,
+                drain: _noop,
+                error: _noop,
+                started: false,
+                paused: false,
+                push: function push(data, callback) {
+                  _insert(data, false, callback);
+                },
+                kill: function kill() {
+                  workers = 0;
+                  q.drain = _noop;
+                  q.started = false;
+                  q._tasks = [];
+                },
+                unshift: function unshift(data, callback) {
+                  _insert(data, true, callback);
+                },
+                process: function process() {
+                  while (!q.paused && workers < q.concurrency && q._tasks.length) {
+                    var task = q._tasks.shift();
+
+                    if (q._tasks.length === 0) {
+                      q.empty();
+                    }
+
+                    workers += 1;
+
+                    if (workers === q.concurrency) {
+                      q.saturated();
+                    }
+
+                    worker(task.data, onlyOnce(_next(task)));
+                  }
+                },
+                length: function length() {
+                  return q._tasks.length;
+                },
+                running: function running() {
+                  return workers;
+                },
+                idle: function idle() {
+                  return q._tasks.length + workers === 0;
+                },
+                pause: function pause() {
+                  if (q.paused === true) {
+                    return;
+                  }
+
+                  q.paused = true;
+                },
+                resume: function resume() {
+                  if (q.paused === false) {
+                    return;
+                  }
+
+                  q.paused = false; // Need to call q.process once per concurrent
+                  // worker to preserve full concurrency after pause
+
+                  for (var w = 1; w <= q.concurrency; w++) {
+                    q.process();
+                  }
+                }
+              };
+
+              function _insert(data, insertAtFront, callback) {
+                if (callback != null && typeof callback !== 'function') {
+                  // eslint-disable-line no-eq-null,eqeqeq
+                  throw new Error('task callback must be a function');
                 }
 
-                var workers = 0;
-                var q = {
-                    _tasks: [],
-                    concurrency: concurrency,
-                    saturated: _noop,
-                    unsaturated: _noop,
-                    buffer: concurrency / 4,
-                    empty: _noop,
-                    drain: _noop,
-                    error: _noop,
-                    started: false,
-                    paused: false,
-                    push: function push(data, callback) {
-                        _insert(data, false, callback);
-                    },
-                    kill: function kill() {
-                        workers = 0;
-                        q.drain = _noop;
-                        q.started = false;
-                        q._tasks = [];
-                    },
-                    unshift: function unshift(data, callback) {
-                        _insert(data, true, callback);
-                    },
-                    process: function process() {
-                        while (!q.paused && workers < q.concurrency && q._tasks.length) {
-                            var task = q._tasks.shift();
+                q.started = true;
 
-                            if (q._tasks.length === 0) {
-                                q.empty();
-                            }
+                if (data == null && q.idle()) {
+                  // eslint-disable-line no-eq-null,eqeqeq
+                  // call drain immediately if there are no tasks
+                  setTimeout(function () {
+                    return q.drain();
+                  }, 1);
+                  return;
+                }
 
-                            workers += 1;
-
-                            if (workers === q.concurrency) {
-                                q.saturated();
-                            }
-
-                            worker(task.data, onlyOnce(_next(task)));
-                        }
-                    },
-                    length: function length() {
-                        return q._tasks.length;
-                    },
-                    running: function running() {
-                        return workers;
-                    },
-                    idle: function idle() {
-                        return q._tasks.length + workers === 0;
-                    },
-                    pause: function pause() {
-                        if (q.paused === true) {
-                            return;
-                        }
-
-                        q.paused = true;
-                    },
-                    resume: function resume() {
-                        if (q.paused === false) {
-                            return;
-                        }
-
-                        q.paused = false;
-
-                        // Need to call q.process once per concurrent
-                        // worker to preserve full concurrency after pause
-                        for (var w = 1; w <= q.concurrency; w++) {
-                            q.process();
-                        }
-                    }
+                var item = {
+                  data: data,
+                  callback: typeof callback === 'function' ? callback : _noop
                 };
 
-                function _insert(data, insertAtFront, callback) {
-                    if (callback != null && typeof callback !== 'function') {
-                        // eslint-disable-line no-eq-null,eqeqeq
-                        throw new Error('task callback must be a function');
-                    }
-
-                    q.started = true;
-
-                    if (data == null && q.idle()) {
-                        // eslint-disable-line no-eq-null,eqeqeq
-                        // call drain immediately if there are no tasks
-                        setTimeout(function () {
-                            return q.drain();
-                        }, 1);
-
-                        return;
-                    }
-
-                    var item = {
-                        data: data,
-                        callback: typeof callback === 'function' ? callback : _noop
-                    };
-
-                    if (insertAtFront) {
-                        q._tasks.unshift(item);
-                    } else {
-                        q._tasks.push(item);
-                    }
-
-                    setTimeout(function () {
-                        return q.process();
-                    }, 1);
+                if (insertAtFront) {
+                  q._tasks.unshift(item);
+                } else {
+                  q._tasks.push(item);
                 }
 
-                function _next(task) {
-                    return function next() {
-                        workers -= 1;
+                setTimeout(function () {
+                  return q.process();
+                }, 1);
+              }
 
-                        task.callback.apply(task, arguments);
+              function _next(task) {
+                return function next() {
+                  workers -= 1;
+                  task.callback.apply(task, arguments);
 
-                        if (arguments[0] != null) {
-                            // eslint-disable-line no-eq-null,eqeqeq
-                            q.error(arguments[0], task.data);
-                        }
+                  if (arguments[0] != null) {
+                    // eslint-disable-line no-eq-null,eqeqeq
+                    q.error(arguments[0], task.data);
+                  }
 
-                        if (workers <= q.concurrency - q.buffer) {
-                            q.unsaturated();
-                        }
+                  if (workers <= q.concurrency - q.buffer) {
+                    q.unsaturated();
+                  }
 
-                        if (q.idle()) {
-                            q.drain();
-                        }
+                  if (q.idle()) {
+                    q.drain();
+                  }
 
-                        q.process();
-                    };
-                }
+                  q.process();
+                };
+              }
 
-                return q;
+              return q;
             }
-            //# sourceMappingURL=async.js.map
-            });
 
-            unwrapExports(async);
-            var async_1 = async.eachSeries;
-            var async_2 = async.queue;
+            // a simple in-memory cache for resources
+            var cache = {};
+            /**
+             * A simple in-memory cache for resource.
+             *
+             * @memberof middleware
+             * @function caching
+             * @example
+             * import { Loader, middleware } from 'resource-loader';
+             * const loader = new Loader();
+             * loader.use(middleware.caching);
+             * @param {Resource} resource - Current Resource
+             * @param {function} next - Callback when complete
+             */
 
-            var Resource_1 = createCommonjsModule(function (module, exports) {
+            function caching(resource, next) {
+              var _this = this;
 
-            exports.__esModule = true;
-            exports.Resource = undefined;
+              // if cached, then set data and complete the resource
+              if (cache[resource.url]) {
+                resource.data = cache[resource.url];
+                resource.complete(); // marks resource load complete and stops processing before middlewares
+              } // if not cached, wait for complete and store it in the cache.
+              else {
+                  resource.onComplete.once(function () {
+                    return cache[_this.url] = _this.data;
+                  });
+                }
 
-            var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+              next();
+            }
 
+            function _defineProperties(target, props) {
+              for (var i = 0; i < props.length; i++) {
+                var descriptor = props[i];
+                descriptor.enumerable = descriptor.enumerable || false;
+                descriptor.configurable = true;
+                if ("value" in descriptor) descriptor.writable = true;
+                Object.defineProperty(target, descriptor.key, descriptor);
+              }
+            }
 
+            function _createClass(Constructor, protoProps, staticProps) {
+              if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+              if (staticProps) _defineProperties(Constructor, staticProps);
+              return Constructor;
+            }
 
-            var _parseUri2 = _interopRequireDefault(parseUri);
-
-
-
-            var _miniSignals2 = _interopRequireDefault(miniSignals);
-
-            function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-            function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-            // tests if CORS is supported in XHR, if not we need to use XDR
             var useXdr = !!(window.XDomainRequest && !('withCredentials' in new XMLHttpRequest()));
-            var tempAnchor = null;
+            var tempAnchor$1 = null; // some status constants
 
-            // some status constants
             var STATUS_NONE = 0;
             var STATUS_OK = 200;
             var STATUS_EMPTY = 204;
             var STATUS_IE_BUG_EMPTY = 1223;
-            var STATUS_TYPE_OK = 2;
+            var STATUS_TYPE_OK = 2; // noop
 
-            // noop
-            function _noop() {} /* empty */
+            function _noop$1() {}
+            /* empty */
 
             /**
              * Manages the state and loading of a resource and all child resources.
@@ -33622,1041 +34702,996 @@
              * @class
              */
 
-            var Resource = exports.Resource = function () {
-                /**
-                 * Sets the load type to be used for a specific extension.
-                 *
-                 * @static
-                 * @param {string} extname - The extension to set the type for, e.g. "png" or "fnt"
-                 * @param {Resource.LOAD_TYPE} loadType - The load type to set it to.
-                 */
-                Resource.setExtensionLoadType = function setExtensionLoadType(extname, loadType) {
-                    setExtMap(Resource._loadTypeMap, extname, loadType);
-                };
 
-                /**
-                 * Sets the load type to be used for a specific extension.
-                 *
-                 * @static
-                 * @param {string} extname - The extension to set the type for, e.g. "png" or "fnt"
-                 * @param {Resource.XHR_RESPONSE_TYPE} xhrType - The xhr type to set it to.
-                 */
+            var Resource$1 =
+            /*#__PURE__*/
+            function () {
+              /**
+               * Sets the load type to be used for a specific extension.
+               *
+               * @static
+               * @param {string} extname - The extension to set the type for, e.g. "png" or "fnt"
+               * @param {Resource.LOAD_TYPE} loadType - The load type to set it to.
+               */
+              Resource.setExtensionLoadType = function setExtensionLoadType(extname, loadType) {
+                setExtMap(Resource._loadTypeMap, extname, loadType);
+              }
+              /**
+               * Sets the load type to be used for a specific extension.
+               *
+               * @static
+               * @param {string} extname - The extension to set the type for, e.g. "png" or "fnt"
+               * @param {Resource.XHR_RESPONSE_TYPE} xhrType - The xhr type to set it to.
+               */
+              ;
 
+              Resource.setExtensionXhrType = function setExtensionXhrType(extname, xhrType) {
+                setExtMap(Resource._xhrTypeMap, extname, xhrType);
+              }
+              /**
+               * @param {string} name - The name of the resource to load.
+               * @param {string|string[]} url - The url for this resource, for audio/video loads you can pass
+               *      an array of sources.
+               * @param {object} [options] - The options for the load.
+               * @param {string|boolean} [options.crossOrigin] - Is this request cross-origin? Default is to
+               *      determine automatically.
+               * @param {number} [options.timeout=0] - A timeout in milliseconds for the load. If the load takes
+               *      longer than this time it is cancelled and the load is considered a failure. If this value is
+               *      set to `0` then there is no explicit timeout.
+               * @param {Resource.LOAD_TYPE} [options.loadType=Resource.LOAD_TYPE.XHR] - How should this resource
+               *      be loaded?
+               * @param {Resource.XHR_RESPONSE_TYPE} [options.xhrType=Resource.XHR_RESPONSE_TYPE.DEFAULT] - How
+               *      should the data being loaded be interpreted when using XHR?
+               * @param {Resource.IMetadata} [options.metadata] - Extra configuration for middleware and the Resource object.
+               */
+              ;
 
-                Resource.setExtensionXhrType = function setExtensionXhrType(extname, xhrType) {
-                    setExtMap(Resource._xhrTypeMap, extname, xhrType);
-                };
-
-                /**
-                 * @param {string} name - The name of the resource to load.
-                 * @param {string|string[]} url - The url for this resource, for audio/video loads you can pass
-                 *      an array of sources.
-                 * @param {object} [options] - The options for the load.
-                 * @param {string|boolean} [options.crossOrigin] - Is this request cross-origin? Default is to
-                 *      determine automatically.
-                 * @param {number} [options.timeout=0] - A timeout in milliseconds for the load. If the load takes
-                 *      longer than this time it is cancelled and the load is considered a failure. If this value is
-                 *      set to `0` then there is no explicit timeout.
-                 * @param {Resource.LOAD_TYPE} [options.loadType=Resource.LOAD_TYPE.XHR] - How should this resource
-                 *      be loaded?
-                 * @param {Resource.XHR_RESPONSE_TYPE} [options.xhrType=Resource.XHR_RESPONSE_TYPE.DEFAULT] - How
-                 *      should the data being loaded be interpreted when using XHR?
-                 * @param {Resource.IMetadata} [options.metadata] - Extra configuration for middleware and the Resource object.
-                 */
-
-
-                function Resource(name, url, options) {
-                    _classCallCheck(this, Resource);
-
-                    if (typeof name !== 'string' || typeof url !== 'string') {
-                        throw new Error('Both name and url are required for constructing a resource.');
-                    }
-
-                    options = options || {};
-
-                    /**
-                     * The state flags of this resource.
-                     *
-                     * @private
-                     * @member {number}
-                     */
-                    this._flags = 0;
-
-                    // set data url flag, needs to be set early for some _determineX checks to work.
-                    this._setFlag(Resource.STATUS_FLAGS.DATA_URL, url.indexOf('data:') === 0);
-
-                    /**
-                     * The name of this resource.
-                     *
-                     * @readonly
-                     * @member {string}
-                     */
-                    this.name = name;
-
-                    /**
-                     * The url used to load this resource.
-                     *
-                     * @readonly
-                     * @member {string}
-                     */
-                    this.url = url;
-
-                    /**
-                     * The extension used to load this resource.
-                     *
-                     * @readonly
-                     * @member {string}
-                     */
-                    this.extension = this._getExtension();
-
-                    /**
-                     * The data that was loaded by the resource.
-                     *
-                     * @member {any}
-                     */
-                    this.data = null;
-
-                    /**
-                     * Is this request cross-origin? If unset, determined automatically.
-                     *
-                     * @member {string}
-                     */
-                    this.crossOrigin = options.crossOrigin === true ? 'anonymous' : options.crossOrigin;
-
-                    /**
-                     * A timeout in milliseconds for the load. If the load takes longer than this time
-                     * it is cancelled and the load is considered a failure. If this value is set to `0`
-                     * then there is no explicit timeout.
-                     *
-                     * @member {number}
-                     */
-                    this.timeout = options.timeout || 0;
-
-                    /**
-                     * The method of loading to use for this resource.
-                     *
-                     * @member {Resource.LOAD_TYPE}
-                     */
-                    this.loadType = options.loadType || this._determineLoadType();
-
-                    /**
-                     * The type used to load the resource via XHR. If unset, determined automatically.
-                     *
-                     * @member {string}
-                     */
-                    this.xhrType = options.xhrType;
-
-                    /**
-                     * Extra info for middleware, and controlling specifics about how the resource loads.
-                     *
-                     * Note that if you pass in a `loadElement`, the Resource class takes ownership of it.
-                     * Meaning it will modify it as it sees fit.
-                     *
-                     * @member {Resource.IMetadata}
-                     */
-                    this.metadata = options.metadata || {};
-
-                    /**
-                     * The error that occurred while loading (if any).
-                     *
-                     * @readonly
-                     * @member {Error}
-                     */
-                    this.error = null;
-
-                    /**
-                     * The XHR object that was used to load this resource. This is only set
-                     * when `loadType` is `Resource.LOAD_TYPE.XHR`.
-                     *
-                     * @readonly
-                     * @member {XMLHttpRequest}
-                     */
-                    this.xhr = null;
-
-                    /**
-                     * The child resources this resource owns.
-                     *
-                     * @readonly
-                     * @member {Resource[]}
-                     */
-                    this.children = [];
-
-                    /**
-                     * The resource type.
-                     *
-                     * @readonly
-                     * @member {Resource.TYPE}
-                     */
-                    this.type = Resource.TYPE.UNKNOWN;
-
-                    /**
-                     * The progress chunk owned by this resource.
-                     *
-                     * @readonly
-                     * @member {number}
-                     */
-                    this.progressChunk = 0;
-
-                    /**
-                     * The `dequeue` method that will be used a storage place for the async queue dequeue method
-                     * used privately by the loader.
-                     *
-                     * @private
-                     * @member {function}
-                     */
-                    this._dequeue = _noop;
-
-                    /**
-                     * Used a storage place for the on load binding used privately by the loader.
-                     *
-                     * @private
-                     * @member {function}
-                     */
-                    this._onLoadBinding = null;
-
-                    /**
-                     * The timer for element loads to check if they timeout.
-                     *
-                     * @private
-                     * @member {number}
-                     */
-                    this._elementTimer = 0;
-
-                    /**
-                     * The `complete` function bound to this resource's context.
-                     *
-                     * @private
-                     * @member {function}
-                     */
-                    this._boundComplete = this.complete.bind(this);
-
-                    /**
-                     * The `_onError` function bound to this resource's context.
-                     *
-                     * @private
-                     * @member {function}
-                     */
-                    this._boundOnError = this._onError.bind(this);
-
-                    /**
-                     * The `_onProgress` function bound to this resource's context.
-                     *
-                     * @private
-                     * @member {function}
-                     */
-                    this._boundOnProgress = this._onProgress.bind(this);
-
-                    /**
-                     * The `_onTimeout` function bound to this resource's context.
-                     *
-                     * @private
-                     * @member {function}
-                     */
-                    this._boundOnTimeout = this._onTimeout.bind(this);
-
-                    // xhr callbacks
-                    this._boundXhrOnError = this._xhrOnError.bind(this);
-                    this._boundXhrOnTimeout = this._xhrOnTimeout.bind(this);
-                    this._boundXhrOnAbort = this._xhrOnAbort.bind(this);
-                    this._boundXhrOnLoad = this._xhrOnLoad.bind(this);
-
-                    /**
-                     * Dispatched when the resource beings to load.
-                     *
-                     * The callback looks like {@link Resource.OnStartSignal}.
-                     *
-                     * @member {Signal<Resource.OnStartSignal>}
-                     */
-                    this.onStart = new _miniSignals2.default();
-
-                    /**
-                     * Dispatched each time progress of this resource load updates.
-                     * Not all resources types and loader systems can support this event
-                     * so sometimes it may not be available. If the resource
-                     * is being loaded on a modern browser, using XHR, and the remote server
-                     * properly sets Content-Length headers, then this will be available.
-                     *
-                     * The callback looks like {@link Resource.OnProgressSignal}.
-                     *
-                     * @member {Signal<Resource.OnProgressSignal>}
-                     */
-                    this.onProgress = new _miniSignals2.default();
-
-                    /**
-                     * Dispatched once this resource has loaded, if there was an error it will
-                     * be in the `error` property.
-                     *
-                     * The callback looks like {@link Resource.OnCompleteSignal}.
-                     *
-                     * @member {Signal<Resource.OnCompleteSignal>}
-                     */
-                    this.onComplete = new _miniSignals2.default();
-
-                    /**
-                     * Dispatched after this resource has had all the *after* middleware run on it.
-                     *
-                     * The callback looks like {@link Resource.OnCompleteSignal}.
-                     *
-                     * @member {Signal<Resource.OnCompleteSignal>}
-                     */
-                    this.onAfterMiddleware = new _miniSignals2.default();
+              function Resource(name, url, options) {
+                if (typeof name !== 'string' || typeof url !== 'string') {
+                  throw new Error('Both name and url are required for constructing a resource.');
                 }
 
+                options = options || {};
                 /**
-                 * When the resource starts to load.
+                 * The state flags of this resource.
                  *
-                 * @memberof Resource
-                 * @callback OnStartSignal
-                 * @param {Resource} resource - The resource that the event happened on.
+                 * @private
+                 * @member {number}
                  */
 
+                this._flags = 0; // set data url flag, needs to be set early for some _determineX checks to work.
+
+                this._setFlag(Resource.STATUS_FLAGS.DATA_URL, url.indexOf('data:') === 0);
                 /**
-                 * When the resource reports loading progress.
+                 * The name of this resource.
                  *
-                 * @memberof Resource
-                 * @callback OnProgressSignal
-                 * @param {Resource} resource - The resource that the event happened on.
-                 * @param {number} percentage - The progress of the load in the range [0, 1].
+                 * @readonly
+                 * @member {string}
                  */
 
+
+                this.name = name;
                 /**
-                 * When the resource finishes loading.
+                 * The url used to load this resource.
                  *
-                 * @memberof Resource
-                 * @callback OnCompleteSignal
-                 * @param {Resource} resource - The resource that the event happened on.
+                 * @readonly
+                 * @member {string}
                  */
 
+                this.url = url;
                 /**
-                 * @memberof Resource
-                 * @typedef {object} IMetadata
-                 * @property {HTMLImageElement|HTMLAudioElement|HTMLVideoElement} [loadElement=null] - The
-                 *      element to use for loading, instead of creating one.
-                 * @property {boolean} [skipSource=false] - Skips adding source(s) to the load element. This
-                 *      is useful if you want to pass in a `loadElement` that you already added load sources to.
-                 * @property {string|string[]} [mimeType] - The mime type to use for the source element
-                 *      of a video/audio elment. If the urls are an array, you can pass this as an array as well
-                 *      where each index is the mime type to use for the corresponding url index.
+                 * The extension used to load this resource.
+                 *
+                 * @readonly
+                 * @member {string}
                  */
 
+                this.extension = this._getExtension();
                 /**
-                 * Stores whether or not this url is a data url.
+                 * The data that was loaded by the resource.
+                 *
+                 * @member {any}
+                 */
+
+                this.data = null;
+                /**
+                 * Is this request cross-origin? If unset, determined automatically.
+                 *
+                 * @member {string}
+                 */
+
+                this.crossOrigin = options.crossOrigin === true ? 'anonymous' : options.crossOrigin;
+                /**
+                 * A timeout in milliseconds for the load. If the load takes longer than this time
+                 * it is cancelled and the load is considered a failure. If this value is set to `0`
+                 * then there is no explicit timeout.
+                 *
+                 * @member {number}
+                 */
+
+                this.timeout = options.timeout || 0;
+                /**
+                 * The method of loading to use for this resource.
+                 *
+                 * @member {Resource.LOAD_TYPE}
+                 */
+
+                this.loadType = options.loadType || this._determineLoadType();
+                /**
+                 * The type used to load the resource via XHR. If unset, determined automatically.
+                 *
+                 * @member {string}
+                 */
+
+                this.xhrType = options.xhrType;
+                /**
+                 * Extra info for middleware, and controlling specifics about how the resource loads.
+                 *
+                 * Note that if you pass in a `loadElement`, the Resource class takes ownership of it.
+                 * Meaning it will modify it as it sees fit.
+                 *
+                 * @member {Resource.IMetadata}
+                 */
+
+                this.metadata = options.metadata || {};
+                /**
+                 * The error that occurred while loading (if any).
+                 *
+                 * @readonly
+                 * @member {Error}
+                 */
+
+                this.error = null;
+                /**
+                 * The XHR object that was used to load this resource. This is only set
+                 * when `loadType` is `Resource.LOAD_TYPE.XHR`.
+                 *
+                 * @readonly
+                 * @member {XMLHttpRequest}
+                 */
+
+                this.xhr = null;
+                /**
+                 * The child resources this resource owns.
+                 *
+                 * @readonly
+                 * @member {Resource[]}
+                 */
+
+                this.children = [];
+                /**
+                 * The resource type.
+                 *
+                 * @readonly
+                 * @member {Resource.TYPE}
+                 */
+
+                this.type = Resource.TYPE.UNKNOWN;
+                /**
+                 * The progress chunk owned by this resource.
+                 *
+                 * @readonly
+                 * @member {number}
+                 */
+
+                this.progressChunk = 0;
+                /**
+                 * The `dequeue` method that will be used a storage place for the async queue dequeue method
+                 * used privately by the loader.
+                 *
+                 * @private
+                 * @member {function}
+                 */
+
+                this._dequeue = _noop$1;
+                /**
+                 * Used a storage place for the on load binding used privately by the loader.
+                 *
+                 * @private
+                 * @member {function}
+                 */
+
+                this._onLoadBinding = null;
+                /**
+                 * The timer for element loads to check if they timeout.
+                 *
+                 * @private
+                 * @member {number}
+                 */
+
+                this._elementTimer = 0;
+                /**
+                 * The `complete` function bound to this resource's context.
+                 *
+                 * @private
+                 * @member {function}
+                 */
+
+                this._boundComplete = this.complete.bind(this);
+                /**
+                 * The `_onError` function bound to this resource's context.
+                 *
+                 * @private
+                 * @member {function}
+                 */
+
+                this._boundOnError = this._onError.bind(this);
+                /**
+                 * The `_onProgress` function bound to this resource's context.
+                 *
+                 * @private
+                 * @member {function}
+                 */
+
+                this._boundOnProgress = this._onProgress.bind(this);
+                /**
+                 * The `_onTimeout` function bound to this resource's context.
+                 *
+                 * @private
+                 * @member {function}
+                 */
+
+                this._boundOnTimeout = this._onTimeout.bind(this); // xhr callbacks
+
+                this._boundXhrOnError = this._xhrOnError.bind(this);
+                this._boundXhrOnTimeout = this._xhrOnTimeout.bind(this);
+                this._boundXhrOnAbort = this._xhrOnAbort.bind(this);
+                this._boundXhrOnLoad = this._xhrOnLoad.bind(this);
+                /**
+                 * Dispatched when the resource beings to load.
+                 *
+                 * The callback looks like {@link Resource.OnStartSignal}.
+                 *
+                 * @member {Signal<Resource.OnStartSignal>}
+                 */
+
+                this.onStart = new Signal();
+                /**
+                 * Dispatched each time progress of this resource load updates.
+                 * Not all resources types and loader systems can support this event
+                 * so sometimes it may not be available. If the resource
+                 * is being loaded on a modern browser, using XHR, and the remote server
+                 * properly sets Content-Length headers, then this will be available.
+                 *
+                 * The callback looks like {@link Resource.OnProgressSignal}.
+                 *
+                 * @member {Signal<Resource.OnProgressSignal>}
+                 */
+
+                this.onProgress = new Signal();
+                /**
+                 * Dispatched once this resource has loaded, if there was an error it will
+                 * be in the `error` property.
+                 *
+                 * The callback looks like {@link Resource.OnCompleteSignal}.
+                 *
+                 * @member {Signal<Resource.OnCompleteSignal>}
+                 */
+
+                this.onComplete = new Signal();
+                /**
+                 * Dispatched after this resource has had all the *after* middleware run on it.
+                 *
+                 * The callback looks like {@link Resource.OnCompleteSignal}.
+                 *
+                 * @member {Signal<Resource.OnCompleteSignal>}
+                 */
+
+                this.onAfterMiddleware = new Signal();
+              }
+              /**
+               * When the resource starts to load.
+               *
+               * @memberof Resource
+               * @callback OnStartSignal
+               * @param {Resource} resource - The resource that the event happened on.
+               */
+
+              /**
+               * When the resource reports loading progress.
+               *
+               * @memberof Resource
+               * @callback OnProgressSignal
+               * @param {Resource} resource - The resource that the event happened on.
+               * @param {number} percentage - The progress of the load in the range [0, 1].
+               */
+
+              /**
+               * When the resource finishes loading.
+               *
+               * @memberof Resource
+               * @callback OnCompleteSignal
+               * @param {Resource} resource - The resource that the event happened on.
+               */
+
+              /**
+               * @memberof Resource
+               * @typedef {object} IMetadata
+               * @property {HTMLImageElement|HTMLAudioElement|HTMLVideoElement} [loadElement=null] - The
+               *      element to use for loading, instead of creating one.
+               * @property {boolean} [skipSource=false] - Skips adding source(s) to the load element. This
+               *      is useful if you want to pass in a `loadElement` that you already added load sources to.
+               * @property {string|string[]} [mimeType] - The mime type to use for the source element
+               *      of a video/audio elment. If the urls are an array, you can pass this as an array as well
+               *      where each index is the mime type to use for the corresponding url index.
+               */
+
+              /**
+               * Stores whether or not this url is a data url.
+               *
+               * @readonly
+               * @member {boolean}
+               */
+
+
+              var _proto = Resource.prototype;
+
+              /**
+               * Marks the resource as complete.
+               *
+               */
+              _proto.complete = function complete() {
+                this._clearEvents();
+
+                this._finish();
+              }
+              /**
+               * Aborts the loading of this resource, with an optional message.
+               *
+               * @param {string} message - The message to use for the error
+               */
+              ;
+
+              _proto.abort = function abort(message) {
+                // abort can be called multiple times, ignore subsequent calls.
+                if (this.error) {
+                  return;
+                } // store error
+
+
+                this.error = new Error(message); // clear events before calling aborts
+
+                this._clearEvents(); // abort the actual loading
+
+
+                if (this.xhr) {
+                  this.xhr.abort();
+                } else if (this.xdr) {
+                  this.xdr.abort();
+                } else if (this.data) {
+                  // single source
+                  if (this.data.src) {
+                    this.data.src = Resource.EMPTY_GIF;
+                  } // multi-source
+                  else {
+                      while (this.data.firstChild) {
+                        this.data.removeChild(this.data.firstChild);
+                      }
+                    }
+                } // done now.
+
+
+                this._finish();
+              }
+              /**
+               * Kicks off loading of this resource. This method is asynchronous.
+               *
+               * @param {Resource.OnCompleteSignal} [cb] - Optional callback to call once the resource is loaded.
+               */
+              ;
+
+              _proto.load = function load(cb) {
+                var _this = this;
+
+                if (this.isLoading) {
+                  return;
+                }
+
+                if (this.isComplete) {
+                  if (cb) {
+                    setTimeout(function () {
+                      return cb(_this);
+                    }, 1);
+                  }
+
+                  return;
+                } else if (cb) {
+                  this.onComplete.once(cb);
+                }
+
+                this._setFlag(Resource.STATUS_FLAGS.LOADING, true);
+
+                this.onStart.dispatch(this); // if unset, determine the value
+
+                if (this.crossOrigin === false || typeof this.crossOrigin !== 'string') {
+                  this.crossOrigin = this._determineCrossOrigin(this.url);
+                }
+
+                switch (this.loadType) {
+                  case Resource.LOAD_TYPE.IMAGE:
+                    this.type = Resource.TYPE.IMAGE;
+
+                    this._loadElement('image');
+
+                    break;
+
+                  case Resource.LOAD_TYPE.AUDIO:
+                    this.type = Resource.TYPE.AUDIO;
+
+                    this._loadSourceElement('audio');
+
+                    break;
+
+                  case Resource.LOAD_TYPE.VIDEO:
+                    this.type = Resource.TYPE.VIDEO;
+
+                    this._loadSourceElement('video');
+
+                    break;
+
+                  case Resource.LOAD_TYPE.XHR:
+                  /* falls through */
+
+                  default:
+                    if (useXdr && this.crossOrigin) {
+                      this._loadXdr();
+                    } else {
+                      this._loadXhr();
+                    }
+
+                    break;
+                }
+              }
+              /**
+               * Checks if the flag is set.
+               *
+               * @private
+               * @param {number} flag - The flag to check.
+               * @return {boolean} True if the flag is set.
+               */
+              ;
+
+              _proto._hasFlag = function _hasFlag(flag) {
+                return (this._flags & flag) !== 0;
+              }
+              /**
+               * (Un)Sets the flag.
+               *
+               * @private
+               * @param {number} flag - The flag to (un)set.
+               * @param {boolean} value - Whether to set or (un)set the flag.
+               */
+              ;
+
+              _proto._setFlag = function _setFlag(flag, value) {
+                this._flags = value ? this._flags | flag : this._flags & ~flag;
+              }
+              /**
+               * Clears all the events from the underlying loading source.
+               *
+               * @private
+               */
+              ;
+
+              _proto._clearEvents = function _clearEvents() {
+                clearTimeout(this._elementTimer);
+
+                if (this.data && this.data.removeEventListener) {
+                  this.data.removeEventListener('error', this._boundOnError, false);
+                  this.data.removeEventListener('load', this._boundComplete, false);
+                  this.data.removeEventListener('progress', this._boundOnProgress, false);
+                  this.data.removeEventListener('canplaythrough', this._boundComplete, false);
+                }
+
+                if (this.xhr) {
+                  if (this.xhr.removeEventListener) {
+                    this.xhr.removeEventListener('error', this._boundXhrOnError, false);
+                    this.xhr.removeEventListener('timeout', this._boundXhrOnTimeout, false);
+                    this.xhr.removeEventListener('abort', this._boundXhrOnAbort, false);
+                    this.xhr.removeEventListener('progress', this._boundOnProgress, false);
+                    this.xhr.removeEventListener('load', this._boundXhrOnLoad, false);
+                  } else {
+                    this.xhr.onerror = null;
+                    this.xhr.ontimeout = null;
+                    this.xhr.onprogress = null;
+                    this.xhr.onload = null;
+                  }
+                }
+              }
+              /**
+               * Finalizes the load.
+               *
+               * @private
+               */
+              ;
+
+              _proto._finish = function _finish() {
+                if (this.isComplete) {
+                  throw new Error('Complete called again for an already completed resource.');
+                }
+
+                this._setFlag(Resource.STATUS_FLAGS.COMPLETE, true);
+
+                this._setFlag(Resource.STATUS_FLAGS.LOADING, false);
+
+                this.onComplete.dispatch(this);
+              }
+              /**
+               * Loads this resources using an element that has a single source,
+               * like an HTMLImageElement.
+               *
+               * @private
+               * @param {string} type - The type of element to use.
+               */
+              ;
+
+              _proto._loadElement = function _loadElement(type) {
+                if (this.metadata.loadElement) {
+                  this.data = this.metadata.loadElement;
+                } else if (type === 'image' && typeof window.Image !== 'undefined') {
+                  this.data = new Image();
+                } else {
+                  this.data = document.createElement(type);
+                }
+
+                if (this.crossOrigin) {
+                  this.data.crossOrigin = this.crossOrigin;
+                }
+
+                if (!this.metadata.skipSource) {
+                  this.data.src = this.url;
+                }
+
+                this.data.addEventListener('error', this._boundOnError, false);
+                this.data.addEventListener('load', this._boundComplete, false);
+                this.data.addEventListener('progress', this._boundOnProgress, false);
+
+                if (this.timeout) {
+                  this._elementTimer = setTimeout(this._boundOnTimeout, this.timeout);
+                }
+              }
+              /**
+               * Loads this resources using an element that has multiple sources,
+               * like an HTMLAudioElement or HTMLVideoElement.
+               *
+               * @private
+               * @param {string} type - The type of element to use.
+               */
+              ;
+
+              _proto._loadSourceElement = function _loadSourceElement(type) {
+                if (this.metadata.loadElement) {
+                  this.data = this.metadata.loadElement;
+                } else if (type === 'audio' && typeof window.Audio !== 'undefined') {
+                  this.data = new Audio();
+                } else {
+                  this.data = document.createElement(type);
+                }
+
+                if (this.data === null) {
+                  this.abort("Unsupported element: " + type);
+                  return;
+                }
+
+                if (this.crossOrigin) {
+                  this.data.crossOrigin = this.crossOrigin;
+                }
+
+                if (!this.metadata.skipSource) {
+                  // support for CocoonJS Canvas+ runtime, lacks document.createElement('source')
+                  if (navigator.isCocoonJS) {
+                    this.data.src = Array.isArray(this.url) ? this.url[0] : this.url;
+                  } else if (Array.isArray(this.url)) {
+                    var mimeTypes = this.metadata.mimeType;
+
+                    for (var i = 0; i < this.url.length; ++i) {
+                      this.data.appendChild(this._createSource(type, this.url[i], Array.isArray(mimeTypes) ? mimeTypes[i] : mimeTypes));
+                    }
+                  } else {
+                    var _mimeTypes = this.metadata.mimeType;
+                    this.data.appendChild(this._createSource(type, this.url, Array.isArray(_mimeTypes) ? _mimeTypes[0] : _mimeTypes));
+                  }
+                }
+
+                this.data.addEventListener('error', this._boundOnError, false);
+                this.data.addEventListener('load', this._boundComplete, false);
+                this.data.addEventListener('progress', this._boundOnProgress, false);
+                this.data.addEventListener('canplaythrough', this._boundComplete, false);
+                this.data.load();
+
+                if (this.timeout) {
+                  this._elementTimer = setTimeout(this._boundOnTimeout, this.timeout);
+                }
+              }
+              /**
+               * Loads this resources using an XMLHttpRequest.
+               *
+               * @private
+               */
+              ;
+
+              _proto._loadXhr = function _loadXhr() {
+                // if unset, determine the value
+                if (typeof this.xhrType !== 'string') {
+                  this.xhrType = this._determineXhrType();
+                }
+
+                var xhr = this.xhr = new XMLHttpRequest(); // set the request type and url
+
+                xhr.open('GET', this.url, true);
+                xhr.timeout = this.timeout; // load json as text and parse it ourselves. We do this because some browsers
+                // *cough* safari *cough* can't deal with it.
+
+                if (this.xhrType === Resource.XHR_RESPONSE_TYPE.JSON || this.xhrType === Resource.XHR_RESPONSE_TYPE.DOCUMENT) {
+                  xhr.responseType = Resource.XHR_RESPONSE_TYPE.TEXT;
+                } else {
+                  xhr.responseType = this.xhrType;
+                }
+
+                xhr.addEventListener('error', this._boundXhrOnError, false);
+                xhr.addEventListener('timeout', this._boundXhrOnTimeout, false);
+                xhr.addEventListener('abort', this._boundXhrOnAbort, false);
+                xhr.addEventListener('progress', this._boundOnProgress, false);
+                xhr.addEventListener('load', this._boundXhrOnLoad, false);
+                xhr.send();
+              }
+              /**
+               * Loads this resources using an XDomainRequest. This is here because we need to support IE9 (gross).
+               *
+               * @private
+               */
+              ;
+
+              _proto._loadXdr = function _loadXdr() {
+                // if unset, determine the value
+                if (typeof this.xhrType !== 'string') {
+                  this.xhrType = this._determineXhrType();
+                }
+
+                var xdr = this.xhr = new XDomainRequest(); // eslint-disable-line no-undef
+                // XDomainRequest has a few quirks. Occasionally it will abort requests
+                // A way to avoid this is to make sure ALL callbacks are set even if not used
+                // More info here: http://stackoverflow.com/questions/15786966/xdomainrequest-aborts-post-on-ie-9
+
+                xdr.timeout = this.timeout || 5000; // XDR needs a timeout value or it breaks in IE9
+
+                xdr.onerror = this._boundXhrOnError;
+                xdr.ontimeout = this._boundXhrOnTimeout;
+                xdr.onprogress = this._boundOnProgress;
+                xdr.onload = this._boundXhrOnLoad;
+                xdr.open('GET', this.url, true); // Note: The xdr.send() call is wrapped in a timeout to prevent an
+                // issue with the interface where some requests are lost if multiple
+                // XDomainRequests are being sent at the same time.
+                // Some info here: https://github.com/photonstorm/phaser/issues/1248
+
+                setTimeout(function () {
+                  return xdr.send();
+                }, 1);
+              }
+              /**
+               * Creates a source used in loading via an element.
+               *
+               * @private
+               * @param {string} type - The element type (video or audio).
+               * @param {string} url - The source URL to load from.
+               * @param {string} [mime] - The mime type of the video
+               * @return {HTMLSourceElement} The source element.
+               */
+              ;
+
+              _proto._createSource = function _createSource(type, url, mime) {
+                if (!mime) {
+                  mime = type + "/" + this._getExtension(url);
+                }
+
+                var source = document.createElement('source');
+                source.src = url;
+                source.type = mime;
+                return source;
+              }
+              /**
+               * Called if a load errors out.
+               *
+               * @param {Event} event - The error event from the element that emits it.
+               * @private
+               */
+              ;
+
+              _proto._onError = function _onError(event) {
+                this.abort("Failed to load element using: " + event.target.nodeName);
+              }
+              /**
+               * Called if a load progress event fires for an element or xhr/xdr.
+               *
+               * @private
+               * @param {XMLHttpRequestProgressEvent|Event} event - Progress event.
+               */
+              ;
+
+              _proto._onProgress = function _onProgress(event) {
+                if (event && event.lengthComputable) {
+                  this.onProgress.dispatch(this, event.loaded / event.total);
+                }
+              }
+              /**
+               * Called if a timeout event fires for an element.
+               *
+               * @private
+               */
+              ;
+
+              _proto._onTimeout = function _onTimeout() {
+                this.abort("Load timed out.");
+              }
+              /**
+               * Called if an error event fires for xhr/xdr.
+               *
+               * @private
+               */
+              ;
+
+              _proto._xhrOnError = function _xhrOnError() {
+                var xhr = this.xhr;
+                this.abort(reqType(xhr) + " Request failed. Status: " + xhr.status + ", text: \"" + xhr.statusText + "\"");
+              }
+              /**
+               * Called if an error event fires for xhr/xdr.
+               *
+               * @private
+               */
+              ;
+
+              _proto._xhrOnTimeout = function _xhrOnTimeout() {
+                var xhr = this.xhr;
+                this.abort(reqType(xhr) + " Request timed out.");
+              }
+              /**
+               * Called if an abort event fires for xhr/xdr.
+               *
+               * @private
+               */
+              ;
+
+              _proto._xhrOnAbort = function _xhrOnAbort() {
+                var xhr = this.xhr;
+                this.abort(reqType(xhr) + " Request was aborted by the user.");
+              }
+              /**
+               * Called when data successfully loads from an xhr/xdr request.
+               *
+               * @private
+               * @param {XMLHttpRequestLoadEvent|Event} event - Load event
+               */
+              ;
+
+              _proto._xhrOnLoad = function _xhrOnLoad() {
+                var xhr = this.xhr;
+                var text = '';
+                var status = typeof xhr.status === 'undefined' ? STATUS_OK : xhr.status; // XDR has no `.status`, assume 200.
+                // responseText is accessible only if responseType is '' or 'text' and on older browsers
+
+                if (xhr.responseType === '' || xhr.responseType === 'text' || typeof xhr.responseType === 'undefined') {
+                  text = xhr.responseText;
+                } // status can be 0 when using the `file://` protocol so we also check if a response is set.
+                // If it has a response, we assume 200; otherwise a 0 status code with no contents is an aborted request.
+
+
+                if (status === STATUS_NONE && (text.length > 0 || xhr.responseType === Resource.XHR_RESPONSE_TYPE.BUFFER)) {
+                  status = STATUS_OK;
+                } // handle IE9 bug: http://stackoverflow.com/questions/10046972/msie-returns-status-code-of-1223-for-ajax-request
+                else if (status === STATUS_IE_BUG_EMPTY) {
+                    status = STATUS_EMPTY;
+                  }
+
+                var statusType = status / 100 | 0;
+
+                if (statusType === STATUS_TYPE_OK) {
+                  // if text, just return it
+                  if (this.xhrType === Resource.XHR_RESPONSE_TYPE.TEXT) {
+                    this.data = text;
+                    this.type = Resource.TYPE.TEXT;
+                  } // if json, parse into json object
+                  else if (this.xhrType === Resource.XHR_RESPONSE_TYPE.JSON) {
+                      try {
+                        this.data = JSON.parse(text);
+                        this.type = Resource.TYPE.JSON;
+                      } catch (e) {
+                        this.abort("Error trying to parse loaded json: " + e);
+                        return;
+                      }
+                    } // if xml, parse into an xml document or div element
+                    else if (this.xhrType === Resource.XHR_RESPONSE_TYPE.DOCUMENT) {
+                        try {
+                          if (window.DOMParser) {
+                            var domparser = new DOMParser();
+                            this.data = domparser.parseFromString(text, 'text/xml');
+                          } else {
+                            var div = document.createElement('div');
+                            div.innerHTML = text;
+                            this.data = div;
+                          }
+
+                          this.type = Resource.TYPE.XML;
+                        } catch (e) {
+                          this.abort("Error trying to parse loaded xml: " + e);
+                          return;
+                        }
+                      } // other types just return the response
+                      else {
+                          this.data = xhr.response || text;
+                        }
+                } else {
+                  this.abort("[" + xhr.status + "] " + xhr.statusText + ": " + xhr.responseURL);
+                  return;
+                }
+
+                this.complete();
+              }
+              /**
+               * Sets the `crossOrigin` property for this resource based on if the url
+               * for this resource is cross-origin. If crossOrigin was manually set, this
+               * function does nothing.
+               *
+               * @private
+               * @param {string} url - The url to test.
+               * @param {object} [loc=window.location] - The location object to test against.
+               * @return {string} The crossOrigin value to use (or empty string for none).
+               */
+              ;
+
+              _proto._determineCrossOrigin = function _determineCrossOrigin(url, loc) {
+                // data: and javascript: urls are considered same-origin
+                if (url.indexOf('data:') === 0) {
+                  return '';
+                } // A sandboxed iframe without the 'allow-same-origin' attribute will have a special
+                // origin designed not to match window.location.origin, and will always require
+                // crossOrigin requests regardless of whether the location matches.
+
+
+                if (window.origin !== window.location.origin) {
+                  return 'anonymous';
+                } // default is window.location
+
+
+                loc = loc || window.location;
+
+                if (!tempAnchor$1) {
+                  tempAnchor$1 = document.createElement('a');
+                } // let the browser determine the full href for the url of this resource and then
+                // parse with the node url lib, we can't use the properties of the anchor element
+                // because they don't work in IE9 :(
+
+
+                tempAnchor$1.href = url;
+                url = parseUri(tempAnchor$1.href, {
+                  strictMode: true
+                });
+                var samePort = !url.port && loc.port === '' || url.port === loc.port;
+                var protocol = url.protocol ? url.protocol + ":" : ''; // if cross origin
+
+                if (url.host !== loc.hostname || !samePort || protocol !== loc.protocol) {
+                  return 'anonymous';
+                }
+
+                return '';
+              }
+              /**
+               * Determines the responseType of an XHR request based on the extension of the
+               * resource being loaded.
+               *
+               * @private
+               * @return {Resource.XHR_RESPONSE_TYPE} The responseType to use.
+               */
+              ;
+
+              _proto._determineXhrType = function _determineXhrType() {
+                return Resource._xhrTypeMap[this.extension] || Resource.XHR_RESPONSE_TYPE.TEXT;
+              }
+              /**
+               * Determines the loadType of a resource based on the extension of the
+               * resource being loaded.
+               *
+               * @private
+               * @return {Resource.LOAD_TYPE} The loadType to use.
+               */
+              ;
+
+              _proto._determineLoadType = function _determineLoadType() {
+                return Resource._loadTypeMap[this.extension] || Resource.LOAD_TYPE.XHR;
+              }
+              /**
+               * Extracts the extension (sans '.') of the file being loaded by the resource.
+               *
+               * @private
+               * @return {string} The extension.
+               */
+              ;
+
+              _proto._getExtension = function _getExtension() {
+                var url = this.url;
+                var ext = '';
+
+                if (this.isDataUrl) {
+                  var slashIndex = url.indexOf('/');
+                  ext = url.substring(slashIndex + 1, url.indexOf(';', slashIndex));
+                } else {
+                  var queryStart = url.indexOf('?');
+                  var hashStart = url.indexOf('#');
+                  var index = Math.min(queryStart > -1 ? queryStart : url.length, hashStart > -1 ? hashStart : url.length);
+                  url = url.substring(0, index);
+                  ext = url.substring(url.lastIndexOf('.') + 1);
+                }
+
+                return ext.toLowerCase();
+              }
+              /**
+               * Determines the mime type of an XHR request based on the responseType of
+               * resource being loaded.
+               *
+               * @private
+               * @param {Resource.XHR_RESPONSE_TYPE} type - The type to get a mime type for.
+               * @return {string} The mime type to use.
+               */
+              ;
+
+              _proto._getMimeFromXhrType = function _getMimeFromXhrType(type) {
+                switch (type) {
+                  case Resource.XHR_RESPONSE_TYPE.BUFFER:
+                    return 'application/octet-binary';
+
+                  case Resource.XHR_RESPONSE_TYPE.BLOB:
+                    return 'application/blob';
+
+                  case Resource.XHR_RESPONSE_TYPE.DOCUMENT:
+                    return 'application/xml';
+
+                  case Resource.XHR_RESPONSE_TYPE.JSON:
+                    return 'application/json';
+
+                  case Resource.XHR_RESPONSE_TYPE.DEFAULT:
+                  case Resource.XHR_RESPONSE_TYPE.TEXT:
+                  /* falls through */
+
+                  default:
+                    return 'text/plain';
+                }
+              };
+
+              _createClass(Resource, [{
+                key: "isDataUrl",
+                get: function get() {
+                  return this._hasFlag(Resource.STATUS_FLAGS.DATA_URL);
+                }
+                /**
+                 * Describes if this resource has finished loading. Is true when the resource has completely
+                 * loaded.
                  *
                  * @readonly
                  * @member {boolean}
                  */
 
-
+              }, {
+                key: "isComplete",
+                get: function get() {
+                  return this._hasFlag(Resource.STATUS_FLAGS.COMPLETE);
+                }
                 /**
-                 * Marks the resource as complete.
+                 * Describes if this resource is currently loading. Is true when the resource starts loading,
+                 * and is false again when complete.
                  *
-                 */
-                Resource.prototype.complete = function complete() {
-                    this._clearEvents();
-                    this._finish();
-                };
-
-                /**
-                 * Aborts the loading of this resource, with an optional message.
-                 *
-                 * @param {string} message - The message to use for the error
+                 * @readonly
+                 * @member {boolean}
                  */
 
-
-                Resource.prototype.abort = function abort(message) {
-                    // abort can be called multiple times, ignore subsequent calls.
-                    if (this.error) {
-                        return;
-                    }
-
-                    // store error
-                    this.error = new Error(message);
-
-                    // clear events before calling aborts
-                    this._clearEvents();
-
-                    // abort the actual loading
-                    if (this.xhr) {
-                        this.xhr.abort();
-                    } else if (this.xdr) {
-                        this.xdr.abort();
-                    } else if (this.data) {
-                        // single source
-                        if (this.data.src) {
-                            this.data.src = Resource.EMPTY_GIF;
-                        }
-                        // multi-source
-                        else {
-                                while (this.data.firstChild) {
-                                    this.data.removeChild(this.data.firstChild);
-                                }
-                            }
-                    }
-
-                    // done now.
-                    this._finish();
-                };
-
-                /**
-                 * Kicks off loading of this resource. This method is asynchronous.
-                 *
-                 * @param {Resource.OnCompleteSignal} [cb] - Optional callback to call once the resource is loaded.
-                 */
-
-
-                Resource.prototype.load = function load(cb) {
-                    var _this = this;
-
-                    if (this.isLoading) {
-                        return;
-                    }
-
-                    if (this.isComplete) {
-                        if (cb) {
-                            setTimeout(function () {
-                                return cb(_this);
-                            }, 1);
-                        }
-
-                        return;
-                    } else if (cb) {
-                        this.onComplete.once(cb);
-                    }
-
-                    this._setFlag(Resource.STATUS_FLAGS.LOADING, true);
-
-                    this.onStart.dispatch(this);
-
-                    // if unset, determine the value
-                    if (this.crossOrigin === false || typeof this.crossOrigin !== 'string') {
-                        this.crossOrigin = this._determineCrossOrigin(this.url);
-                    }
-
-                    switch (this.loadType) {
-                        case Resource.LOAD_TYPE.IMAGE:
-                            this.type = Resource.TYPE.IMAGE;
-                            this._loadElement('image');
-                            break;
-
-                        case Resource.LOAD_TYPE.AUDIO:
-                            this.type = Resource.TYPE.AUDIO;
-                            this._loadSourceElement('audio');
-                            break;
-
-                        case Resource.LOAD_TYPE.VIDEO:
-                            this.type = Resource.TYPE.VIDEO;
-                            this._loadSourceElement('video');
-                            break;
-
-                        case Resource.LOAD_TYPE.XHR:
-                        /* falls through */
-                        default:
-                            if (useXdr && this.crossOrigin) {
-                                this._loadXdr();
-                            } else {
-                                this._loadXhr();
-                            }
-                            break;
-                    }
-                };
-
-                /**
-                 * Checks if the flag is set.
-                 *
-                 * @private
-                 * @param {number} flag - The flag to check.
-                 * @return {boolean} True if the flag is set.
-                 */
-
-
-                Resource.prototype._hasFlag = function _hasFlag(flag) {
-                    return (this._flags & flag) !== 0;
-                };
-
-                /**
-                 * (Un)Sets the flag.
-                 *
-                 * @private
-                 * @param {number} flag - The flag to (un)set.
-                 * @param {boolean} value - Whether to set or (un)set the flag.
-                 */
-
-
-                Resource.prototype._setFlag = function _setFlag(flag, value) {
-                    this._flags = value ? this._flags | flag : this._flags & ~flag;
-                };
-
-                /**
-                 * Clears all the events from the underlying loading source.
-                 *
-                 * @private
-                 */
-
-
-                Resource.prototype._clearEvents = function _clearEvents() {
-                    clearTimeout(this._elementTimer);
-
-                    if (this.data && this.data.removeEventListener) {
-                        this.data.removeEventListener('error', this._boundOnError, false);
-                        this.data.removeEventListener('load', this._boundComplete, false);
-                        this.data.removeEventListener('progress', this._boundOnProgress, false);
-                        this.data.removeEventListener('canplaythrough', this._boundComplete, false);
-                    }
-
-                    if (this.xhr) {
-                        if (this.xhr.removeEventListener) {
-                            this.xhr.removeEventListener('error', this._boundXhrOnError, false);
-                            this.xhr.removeEventListener('timeout', this._boundXhrOnTimeout, false);
-                            this.xhr.removeEventListener('abort', this._boundXhrOnAbort, false);
-                            this.xhr.removeEventListener('progress', this._boundOnProgress, false);
-                            this.xhr.removeEventListener('load', this._boundXhrOnLoad, false);
-                        } else {
-                            this.xhr.onerror = null;
-                            this.xhr.ontimeout = null;
-                            this.xhr.onprogress = null;
-                            this.xhr.onload = null;
-                        }
-                    }
-                };
-
-                /**
-                 * Finalizes the load.
-                 *
-                 * @private
-                 */
-
-
-                Resource.prototype._finish = function _finish() {
-                    if (this.isComplete) {
-                        throw new Error('Complete called again for an already completed resource.');
-                    }
-
-                    this._setFlag(Resource.STATUS_FLAGS.COMPLETE, true);
-                    this._setFlag(Resource.STATUS_FLAGS.LOADING, false);
-
-                    this.onComplete.dispatch(this);
-                };
-
-                /**
-                 * Loads this resources using an element that has a single source,
-                 * like an HTMLImageElement.
-                 *
-                 * @private
-                 * @param {string} type - The type of element to use.
-                 */
-
-
-                Resource.prototype._loadElement = function _loadElement(type) {
-                    if (this.metadata.loadElement) {
-                        this.data = this.metadata.loadElement;
-                    } else if (type === 'image' && typeof window.Image !== 'undefined') {
-                        this.data = new Image();
-                    } else {
-                        this.data = document.createElement(type);
-                    }
-
-                    if (this.crossOrigin) {
-                        this.data.crossOrigin = this.crossOrigin;
-                    }
-
-                    if (!this.metadata.skipSource) {
-                        this.data.src = this.url;
-                    }
-
-                    this.data.addEventListener('error', this._boundOnError, false);
-                    this.data.addEventListener('load', this._boundComplete, false);
-                    this.data.addEventListener('progress', this._boundOnProgress, false);
-
-                    if (this.timeout) {
-                        this._elementTimer = setTimeout(this._boundOnTimeout, this.timeout);
-                    }
-                };
-
-                /**
-                 * Loads this resources using an element that has multiple sources,
-                 * like an HTMLAudioElement or HTMLVideoElement.
-                 *
-                 * @private
-                 * @param {string} type - The type of element to use.
-                 */
-
-
-                Resource.prototype._loadSourceElement = function _loadSourceElement(type) {
-                    if (this.metadata.loadElement) {
-                        this.data = this.metadata.loadElement;
-                    } else if (type === 'audio' && typeof window.Audio !== 'undefined') {
-                        this.data = new Audio();
-                    } else {
-                        this.data = document.createElement(type);
-                    }
-
-                    if (this.data === null) {
-                        this.abort('Unsupported element: ' + type);
-
-                        return;
-                    }
-
-                    if (this.crossOrigin) {
-                        this.data.crossOrigin = this.crossOrigin;
-                    }
-
-                    if (!this.metadata.skipSource) {
-                        // support for CocoonJS Canvas+ runtime, lacks document.createElement('source')
-                        if (navigator.isCocoonJS) {
-                            this.data.src = Array.isArray(this.url) ? this.url[0] : this.url;
-                        } else if (Array.isArray(this.url)) {
-                            var mimeTypes = this.metadata.mimeType;
-
-                            for (var i = 0; i < this.url.length; ++i) {
-                                this.data.appendChild(this._createSource(type, this.url[i], Array.isArray(mimeTypes) ? mimeTypes[i] : mimeTypes));
-                            }
-                        } else {
-                            var _mimeTypes = this.metadata.mimeType;
-
-                            this.data.appendChild(this._createSource(type, this.url, Array.isArray(_mimeTypes) ? _mimeTypes[0] : _mimeTypes));
-                        }
-                    }
-
-                    this.data.addEventListener('error', this._boundOnError, false);
-                    this.data.addEventListener('load', this._boundComplete, false);
-                    this.data.addEventListener('progress', this._boundOnProgress, false);
-                    this.data.addEventListener('canplaythrough', this._boundComplete, false);
-
-                    this.data.load();
-
-                    if (this.timeout) {
-                        this._elementTimer = setTimeout(this._boundOnTimeout, this.timeout);
-                    }
-                };
-
-                /**
-                 * Loads this resources using an XMLHttpRequest.
-                 *
-                 * @private
-                 */
-
-
-                Resource.prototype._loadXhr = function _loadXhr() {
-                    // if unset, determine the value
-                    if (typeof this.xhrType !== 'string') {
-                        this.xhrType = this._determineXhrType();
-                    }
-
-                    var xhr = this.xhr = new XMLHttpRequest();
-
-                    // set the request type and url
-                    xhr.open('GET', this.url, true);
-
-                    xhr.timeout = this.timeout;
-
-                    // load json as text and parse it ourselves. We do this because some browsers
-                    // *cough* safari *cough* can't deal with it.
-                    if (this.xhrType === Resource.XHR_RESPONSE_TYPE.JSON || this.xhrType === Resource.XHR_RESPONSE_TYPE.DOCUMENT) {
-                        xhr.responseType = Resource.XHR_RESPONSE_TYPE.TEXT;
-                    } else {
-                        xhr.responseType = this.xhrType;
-                    }
-
-                    xhr.addEventListener('error', this._boundXhrOnError, false);
-                    xhr.addEventListener('timeout', this._boundXhrOnTimeout, false);
-                    xhr.addEventListener('abort', this._boundXhrOnAbort, false);
-                    xhr.addEventListener('progress', this._boundOnProgress, false);
-                    xhr.addEventListener('load', this._boundXhrOnLoad, false);
-
-                    xhr.send();
-                };
-
-                /**
-                 * Loads this resources using an XDomainRequest. This is here because we need to support IE9 (gross).
-                 *
-                 * @private
-                 */
-
-
-                Resource.prototype._loadXdr = function _loadXdr() {
-                    // if unset, determine the value
-                    if (typeof this.xhrType !== 'string') {
-                        this.xhrType = this._determineXhrType();
-                    }
-
-                    var xdr = this.xhr = new XDomainRequest(); // eslint-disable-line no-undef
-
-                    // XDomainRequest has a few quirks. Occasionally it will abort requests
-                    // A way to avoid this is to make sure ALL callbacks are set even if not used
-                    // More info here: http://stackoverflow.com/questions/15786966/xdomainrequest-aborts-post-on-ie-9
-                    xdr.timeout = this.timeout || 5000; // XDR needs a timeout value or it breaks in IE9
-
-                    xdr.onerror = this._boundXhrOnError;
-                    xdr.ontimeout = this._boundXhrOnTimeout;
-                    xdr.onprogress = this._boundOnProgress;
-                    xdr.onload = this._boundXhrOnLoad;
-
-                    xdr.open('GET', this.url, true);
-
-                    // Note: The xdr.send() call is wrapped in a timeout to prevent an
-                    // issue with the interface where some requests are lost if multiple
-                    // XDomainRequests are being sent at the same time.
-                    // Some info here: https://github.com/photonstorm/phaser/issues/1248
-                    setTimeout(function () {
-                        return xdr.send();
-                    }, 1);
-                };
-
-                /**
-                 * Creates a source used in loading via an element.
-                 *
-                 * @private
-                 * @param {string} type - The element type (video or audio).
-                 * @param {string} url - The source URL to load from.
-                 * @param {string} [mime] - The mime type of the video
-                 * @return {HTMLSourceElement} The source element.
-                 */
-
-
-                Resource.prototype._createSource = function _createSource(type, url, mime) {
-                    if (!mime) {
-                        mime = type + '/' + this._getExtension(url);
-                    }
-
-                    var source = document.createElement('source');
-
-                    source.src = url;
-                    source.type = mime;
-
-                    return source;
-                };
-
-                /**
-                 * Called if a load errors out.
-                 *
-                 * @param {Event} event - The error event from the element that emits it.
-                 * @private
-                 */
-
-
-                Resource.prototype._onError = function _onError(event) {
-                    this.abort('Failed to load element using: ' + event.target.nodeName);
-                };
-
-                /**
-                 * Called if a load progress event fires for an element or xhr/xdr.
-                 *
-                 * @private
-                 * @param {XMLHttpRequestProgressEvent|Event} event - Progress event.
-                 */
-
-
-                Resource.prototype._onProgress = function _onProgress(event) {
-                    if (event && event.lengthComputable) {
-                        this.onProgress.dispatch(this, event.loaded / event.total);
-                    }
-                };
-
-                /**
-                 * Called if a timeout event fires for an element.
-                 *
-                 * @private
-                 */
-
-
-                Resource.prototype._onTimeout = function _onTimeout() {
-                    this.abort('Load timed out.');
-                };
-
-                /**
-                 * Called if an error event fires for xhr/xdr.
-                 *
-                 * @private
-                 */
-
-
-                Resource.prototype._xhrOnError = function _xhrOnError() {
-                    var xhr = this.xhr;
-
-                    this.abort(reqType(xhr) + ' Request failed. Status: ' + xhr.status + ', text: "' + xhr.statusText + '"');
-                };
-
-                /**
-                 * Called if an error event fires for xhr/xdr.
-                 *
-                 * @private
-                 */
-
-
-                Resource.prototype._xhrOnTimeout = function _xhrOnTimeout() {
-                    var xhr = this.xhr;
-
-                    this.abort(reqType(xhr) + ' Request timed out.');
-                };
-
-                /**
-                 * Called if an abort event fires for xhr/xdr.
-                 *
-                 * @private
-                 */
-
-
-                Resource.prototype._xhrOnAbort = function _xhrOnAbort() {
-                    var xhr = this.xhr;
-
-                    this.abort(reqType(xhr) + ' Request was aborted by the user.');
-                };
-
-                /**
-                 * Called when data successfully loads from an xhr/xdr request.
-                 *
-                 * @private
-                 * @param {XMLHttpRequestLoadEvent|Event} event - Load event
-                 */
-
-
-                Resource.prototype._xhrOnLoad = function _xhrOnLoad() {
-                    var xhr = this.xhr;
-                    var text = '';
-                    var status = typeof xhr.status === 'undefined' ? STATUS_OK : xhr.status; // XDR has no `.status`, assume 200.
-
-                    // responseText is accessible only if responseType is '' or 'text' and on older browsers
-                    if (xhr.responseType === '' || xhr.responseType === 'text' || typeof xhr.responseType === 'undefined') {
-                        text = xhr.responseText;
-                    }
-
-                    // status can be 0 when using the `file://` protocol so we also check if a response is set.
-                    // If it has a response, we assume 200; otherwise a 0 status code with no contents is an aborted request.
-                    if (status === STATUS_NONE && (text.length > 0 || xhr.responseType === Resource.XHR_RESPONSE_TYPE.BUFFER)) {
-                        status = STATUS_OK;
-                    }
-                    // handle IE9 bug: http://stackoverflow.com/questions/10046972/msie-returns-status-code-of-1223-for-ajax-request
-                    else if (status === STATUS_IE_BUG_EMPTY) {
-                            status = STATUS_EMPTY;
-                        }
-
-                    var statusType = status / 100 | 0;
-
-                    if (statusType === STATUS_TYPE_OK) {
-                        // if text, just return it
-                        if (this.xhrType === Resource.XHR_RESPONSE_TYPE.TEXT) {
-                            this.data = text;
-                            this.type = Resource.TYPE.TEXT;
-                        }
-                        // if json, parse into json object
-                        else if (this.xhrType === Resource.XHR_RESPONSE_TYPE.JSON) {
-                                try {
-                                    this.data = JSON.parse(text);
-                                    this.type = Resource.TYPE.JSON;
-                                } catch (e) {
-                                    this.abort('Error trying to parse loaded json: ' + e);
-
-                                    return;
-                                }
-                            }
-                            // if xml, parse into an xml document or div element
-                            else if (this.xhrType === Resource.XHR_RESPONSE_TYPE.DOCUMENT) {
-                                    try {
-                                        if (window.DOMParser) {
-                                            var domparser = new DOMParser();
-
-                                            this.data = domparser.parseFromString(text, 'text/xml');
-                                        } else {
-                                            var div = document.createElement('div');
-
-                                            div.innerHTML = text;
-
-                                            this.data = div;
-                                        }
-
-                                        this.type = Resource.TYPE.XML;
-                                    } catch (e) {
-                                        this.abort('Error trying to parse loaded xml: ' + e);
-
-                                        return;
-                                    }
-                                }
-                                // other types just return the response
-                                else {
-                                        this.data = xhr.response || text;
-                                    }
-                    } else {
-                        this.abort('[' + xhr.status + '] ' + xhr.statusText + ': ' + xhr.responseURL);
-
-                        return;
-                    }
-
-                    this.complete();
-                };
-
-                /**
-                 * Sets the `crossOrigin` property for this resource based on if the url
-                 * for this resource is cross-origin. If crossOrigin was manually set, this
-                 * function does nothing.
-                 *
-                 * @private
-                 * @param {string} url - The url to test.
-                 * @param {object} [loc=window.location] - The location object to test against.
-                 * @return {string} The crossOrigin value to use (or empty string for none).
-                 */
-
-
-                Resource.prototype._determineCrossOrigin = function _determineCrossOrigin(url, loc) {
-                    // data: and javascript: urls are considered same-origin
-                    if (url.indexOf('data:') === 0) {
-                        return '';
-                    }
-
-                    // A sandboxed iframe without the 'allow-same-origin' attribute will have a special
-                    // origin designed not to match window.location.origin, and will always require
-                    // crossOrigin requests regardless of whether the location matches.
-                    if (window.origin !== window.location.origin) {
-                        return 'anonymous';
-                    }
-
-                    // default is window.location
-                    loc = loc || window.location;
-
-                    if (!tempAnchor) {
-                        tempAnchor = document.createElement('a');
-                    }
-
-                    // let the browser determine the full href for the url of this resource and then
-                    // parse with the node url lib, we can't use the properties of the anchor element
-                    // because they don't work in IE9 :(
-                    tempAnchor.href = url;
-                    url = (0, _parseUri2.default)(tempAnchor.href, { strictMode: true });
-
-                    var samePort = !url.port && loc.port === '' || url.port === loc.port;
-                    var protocol = url.protocol ? url.protocol + ':' : '';
-
-                    // if cross origin
-                    if (url.host !== loc.hostname || !samePort || protocol !== loc.protocol) {
-                        return 'anonymous';
-                    }
-
-                    return '';
-                };
-
-                /**
-                 * Determines the responseType of an XHR request based on the extension of the
-                 * resource being loaded.
-                 *
-                 * @private
-                 * @return {Resource.XHR_RESPONSE_TYPE} The responseType to use.
-                 */
-
-
-                Resource.prototype._determineXhrType = function _determineXhrType() {
-                    return Resource._xhrTypeMap[this.extension] || Resource.XHR_RESPONSE_TYPE.TEXT;
-                };
-
-                /**
-                 * Determines the loadType of a resource based on the extension of the
-                 * resource being loaded.
-                 *
-                 * @private
-                 * @return {Resource.LOAD_TYPE} The loadType to use.
-                 */
-
-
-                Resource.prototype._determineLoadType = function _determineLoadType() {
-                    return Resource._loadTypeMap[this.extension] || Resource.LOAD_TYPE.XHR;
-                };
-
-                /**
-                 * Extracts the extension (sans '.') of the file being loaded by the resource.
-                 *
-                 * @private
-                 * @return {string} The extension.
-                 */
-
-
-                Resource.prototype._getExtension = function _getExtension() {
-                    var url = this.url;
-                    var ext = '';
-
-                    if (this.isDataUrl) {
-                        var slashIndex = url.indexOf('/');
-
-                        ext = url.substring(slashIndex + 1, url.indexOf(';', slashIndex));
-                    } else {
-                        var queryStart = url.indexOf('?');
-                        var hashStart = url.indexOf('#');
-                        var index = Math.min(queryStart > -1 ? queryStart : url.length, hashStart > -1 ? hashStart : url.length);
-
-                        url = url.substring(0, index);
-                        ext = url.substring(url.lastIndexOf('.') + 1);
-                    }
-
-                    return ext.toLowerCase();
-                };
-
-                /**
-                 * Determines the mime type of an XHR request based on the responseType of
-                 * resource being loaded.
-                 *
-                 * @private
-                 * @param {Resource.XHR_RESPONSE_TYPE} type - The type to get a mime type for.
-                 * @return {string} The mime type to use.
-                 */
-
-
-                Resource.prototype._getMimeFromXhrType = function _getMimeFromXhrType(type) {
-                    switch (type) {
-                        case Resource.XHR_RESPONSE_TYPE.BUFFER:
-                            return 'application/octet-binary';
-
-                        case Resource.XHR_RESPONSE_TYPE.BLOB:
-                            return 'application/blob';
-
-                        case Resource.XHR_RESPONSE_TYPE.DOCUMENT:
-                            return 'application/xml';
-
-                        case Resource.XHR_RESPONSE_TYPE.JSON:
-                            return 'application/json';
-
-                        case Resource.XHR_RESPONSE_TYPE.DEFAULT:
-                        case Resource.XHR_RESPONSE_TYPE.TEXT:
-                        /* falls through */
-                        default:
-                            return 'text/plain';
-                    }
-                };
-
-                _createClass(Resource, [{
-                    key: 'isDataUrl',
-                    get: function get() {
-                        return this._hasFlag(Resource.STATUS_FLAGS.DATA_URL);
-                    }
-
-                    /**
-                     * Describes if this resource has finished loading. Is true when the resource has completely
-                     * loaded.
-                     *
-                     * @readonly
-                     * @member {boolean}
-                     */
-
-                }, {
-                    key: 'isComplete',
-                    get: function get() {
-                        return this._hasFlag(Resource.STATUS_FLAGS.COMPLETE);
-                    }
-
-                    /**
-                     * Describes if this resource is currently loading. Is true when the resource starts loading,
-                     * and is false again when complete.
-                     *
-                     * @readonly
-                     * @member {boolean}
-                     */
-
-                }, {
-                    key: 'isLoading',
-                    get: function get() {
-                        return this._hasFlag(Resource.STATUS_FLAGS.LOADING);
-                    }
-                }]);
-
-                return Resource;
+              }, {
+                key: "isLoading",
+                get: function get() {
+                  return this._hasFlag(Resource.STATUS_FLAGS.LOADING);
+                }
+              }]);
+
+              return Resource;
             }();
-
             /**
              * The types of resources a resource could represent.
              *
@@ -34666,13 +35701,12 @@
              */
 
 
-            Resource.STATUS_FLAGS = {
-                NONE: 0,
-                DATA_URL: 1 << 0,
-                COMPLETE: 1 << 1,
-                LOADING: 1 << 2
+            Resource$1.STATUS_FLAGS = {
+              NONE: 0,
+              DATA_URL: 1 << 0,
+              COMPLETE: 1 << 1,
+              LOADING: 1 << 2
             };
-
             /**
              * The types of resources a resource could represent.
              *
@@ -34680,16 +35714,16 @@
              * @readonly
              * @enum {number}
              */
-            Resource.TYPE = {
-                UNKNOWN: 0,
-                JSON: 1,
-                XML: 2,
-                IMAGE: 3,
-                AUDIO: 4,
-                VIDEO: 5,
-                TEXT: 6
-            };
 
+            Resource$1.TYPE = {
+              UNKNOWN: 0,
+              JSON: 1,
+              XML: 2,
+              IMAGE: 3,
+              AUDIO: 4,
+              VIDEO: 5,
+              TEXT: 6
+            };
             /**
              * The types of loading a resource can use.
              *
@@ -34697,17 +35731,20 @@
              * @readonly
              * @enum {number}
              */
-            Resource.LOAD_TYPE = {
-                /** Uses XMLHttpRequest to load the resource. */
-                XHR: 1,
-                /** Uses an `Image` object to load the resource. */
-                IMAGE: 2,
-                /** Uses an `Audio` object to load the resource. */
-                AUDIO: 3,
-                /** Uses a `Video` object to load the resource. */
-                VIDEO: 4
-            };
 
+            Resource$1.LOAD_TYPE = {
+              /** Uses XMLHttpRequest to load the resource. */
+              XHR: 1,
+
+              /** Uses an `Image` object to load the resource. */
+              IMAGE: 2,
+
+              /** Uses an `Audio` object to load the resource. */
+              AUDIO: 3,
+
+              /** Uses a `Video` object to load the resource. */
+              VIDEO: 4
+            };
             /**
              * The XHR ready states, used internally.
              *
@@ -34715,85 +35752,81 @@
              * @readonly
              * @enum {string}
              */
-            Resource.XHR_RESPONSE_TYPE = {
-                /** string */
-                DEFAULT: 'text',
-                /** ArrayBuffer */
-                BUFFER: 'arraybuffer',
-                /** Blob */
-                BLOB: 'blob',
-                /** Document */
-                DOCUMENT: 'document',
-                /** Object */
-                JSON: 'json',
-                /** String */
-                TEXT: 'text'
+
+            Resource$1.XHR_RESPONSE_TYPE = {
+              /** string */
+              DEFAULT: 'text',
+
+              /** ArrayBuffer */
+              BUFFER: 'arraybuffer',
+
+              /** Blob */
+              BLOB: 'blob',
+
+              /** Document */
+              DOCUMENT: 'document',
+
+              /** Object */
+              JSON: 'json',
+
+              /** String */
+              TEXT: 'text'
             };
-
-            Resource._loadTypeMap = {
-                // images
-                gif: Resource.LOAD_TYPE.IMAGE,
-                png: Resource.LOAD_TYPE.IMAGE,
-                bmp: Resource.LOAD_TYPE.IMAGE,
-                jpg: Resource.LOAD_TYPE.IMAGE,
-                jpeg: Resource.LOAD_TYPE.IMAGE,
-                tif: Resource.LOAD_TYPE.IMAGE,
-                tiff: Resource.LOAD_TYPE.IMAGE,
-                webp: Resource.LOAD_TYPE.IMAGE,
-                tga: Resource.LOAD_TYPE.IMAGE,
-                svg: Resource.LOAD_TYPE.IMAGE,
-                'svg+xml': Resource.LOAD_TYPE.IMAGE, // for SVG data urls
-
-                // audio
-                mp3: Resource.LOAD_TYPE.AUDIO,
-                ogg: Resource.LOAD_TYPE.AUDIO,
-                wav: Resource.LOAD_TYPE.AUDIO,
-
-                // videos
-                mp4: Resource.LOAD_TYPE.VIDEO,
-                webm: Resource.LOAD_TYPE.VIDEO
+            Resource$1._loadTypeMap = {
+              // images
+              gif: Resource$1.LOAD_TYPE.IMAGE,
+              png: Resource$1.LOAD_TYPE.IMAGE,
+              bmp: Resource$1.LOAD_TYPE.IMAGE,
+              jpg: Resource$1.LOAD_TYPE.IMAGE,
+              jpeg: Resource$1.LOAD_TYPE.IMAGE,
+              tif: Resource$1.LOAD_TYPE.IMAGE,
+              tiff: Resource$1.LOAD_TYPE.IMAGE,
+              webp: Resource$1.LOAD_TYPE.IMAGE,
+              tga: Resource$1.LOAD_TYPE.IMAGE,
+              svg: Resource$1.LOAD_TYPE.IMAGE,
+              'svg+xml': Resource$1.LOAD_TYPE.IMAGE,
+              // for SVG data urls
+              // audio
+              mp3: Resource$1.LOAD_TYPE.AUDIO,
+              ogg: Resource$1.LOAD_TYPE.AUDIO,
+              wav: Resource$1.LOAD_TYPE.AUDIO,
+              // videos
+              mp4: Resource$1.LOAD_TYPE.VIDEO,
+              webm: Resource$1.LOAD_TYPE.VIDEO
             };
+            Resource$1._xhrTypeMap = {
+              // xml
+              xhtml: Resource$1.XHR_RESPONSE_TYPE.DOCUMENT,
+              html: Resource$1.XHR_RESPONSE_TYPE.DOCUMENT,
+              htm: Resource$1.XHR_RESPONSE_TYPE.DOCUMENT,
+              xml: Resource$1.XHR_RESPONSE_TYPE.DOCUMENT,
+              tmx: Resource$1.XHR_RESPONSE_TYPE.DOCUMENT,
+              svg: Resource$1.XHR_RESPONSE_TYPE.DOCUMENT,
+              // This was added to handle Tiled Tileset XML, but .tsx is also a TypeScript React Component.
+              // Since it is way less likely for people to be loading TypeScript files instead of Tiled files,
+              // this should probably be fine.
+              tsx: Resource$1.XHR_RESPONSE_TYPE.DOCUMENT,
+              // images
+              gif: Resource$1.XHR_RESPONSE_TYPE.BLOB,
+              png: Resource$1.XHR_RESPONSE_TYPE.BLOB,
+              bmp: Resource$1.XHR_RESPONSE_TYPE.BLOB,
+              jpg: Resource$1.XHR_RESPONSE_TYPE.BLOB,
+              jpeg: Resource$1.XHR_RESPONSE_TYPE.BLOB,
+              tif: Resource$1.XHR_RESPONSE_TYPE.BLOB,
+              tiff: Resource$1.XHR_RESPONSE_TYPE.BLOB,
+              webp: Resource$1.XHR_RESPONSE_TYPE.BLOB,
+              tga: Resource$1.XHR_RESPONSE_TYPE.BLOB,
+              // json
+              json: Resource$1.XHR_RESPONSE_TYPE.JSON,
+              // text
+              text: Resource$1.XHR_RESPONSE_TYPE.TEXT,
+              txt: Resource$1.XHR_RESPONSE_TYPE.TEXT,
+              // fonts
+              ttf: Resource$1.XHR_RESPONSE_TYPE.BUFFER,
+              otf: Resource$1.XHR_RESPONSE_TYPE.BUFFER
+            }; // We can't set the `src` attribute to empty string, so on abort we set it to this 1px transparent gif
 
-            Resource._xhrTypeMap = {
-                // xml
-                xhtml: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-                html: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-                htm: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-                xml: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-                tmx: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-                svg: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-
-                // This was added to handle Tiled Tileset XML, but .tsx is also a TypeScript React Component.
-                // Since it is way less likely for people to be loading TypeScript files instead of Tiled files,
-                // this should probably be fine.
-                tsx: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-
-                // images
-                gif: Resource.XHR_RESPONSE_TYPE.BLOB,
-                png: Resource.XHR_RESPONSE_TYPE.BLOB,
-                bmp: Resource.XHR_RESPONSE_TYPE.BLOB,
-                jpg: Resource.XHR_RESPONSE_TYPE.BLOB,
-                jpeg: Resource.XHR_RESPONSE_TYPE.BLOB,
-                tif: Resource.XHR_RESPONSE_TYPE.BLOB,
-                tiff: Resource.XHR_RESPONSE_TYPE.BLOB,
-                webp: Resource.XHR_RESPONSE_TYPE.BLOB,
-                tga: Resource.XHR_RESPONSE_TYPE.BLOB,
-
-                // json
-                json: Resource.XHR_RESPONSE_TYPE.JSON,
-
-                // text
-                text: Resource.XHR_RESPONSE_TYPE.TEXT,
-                txt: Resource.XHR_RESPONSE_TYPE.TEXT,
-
-                // fonts
-                ttf: Resource.XHR_RESPONSE_TYPE.BUFFER,
-                otf: Resource.XHR_RESPONSE_TYPE.BUFFER
-            };
-
-            // We can't set the `src` attribute to empty string, so on abort we set it to this 1px transparent gif
-            Resource.EMPTY_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
-
+            Resource$1.EMPTY_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
             /**
              * Quick helper to set a value on one of the extension maps. Ensures there is no
              * dot at the start of the extension.
@@ -34803,18 +35836,18 @@
              * @param {string} extname - The extension (or key) to set.
              * @param {number} val - The value to set.
              */
+
             function setExtMap(map, extname, val) {
-                if (extname && extname.indexOf('.') === 0) {
-                    extname = extname.substring(1);
-                }
+              if (extname && extname.indexOf('.') === 0) {
+                extname = extname.substring(1);
+              }
 
-                if (!extname) {
-                    return;
-                }
+              if (!extname) {
+                return;
+              }
 
-                map[extname] = val;
+              map[extname] = val;
             }
-
             /**
              * Quick helper to get string xhr type.
              *
@@ -34822,732 +35855,841 @@
              * @param {XMLHttpRequest|XDomainRequest} xhr - The request to check.
              * @return {string} The type.
              */
+
+
             function reqType(xhr) {
-                return xhr.toString().replace('object ', '');
+              return xhr.toString().replace('object ', '');
             }
 
-            // Backwards compat
-            {
-                module.exports.default = Resource; // eslint-disable-line no-undef
+            var _keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+            /**
+             * Encodes binary into base64.
+             *
+             * @function encodeBinary
+             * @param {string} input The input data to encode.
+             * @returns {string} The encoded base64 string
+             */
+
+            function encodeBinary(input) {
+              var output = '';
+              var inx = 0;
+
+              while (inx < input.length) {
+                // Fill byte buffer array
+                var bytebuffer = [0, 0, 0];
+                var encodedCharIndexes = [0, 0, 0, 0];
+
+                for (var jnx = 0; jnx < bytebuffer.length; ++jnx) {
+                  if (inx < input.length) {
+                    // throw away high-order byte, as documented at:
+                    // https://developer.mozilla.org/En/Using_XMLHttpRequest#Handling_binary_data
+                    bytebuffer[jnx] = input.charCodeAt(inx++) & 0xff;
+                  } else {
+                    bytebuffer[jnx] = 0;
+                  }
+                } // Get each encoded character, 6 bits at a time
+                // index 1: first 6 bits
+
+
+                encodedCharIndexes[0] = bytebuffer[0] >> 2; // index 2: second 6 bits (2 least significant bits from input byte 1 + 4 most significant bits from byte 2)
+
+                encodedCharIndexes[1] = (bytebuffer[0] & 0x3) << 4 | bytebuffer[1] >> 4; // index 3: third 6 bits (4 least significant bits from input byte 2 + 2 most significant bits from byte 3)
+
+                encodedCharIndexes[2] = (bytebuffer[1] & 0x0f) << 2 | bytebuffer[2] >> 6; // index 3: forth 6 bits (6 least significant bits from input byte 3)
+
+                encodedCharIndexes[3] = bytebuffer[2] & 0x3f; // Determine whether padding happened, and adjust accordingly
+
+                var paddingBytes = inx - (input.length - 1);
+
+                switch (paddingBytes) {
+                  case 2:
+                    // Set last 2 characters to padding char
+                    encodedCharIndexes[3] = 64;
+                    encodedCharIndexes[2] = 64;
+                    break;
+
+                  case 1:
+                    // Set last character to padding char
+                    encodedCharIndexes[3] = 64;
+                    break;
+
+                  default:
+                    break;
+                  // No padding - proceed
+                } // Now we will grab each appropriate character out of our keystring
+                // based on our index array and append it to the output string
+
+
+                for (var _jnx = 0; _jnx < encodedCharIndexes.length; ++_jnx) {
+                  output += _keyStr.charAt(encodedCharIndexes[_jnx]);
+                }
+              }
+
+              return output;
             }
-            //# sourceMappingURL=Resource.js.map
+
+            var Url$1 = window.URL || window.webkitURL;
+            /**
+             * A middleware for transforming XHR loaded Blobs into more useful objects
+             *
+             * @memberof middleware
+             * @function parsing
+             * @example
+             * import { Loader, middleware } from 'resource-loader';
+             * const loader = new Loader();
+             * loader.use(middleware.parsing);
+             * @param {Resource} resource - Current Resource
+             * @param {function} next - Callback when complete
+             */
+
+            function parsing(resource, next) {
+              if (!resource.data) {
+                next();
+                return;
+              } // if this was an XHR load of a blob
+
+
+              if (resource.xhr && resource.xhrType === Resource$1.XHR_RESPONSE_TYPE.BLOB) {
+                // if there is no blob support we probably got a binary string back
+                if (!window.Blob || typeof resource.data === 'string') {
+                  var type = resource.xhr.getResponseHeader('content-type'); // this is an image, convert the binary string into a data url
+
+                  if (type && type.indexOf('image') === 0) {
+                    resource.data = new Image();
+                    resource.data.src = "data:" + type + ";base64," + encodeBinary(resource.xhr.responseText);
+                    resource.type = Resource$1.TYPE.IMAGE; // wait until the image loads and then callback
+
+                    resource.data.onload = function () {
+                      resource.data.onload = null;
+                      next();
+                    }; // next will be called on load
+
+
+                    return;
+                  }
+                } // if content type says this is an image, then we should transform the blob into an Image object
+                else if (resource.data.type.indexOf('image') === 0) {
+                    var src = Url$1.createObjectURL(resource.data);
+                    resource.blob = resource.data;
+                    resource.data = new Image();
+                    resource.data.src = src;
+                    resource.type = Resource$1.TYPE.IMAGE; // cleanup the no longer used blob after the image loads
+                    // TODO: Is this correct? Will the image be invalid after revoking?
+
+                    resource.data.onload = function () {
+                      Url$1.revokeObjectURL(src);
+                      resource.data.onload = null;
+                      next();
+                    }; // next will be called on load.
+
+
+                    return;
+                  }
+              }
+
+              next();
+            }
+
+            /**
+             * @namespace middleware
+             */
+
+            var index$1 = ({
+                caching: caching,
+                parsing: parsing
             });
 
-            unwrapExports(Resource_1);
-            var Resource_2 = Resource_1.Resource;
-
-            var Loader_1 = createCommonjsModule(function (module, exports) {
-
-            exports.__esModule = true;
-            exports.Loader = undefined;
-
-            var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-            var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-
-
-            var _miniSignals2 = _interopRequireDefault(miniSignals);
-
-
-
-            var _parseUri2 = _interopRequireDefault(parseUri);
-
-
-
-            var async$1 = _interopRequireWildcard(async);
-
-
-
-            function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-            function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-            function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-            // some constants
             var MAX_PROGRESS = 100;
             var rgxExtractUrlHash = /(#[\w-]+)?$/;
-
             /**
              * Manages the state and loading of multiple resources to load.
              *
              * @class
              */
 
-            var Loader = exports.Loader = function () {
-                /**
-                 * @param {string} [baseUrl=''] - The base url for all resources loaded by this loader.
-                 * @param {number} [concurrency=10] - The number of resources to load concurrently.
-                 */
-                function Loader() {
-                    var _this = this;
+            var Loader =
+            /*#__PURE__*/
+            function () {
+              /**
+               * @param {string} [baseUrl=''] - The base url for all resources loaded by this loader.
+               * @param {number} [concurrency=10] - The number of resources to load concurrently.
+               */
+              function Loader(baseUrl, concurrency) {
+                var _this = this;
 
-                    var baseUrl = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-                    var concurrency = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
+                if (baseUrl === void 0) {
+                  baseUrl = '';
+                }
 
-                    _classCallCheck(this, Loader);
-
-                    /**
-                     * The base url for all resources loaded by this loader.
-                     *
-                     * @member {string}
-                     */
-                    this.baseUrl = baseUrl;
-
-                    /**
-                     * The progress percent of the loader going through the queue.
-                     *
-                     * @member {number}
-                     */
-                    this.progress = 0;
-
-                    /**
-                     * Loading state of the loader, true if it is currently loading resources.
-                     *
-                     * @member {boolean}
-                     */
-                    this.loading = false;
-
-                    /**
-                     * A querystring to append to every URL added to the loader.
-                     *
-                     * This should be a valid query string *without* the question-mark (`?`). The loader will
-                     * also *not* escape values for you. Make sure to escape your parameters with
-                     * [`encodeURIComponent`](https://mdn.io/encodeURIComponent) before assigning this property.
-                     *
-                     * @example
-                     * const loader = new Loader();
-                     *
-                     * loader.defaultQueryString = 'user=me&password=secret';
-                     *
-                     * // This will request 'image.png?user=me&password=secret'
-                     * loader.add('image.png').load();
-                     *
-                     * loader.reset();
-                     *
-                     * // This will request 'image.png?v=1&user=me&password=secret'
-                     * loader.add('iamge.png?v=1').load();
-                     *
-                     * @member {string}
-                     */
-                    this.defaultQueryString = '';
-
-                    /**
-                     * The middleware to run before loading each resource.
-                     *
-                     * @private
-                     * @member {function[]}
-                     */
-                    this._beforeMiddleware = [];
-
-                    /**
-                     * The middleware to run after loading each resource.
-                     *
-                     * @private
-                     * @member {function[]}
-                     */
-                    this._afterMiddleware = [];
-
-                    /**
-                     * The tracks the resources we are currently completing parsing for.
-                     *
-                     * @private
-                     * @member {Resource[]}
-                     */
-                    this._resourcesParsing = [];
-
-                    /**
-                     * The `_loadResource` function bound with this object context.
-                     *
-                     * @private
-                     * @member {function}
-                     * @param {Resource} r - The resource to load
-                     * @param {Function} d - The dequeue function
-                     * @return {undefined}
-                     */
-                    this._boundLoadResource = function (r, d) {
-                        return _this._loadResource(r, d);
-                    };
-
-                    /**
-                     * The resources waiting to be loaded.
-                     *
-                     * @private
-                     * @member {Resource[]}
-                     */
-                    this._queue = async$1.queue(this._boundLoadResource, concurrency);
-
-                    this._queue.pause();
-
-                    /**
-                     * All the resources for this loader keyed by name.
-                     *
-                     * @member {object<string, Resource>}
-                     */
-                    this.resources = {};
-
-                    /**
-                     * Dispatched once per loaded or errored resource.
-                     *
-                     * The callback looks like {@link Loader.OnProgressSignal}.
-                     *
-                     * @member {Signal<Loader.OnProgressSignal>}
-                     */
-                    this.onProgress = new _miniSignals2.default();
-
-                    /**
-                     * Dispatched once per errored resource.
-                     *
-                     * The callback looks like {@link Loader.OnErrorSignal}.
-                     *
-                     * @member {Signal<Loader.OnErrorSignal>}
-                     */
-                    this.onError = new _miniSignals2.default();
-
-                    /**
-                     * Dispatched once per loaded resource.
-                     *
-                     * The callback looks like {@link Loader.OnLoadSignal}.
-                     *
-                     * @member {Signal<Loader.OnLoadSignal>}
-                     */
-                    this.onLoad = new _miniSignals2.default();
-
-                    /**
-                     * Dispatched when the loader begins to process the queue.
-                     *
-                     * The callback looks like {@link Loader.OnStartSignal}.
-                     *
-                     * @member {Signal<Loader.OnStartSignal>}
-                     */
-                    this.onStart = new _miniSignals2.default();
-
-                    /**
-                     * Dispatched when the queued resources all load.
-                     *
-                     * The callback looks like {@link Loader.OnCompleteSignal}.
-                     *
-                     * @member {Signal<Loader.OnCompleteSignal>}
-                     */
-                    this.onComplete = new _miniSignals2.default();
-
-                    // Add default before middleware
-                    for (var i = 0; i < Loader._defaultBeforeMiddleware.length; ++i) {
-                        this.pre(Loader._defaultBeforeMiddleware[i]);
-                    }
-
-                    // Add default after middleware
-                    for (var _i = 0; _i < Loader._defaultAfterMiddleware.length; ++_i) {
-                        this.use(Loader._defaultAfterMiddleware[_i]);
-                    }
+                if (concurrency === void 0) {
+                  concurrency = 10;
                 }
 
                 /**
-                 * When the progress changes the loader and resource are disaptched.
+                 * The base url for all resources loaded by this loader.
                  *
-                 * @memberof Loader
-                 * @callback OnProgressSignal
-                 * @param {Loader} loader - The loader the progress is advancing on.
-                 * @param {Resource} resource - The resource that has completed or failed to cause the progress to advance.
+                 * @member {string}
                  */
-
+                this.baseUrl = baseUrl;
                 /**
-                 * When an error occurrs the loader and resource are disaptched.
-                 *
-                 * @memberof Loader
-                 * @callback OnErrorSignal
-                 * @param {Loader} loader - The loader the error happened in.
-                 * @param {Resource} resource - The resource that caused the error.
-                 */
-
-                /**
-                 * When a load completes the loader and resource are disaptched.
-                 *
-                 * @memberof Loader
-                 * @callback OnLoadSignal
-                 * @param {Loader} loader - The loader that laoded the resource.
-                 * @param {Resource} resource - The resource that has completed loading.
-                 */
-
-                /**
-                 * When the loader starts loading resources it dispatches this callback.
-                 *
-                 * @memberof Loader
-                 * @callback OnStartSignal
-                 * @param {Loader} loader - The loader that has started loading resources.
-                 */
-
-                /**
-                 * When the loader completes loading resources it dispatches this callback.
-                 *
-                 * @memberof Loader
-                 * @callback OnCompleteSignal
-                 * @param {Loader} loader - The loader that has finished loading resources.
-                 */
-
-                /**
-                 * Options for a call to `.add()`.
-                 *
-                 * @see Loader#add
-                 *
-                 * @typedef {object} IAddOptions
-                 * @property {string} [name] - The name of the resource to load, if not passed the url is used.
-                 * @property {string} [key] - Alias for `name`.
-                 * @property {string} [url] - The url for this resource, relative to the baseUrl of this loader.
-                 * @property {string|boolean} [crossOrigin] - Is this request cross-origin? Default is to
-                 *      determine automatically.
-                 * @property {number} [timeout=0] - A timeout in milliseconds for the load. If the load takes
-                 *      longer than this time it is cancelled and the load is considered a failure. If this value is
-                 *      set to `0` then there is no explicit timeout.
-                 * @property {Resource.LOAD_TYPE} [loadType=Resource.LOAD_TYPE.XHR] - How should this resource
-                 *      be loaded?
-                 * @property {Resource.XHR_RESPONSE_TYPE} [xhrType=Resource.XHR_RESPONSE_TYPE.DEFAULT] - How
-                 *      should the data being loaded be interpreted when using XHR?
-                 * @property {Resource.OnCompleteSignal} [onComplete] - Callback to add an an onComplete signal istener.
-                 * @property {Resource.OnCompleteSignal} [callback] - Alias for `onComplete`.
-                 * @property {Resource.IMetadata} [metadata] - Extra configuration for middleware and the Resource object.
-                 */
-
-                /* eslint-disable require-jsdoc,valid-jsdoc */
-                /**
-                 * Adds a resource (or multiple resources) to the loader queue.
-                 *
-                 * This function can take a wide variety of different parameters. The only thing that is always
-                 * required the url to load. All the following will work:
-                 *
-                 * ```js
-                 * loader
-                 *     // normal param syntax
-                 *     .add('key', 'http://...', function () {})
-                 *     .add('http://...', function () {})
-                 *     .add('http://...')
-                 *
-                 *     // object syntax
-                 *     .add({
-                 *         name: 'key2',
-                 *         url: 'http://...'
-                 *     }, function () {})
-                 *     .add({
-                 *         url: 'http://...'
-                 *     }, function () {})
-                 *     .add({
-                 *         name: 'key3',
-                 *         url: 'http://...'
-                 *         onComplete: function () {}
-                 *     })
-                 *     .add({
-                 *         url: 'https://...',
-                 *         onComplete: function () {},
-                 *         crossOrigin: true
-                 *     })
-                 *
-                 *     // you can also pass an array of objects or urls or both
-                 *     .add([
-                 *         { name: 'key4', url: 'http://...', onComplete: function () {} },
-                 *         { url: 'http://...', onComplete: function () {} },
-                 *         'http://...'
-                 *     ])
-                 *
-                 *     // and you can use both params and options
-                 *     .add('key', 'http://...', { crossOrigin: true }, function () {})
-                 *     .add('http://...', { crossOrigin: true }, function () {});
-                 * ```
-                 *
-                 * @function
-                 * @variation 1
-                 * @param {string} name - The name of the resource to load.
-                 * @param {string} url - The url for this resource, relative to the baseUrl of this loader.
-                 * @param {Resource.OnCompleteSignal} [callback] - Function to call when this specific resource completes loading.
-                 * @return {this} Returns itself.
-                 */ /**
-                    * @function
-                    * @variation 2
-                    * @param {string} name - The name of the resource to load.
-                    * @param {string} url - The url for this resource, relative to the baseUrl of this loader.
-                    * @param {IAddOptions} [options] - The options for the load.
-                    * @param {Resource.OnCompleteSignal} [callback] - Function to call when this specific resource completes loading.
-                    * @return {this} Returns itself.
-                    */ /**
-                       * @function
-                       * @variation 3
-                       * @param {string} url - The url for this resource, relative to the baseUrl of this loader.
-                       * @param {Resource.OnCompleteSignal} [callback] - Function to call when this specific resource completes loading.
-                       * @return {this} Returns itself.
-                       */ /**
-                          * @function
-                          * @variation 4
-                          * @param {string} url - The url for this resource, relative to the baseUrl of this loader.
-                          * @param {IAddOptions} [options] - The options for the load.
-                          * @param {Resource.OnCompleteSignal} [callback] - Function to call when this specific resource completes loading.
-                          * @return {this} Returns itself.
-                          */ /**
-                             * @function
-                             * @variation 5
-                             * @param {IAddOptions} options - The options for the load. This object must contain a `url` property.
-                             * @param {Resource.OnCompleteSignal} [callback] - Function to call when this specific resource completes loading.
-                             * @return {this} Returns itself.
-                             */ /**
-                                * @function
-                                * @variation 6
-                                * @param {Array<IAddOptions|string>} resources - An array of resources to load, where each is
-                                *      either an object with the options or a string url. If you pass an object, it must contain a `url` property.
-                                * @param {Resource.OnCompleteSignal} [callback] - Function to call when this specific resource completes loading.
-                                * @return {this} Returns itself.
-                                */
-
-
-                Loader.prototype.add = function add(name, url, options, cb) {
-                    // special case of an array of objects or urls
-                    if (Array.isArray(name)) {
-                        for (var i = 0; i < name.length; ++i) {
-                            this.add(name[i]);
-                        }
-
-                        return this;
-                    }
-
-                    // if an object is passed instead of params
-                    if ((typeof name === 'undefined' ? 'undefined' : _typeof(name)) === 'object') {
-                        cb = url || name.callback || name.onComplete;
-                        options = name;
-                        url = name.url;
-                        name = name.name || name.key || name.url;
-                    }
-
-                    // case where no name is passed shift all args over by one.
-                    if (typeof url !== 'string') {
-                        cb = options;
-                        options = url;
-                        url = name;
-                    }
-
-                    // now that we shifted make sure we have a proper url.
-                    if (typeof url !== 'string') {
-                        throw new Error('No url passed to add resource to loader.');
-                    }
-
-                    // options are optional so people might pass a function and no options
-                    if (typeof options === 'function') {
-                        cb = options;
-                        options = null;
-                    }
-
-                    // if loading already you can only add resources that have a parent.
-                    if (this.loading && (!options || !options.parentResource)) {
-                        throw new Error('Cannot add resources while the loader is running.');
-                    }
-
-                    // check if resource already exists.
-                    if (this.resources[name]) {
-                        throw new Error('Resource named "' + name + '" already exists.');
-                    }
-
-                    // add base url if this isn't an absolute url
-                    url = this._prepareUrl(url);
-
-                    // create the store the resource
-                    this.resources[name] = new Resource_1.Resource(name, url, options);
-
-                    if (typeof cb === 'function') {
-                        this.resources[name].onAfterMiddleware.once(cb);
-                    }
-
-                    // if actively loading, make sure to adjust progress chunks for that parent and its children
-                    if (this.loading) {
-                        var parent = options.parentResource;
-                        var incompleteChildren = [];
-
-                        for (var _i2 = 0; _i2 < parent.children.length; ++_i2) {
-                            if (!parent.children[_i2].isComplete) {
-                                incompleteChildren.push(parent.children[_i2]);
-                            }
-                        }
-
-                        var fullChunk = parent.progressChunk * (incompleteChildren.length + 1); // +1 for parent
-                        var eachChunk = fullChunk / (incompleteChildren.length + 2); // +2 for parent & new child
-
-                        parent.children.push(this.resources[name]);
-                        parent.progressChunk = eachChunk;
-
-                        for (var _i3 = 0; _i3 < incompleteChildren.length; ++_i3) {
-                            incompleteChildren[_i3].progressChunk = eachChunk;
-                        }
-
-                        this.resources[name].progressChunk = eachChunk;
-                    }
-
-                    // add the resource to the queue
-                    this._queue.push(this.resources[name]);
-
-                    return this;
-                };
-                /* eslint-enable require-jsdoc,valid-jsdoc */
-
-                /**
-                 * Sets up a middleware function that will run *before* the
-                 * resource is loaded.
-                 *
-                 * @param {function} fn - The middleware function to register.
-                 * @return {this} Returns itself.
-                 */
-
-
-                Loader.prototype.pre = function pre(fn) {
-                    this._beforeMiddleware.push(fn);
-
-                    return this;
-                };
-
-                /**
-                 * Sets up a middleware function that will run *after* the
-                 * resource is loaded.
-                 *
-                 * @param {function} fn - The middleware function to register.
-                 * @return {this} Returns itself.
-                 */
-
-
-                Loader.prototype.use = function use(fn) {
-                    this._afterMiddleware.push(fn);
-
-                    return this;
-                };
-
-                /**
-                 * Resets the queue of the loader to prepare for a new load.
-                 *
-                 * @return {this} Returns itself.
-                 */
-
-
-                Loader.prototype.reset = function reset() {
-                    this.progress = 0;
-                    this.loading = false;
-
-                    this._queue.kill();
-                    this._queue.pause();
-
-                    // abort all resource loads
-                    for (var k in this.resources) {
-                        var res = this.resources[k];
-
-                        if (res._onLoadBinding) {
-                            res._onLoadBinding.detach();
-                        }
-
-                        if (res.isLoading) {
-                            res.abort();
-                        }
-                    }
-
-                    this.resources = {};
-
-                    return this;
-                };
-
-                /**
-                 * Starts loading the queued resources.
-                 *
-                 * @param {function} [cb] - Optional callback that will be bound to the `complete` event.
-                 * @return {this} Returns itself.
-                 */
-
-
-                Loader.prototype.load = function load(cb) {
-                    // register complete callback if they pass one
-                    if (typeof cb === 'function') {
-                        this.onComplete.once(cb);
-                    }
-
-                    // if the queue has already started we are done here
-                    if (this.loading) {
-                        return this;
-                    }
-
-                    if (this._queue.idle()) {
-                        this._onStart();
-                        this._onComplete();
-                    } else {
-                        // distribute progress chunks
-                        var numTasks = this._queue._tasks.length;
-                        var chunk = MAX_PROGRESS / numTasks;
-
-                        for (var i = 0; i < this._queue._tasks.length; ++i) {
-                            this._queue._tasks[i].data.progressChunk = chunk;
-                        }
-
-                        // notify we are starting
-                        this._onStart();
-
-                        // start loading
-                        this._queue.resume();
-                    }
-
-                    return this;
-                };
-
-                /**
-                 * The number of resources to load concurrently.
+                 * The progress percent of the loader going through the queue.
                  *
                  * @member {number}
-                 * @default 10
+                 * @default 0
                  */
 
-
+                this.progress = 0;
                 /**
-                 * Prepares a url for usage based on the configuration of this object
+                 * Loading state of the loader, true if it is currently loading resources.
+                 *
+                 * @member {boolean}
+                 * @default false
+                 */
+
+                this.loading = false;
+                /**
+                 * A querystring to append to every URL added to the loader.
+                 *
+                 * This should be a valid query string *without* the question-mark (`?`). The loader will
+                 * also *not* escape values for you. Make sure to escape your parameters with
+                 * [`encodeURIComponent`](https://mdn.io/encodeURIComponent) before assigning this property.
+                 *
+                 * @example
+                 * const loader = new Loader();
+                 *
+                 * loader.defaultQueryString = 'user=me&password=secret';
+                 *
+                 * // This will request 'image.png?user=me&password=secret'
+                 * loader.add('image.png').load();
+                 *
+                 * loader.reset();
+                 *
+                 * // This will request 'image.png?v=1&user=me&password=secret'
+                 * loader.add('iamge.png?v=1').load();
+                 *
+                 * @member {string}
+                 * @default ''
+                 */
+
+                this.defaultQueryString = '';
+                /**
+                 * The middleware to run before loading each resource.
                  *
                  * @private
-                 * @param {string} url - The url to prepare.
-                 * @return {string} The prepared url.
+                 * @member {function[]}
                  */
-                Loader.prototype._prepareUrl = function _prepareUrl(url) {
-                    var parsedUrl = (0, _parseUri2.default)(url, { strictMode: true });
-                    var result = void 0;
 
-                    // absolute url, just use it as is.
-                    if (parsedUrl.protocol || !parsedUrl.path || url.indexOf('//') === 0) {
-                        result = url;
+                this._beforeMiddleware = [];
+                /**
+                 * The middleware to run after loading each resource.
+                 *
+                 * @private
+                 * @member {function[]}
+                 */
+
+                this._afterMiddleware = [];
+                /**
+                 * The tracks the resources we are currently completing parsing for.
+                 *
+                 * @private
+                 * @member {Resource[]}
+                 */
+
+                this._resourcesParsing = [];
+                /**
+                 * The `_loadResource` function bound with this object context.
+                 *
+                 * @private
+                 * @member {function}
+                 * @param {Resource} r - The resource to load
+                 * @param {Function} d - The dequeue function
+                 * @return {undefined}
+                 */
+
+                this._boundLoadResource = function (r, d) {
+                  return _this._loadResource(r, d);
+                };
+                /**
+                 * The resources waiting to be loaded.
+                 *
+                 * @private
+                 * @member {Resource[]}
+                 */
+
+
+                this._queue = queue(this._boundLoadResource, concurrency);
+
+                this._queue.pause();
+                /**
+                 * All the resources for this loader keyed by name.
+                 *
+                 * @member {object<string, Resource>}
+                 */
+
+
+                this.resources = {};
+                /**
+                 * Dispatched once per loaded or errored resource.
+                 *
+                 * The callback looks like {@link Loader.OnProgressSignal}.
+                 *
+                 * @member {Signal<Loader.OnProgressSignal>}
+                 */
+
+                this.onProgress = new Signal();
+                /**
+                 * Dispatched once per errored resource.
+                 *
+                 * The callback looks like {@link Loader.OnErrorSignal}.
+                 *
+                 * @member {Signal<Loader.OnErrorSignal>}
+                 */
+
+                this.onError = new Signal();
+                /**
+                 * Dispatched once per loaded resource.
+                 *
+                 * The callback looks like {@link Loader.OnLoadSignal}.
+                 *
+                 * @member {Signal<Loader.OnLoadSignal>}
+                 */
+
+                this.onLoad = new Signal();
+                /**
+                 * Dispatched when the loader begins to process the queue.
+                 *
+                 * The callback looks like {@link Loader.OnStartSignal}.
+                 *
+                 * @member {Signal<Loader.OnStartSignal>}
+                 */
+
+                this.onStart = new Signal();
+                /**
+                 * Dispatched when the queued resources all load.
+                 *
+                 * The callback looks like {@link Loader.OnCompleteSignal}.
+                 *
+                 * @member {Signal<Loader.OnCompleteSignal>}
+                 */
+
+                this.onComplete = new Signal(); // Add default before middleware
+
+                for (var i = 0; i < Loader._defaultBeforeMiddleware.length; ++i) {
+                  this.pre(Loader._defaultBeforeMiddleware[i]);
+                } // Add default after middleware
+
+
+                for (var _i = 0; _i < Loader._defaultAfterMiddleware.length; ++_i) {
+                  this.use(Loader._defaultAfterMiddleware[_i]);
+                }
+              }
+              /**
+               * When the progress changes the loader and resource are disaptched.
+               *
+               * @memberof Loader
+               * @callback OnProgressSignal
+               * @param {Loader} loader - The loader the progress is advancing on.
+               * @param {Resource} resource - The resource that has completed or failed to cause the progress to advance.
+               */
+
+              /**
+               * When an error occurrs the loader and resource are disaptched.
+               *
+               * @memberof Loader
+               * @callback OnErrorSignal
+               * @param {Loader} loader - The loader the error happened in.
+               * @param {Resource} resource - The resource that caused the error.
+               */
+
+              /**
+               * When a load completes the loader and resource are disaptched.
+               *
+               * @memberof Loader
+               * @callback OnLoadSignal
+               * @param {Loader} loader - The loader that laoded the resource.
+               * @param {Resource} resource - The resource that has completed loading.
+               */
+
+              /**
+               * When the loader starts loading resources it dispatches this callback.
+               *
+               * @memberof Loader
+               * @callback OnStartSignal
+               * @param {Loader} loader - The loader that has started loading resources.
+               */
+
+              /**
+               * When the loader completes loading resources it dispatches this callback.
+               *
+               * @memberof Loader
+               * @callback OnCompleteSignal
+               * @param {Loader} loader - The loader that has finished loading resources.
+               */
+
+              /**
+               * Options for a call to `.add()`.
+               *
+               * @see Loader#add
+               *
+               * @typedef {object} IAddOptions
+               * @property {string} [name] - The name of the resource to load, if not passed the url is used.
+               * @property {string} [key] - Alias for `name`.
+               * @property {string} [url] - The url for this resource, relative to the baseUrl of this loader.
+               * @property {string|boolean} [crossOrigin] - Is this request cross-origin? Default is to
+               *      determine automatically.
+               * @property {number} [timeout=0] - A timeout in milliseconds for the load. If the load takes
+               *      longer than this time it is cancelled and the load is considered a failure. If this value is
+               *      set to `0` then there is no explicit timeout.
+               * @property {Resource.LOAD_TYPE} [loadType=Resource.LOAD_TYPE.XHR] - How should this resource
+               *      be loaded?
+               * @property {Resource.XHR_RESPONSE_TYPE} [xhrType=Resource.XHR_RESPONSE_TYPE.DEFAULT] - How
+               *      should the data being loaded be interpreted when using XHR?
+               * @property {Resource.OnCompleteSignal} [onComplete] - Callback to add an an onComplete signal istener.
+               * @property {Resource.OnCompleteSignal} [callback] - Alias for `onComplete`.
+               * @property {Resource.IMetadata} [metadata] - Extra configuration for middleware and the Resource object.
+               */
+
+              /* eslint-disable require-jsdoc,valid-jsdoc */
+
+              /**
+               * Adds a resource (or multiple resources) to the loader queue.
+               *
+               * This function can take a wide variety of different parameters. The only thing that is always
+               * required the url to load. All the following will work:
+               *
+               * ```js
+               * loader
+               *     // normal param syntax
+               *     .add('key', 'http://...', function () {})
+               *     .add('http://...', function () {})
+               *     .add('http://...')
+               *
+               *     // object syntax
+               *     .add({
+               *         name: 'key2',
+               *         url: 'http://...'
+               *     }, function () {})
+               *     .add({
+               *         url: 'http://...'
+               *     }, function () {})
+               *     .add({
+               *         name: 'key3',
+               *         url: 'http://...'
+               *         onComplete: function () {}
+               *     })
+               *     .add({
+               *         url: 'https://...',
+               *         onComplete: function () {},
+               *         crossOrigin: true
+               *     })
+               *
+               *     // you can also pass an array of objects or urls or both
+               *     .add([
+               *         { name: 'key4', url: 'http://...', onComplete: function () {} },
+               *         { url: 'http://...', onComplete: function () {} },
+               *         'http://...'
+               *     ])
+               *
+               *     // and you can use both params and options
+               *     .add('key', 'http://...', { crossOrigin: true }, function () {})
+               *     .add('http://...', { crossOrigin: true }, function () {});
+               * ```
+               *
+               * @function
+               * @variation 1
+               * @param {string} name - The name of the resource to load.
+               * @param {string} url - The url for this resource, relative to the baseUrl of this loader.
+               * @param {Resource.OnCompleteSignal} [callback] - Function to call when this specific resource completes loading.
+               * @return {this} Returns itself.
+               */
+
+              /**
+              * @function
+              * @variation 2
+              * @param {string} name - The name of the resource to load.
+              * @param {string} url - The url for this resource, relative to the baseUrl of this loader.
+              * @param {IAddOptions} [options] - The options for the load.
+              * @param {Resource.OnCompleteSignal} [callback] - Function to call when this specific resource completes loading.
+              * @return {this} Returns itself.
+              */
+
+              /**
+              * @function
+              * @variation 3
+              * @param {string} url - The url for this resource, relative to the baseUrl of this loader.
+              * @param {Resource.OnCompleteSignal} [callback] - Function to call when this specific resource completes loading.
+              * @return {this} Returns itself.
+              */
+
+              /**
+              * @function
+              * @variation 4
+              * @param {string} url - The url for this resource, relative to the baseUrl of this loader.
+              * @param {IAddOptions} [options] - The options for the load.
+              * @param {Resource.OnCompleteSignal} [callback] - Function to call when this specific resource completes loading.
+              * @return {this} Returns itself.
+              */
+
+              /**
+              * @function
+              * @variation 5
+              * @param {IAddOptions} options - The options for the load. This object must contain a `url` property.
+              * @param {Resource.OnCompleteSignal} [callback] - Function to call when this specific resource completes loading.
+              * @return {this} Returns itself.
+              */
+
+              /**
+              * @function
+              * @variation 6
+              * @param {Array<IAddOptions|string>} resources - An array of resources to load, where each is
+              *      either an object with the options or a string url. If you pass an object, it must contain a `url` property.
+              * @param {Resource.OnCompleteSignal} [callback] - Function to call when this specific resource completes loading.
+              * @return {this} Returns itself.
+              */
+
+
+              var _proto = Loader.prototype;
+
+              _proto.add = function add(name, url, options, cb) {
+                // special case of an array of objects or urls
+                if (Array.isArray(name)) {
+                  for (var i = 0; i < name.length; ++i) {
+                    this.add(name[i]);
+                  }
+
+                  return this;
+                } // if an object is passed instead of params
+
+
+                if (typeof name === 'object') {
+                  cb = url || name.callback || name.onComplete;
+                  options = name;
+                  url = name.url;
+                  name = name.name || name.key || name.url;
+                } // case where no name is passed shift all args over by one.
+
+
+                if (typeof url !== 'string') {
+                  cb = options;
+                  options = url;
+                  url = name;
+                } // now that we shifted make sure we have a proper url.
+
+
+                if (typeof url !== 'string') {
+                  throw new Error('No url passed to add resource to loader.');
+                } // options are optional so people might pass a function and no options
+
+
+                if (typeof options === 'function') {
+                  cb = options;
+                  options = null;
+                } // if loading already you can only add resources that have a parent.
+
+
+                if (this.loading && (!options || !options.parentResource)) {
+                  throw new Error('Cannot add resources while the loader is running.');
+                } // check if resource already exists.
+
+
+                if (this.resources[name]) {
+                  throw new Error("Resource named \"" + name + "\" already exists.");
+                } // add base url if this isn't an absolute url
+
+
+                url = this._prepareUrl(url); // create the store the resource
+
+                this.resources[name] = new Resource$1(name, url, options);
+
+                if (typeof cb === 'function') {
+                  this.resources[name].onAfterMiddleware.once(cb);
+                } // if actively loading, make sure to adjust progress chunks for that parent and its children
+
+
+                if (this.loading) {
+                  var parent = options.parentResource;
+                  var incompleteChildren = [];
+
+                  for (var _i2 = 0; _i2 < parent.children.length; ++_i2) {
+                    if (!parent.children[_i2].isComplete) {
+                      incompleteChildren.push(parent.children[_i2]);
                     }
-                    // if baseUrl doesn't end in slash and url doesn't start with slash, then add a slash inbetween
-                    else if (this.baseUrl.length && this.baseUrl.lastIndexOf('/') !== this.baseUrl.length - 1 && url.charAt(0) !== '/') {
-                            result = this.baseUrl + '/' + url;
-                        } else {
-                            result = this.baseUrl + url;
-                        }
+                  }
 
-                    // if we need to add a default querystring, there is a bit more work
-                    if (this.defaultQueryString) {
-                        var hash = rgxExtractUrlHash.exec(result)[0];
+                  var fullChunk = parent.progressChunk * (incompleteChildren.length + 1); // +1 for parent
 
-                        result = result.substr(0, result.length - hash.length);
+                  var eachChunk = fullChunk / (incompleteChildren.length + 2); // +2 for parent & new child
 
-                        if (result.indexOf('?') !== -1) {
-                            result += '&' + this.defaultQueryString;
-                        } else {
-                            result += '?' + this.defaultQueryString;
-                        }
+                  parent.children.push(this.resources[name]);
+                  parent.progressChunk = eachChunk;
 
-                        result += hash;
-                    }
+                  for (var _i3 = 0; _i3 < incompleteChildren.length; ++_i3) {
+                    incompleteChildren[_i3].progressChunk = eachChunk;
+                  }
 
-                    return result;
-                };
-
-                /**
-                 * Loads a single resource.
-                 *
-                 * @private
-                 * @param {Resource} resource - The resource to load.
-                 * @param {function} dequeue - The function to call when we need to dequeue this item.
-                 */
+                  this.resources[name].progressChunk = eachChunk;
+                } // add the resource to the queue
 
 
-                Loader.prototype._loadResource = function _loadResource(resource, dequeue) {
-                    var _this2 = this;
+                this._queue.push(this.resources[name]);
 
-                    resource._dequeue = dequeue;
+                return this;
+              }
+              /* eslint-enable require-jsdoc,valid-jsdoc */
 
-                    // run before middleware
-                    async$1.eachSeries(this._beforeMiddleware, function (fn, next) {
-                        fn.call(_this2, resource, function () {
-                            // if the before middleware marks the resource as complete,
-                            // break and don't process any more before middleware
-                            next(resource.isComplete ? {} : null);
-                        });
-                    }, function () {
-                        if (resource.isComplete) {
-                            _this2._onLoad(resource);
-                        } else {
-                            resource._onLoadBinding = resource.onComplete.once(_this2._onLoad, _this2);
-                            resource.load();
-                        }
-                    }, true);
-                };
+              /**
+               * Sets up a middleware function that will run *before* the
+               * resource is loaded.
+               *
+               * @param {function} fn - The middleware function to register.
+               * @return {this} Returns itself.
+               */
+              ;
 
-                /**
-                 * Called once loading has started.
-                 *
-                 * @private
-                 */
+              _proto.pre = function pre(fn) {
+                this._beforeMiddleware.push(fn);
 
+                return this;
+              }
+              /**
+               * Sets up a middleware function that will run *after* the
+               * resource is loaded.
+               *
+               * @param {function} fn - The middleware function to register.
+               * @return {this} Returns itself.
+               */
+              ;
 
-                Loader.prototype._onStart = function _onStart() {
-                    this.progress = 0;
-                    this.loading = true;
-                    this.onStart.dispatch(this);
-                };
+              _proto.use = function use(fn) {
+                this._afterMiddleware.push(fn);
 
-                /**
-                 * Called once each resource has loaded.
-                 *
-                 * @private
-                 */
+                return this;
+              }
+              /**
+               * Resets the queue of the loader to prepare for a new load.
+               *
+               * @return {this} Returns itself.
+               */
+              ;
 
+              _proto.reset = function reset() {
+                this.progress = 0;
+                this.loading = false;
 
-                Loader.prototype._onComplete = function _onComplete() {
-                    this.progress = MAX_PROGRESS;
-                    this.loading = false;
-                    this.onComplete.dispatch(this, this.resources);
-                };
+                this._queue.kill();
 
-                /**
-                 * Called each time a resources is loaded.
-                 *
-                 * @private
-                 * @param {Resource} resource - The resource that was loaded
-                 */
+                this._queue.pause(); // abort all resource loads
 
 
-                Loader.prototype._onLoad = function _onLoad(resource) {
-                    var _this3 = this;
+                for (var k in this.resources) {
+                  var res = this.resources[k];
 
-                    resource._onLoadBinding = null;
+                  if (res._onLoadBinding) {
+                    res._onLoadBinding.detach();
+                  }
 
-                    // remove this resource from the async queue, and add it to our list of resources that are being parsed
-                    this._resourcesParsing.push(resource);
-                    resource._dequeue();
+                  if (res.isLoading) {
+                    res.abort();
+                  }
+                }
 
-                    // run all the after middleware for this resource
-                    async$1.eachSeries(this._afterMiddleware, function (fn, next) {
-                        fn.call(_this3, resource, next);
-                    }, function () {
-                        resource.onAfterMiddleware.dispatch(resource);
+                this.resources = {};
+                return this;
+              }
+              /**
+               * Starts loading the queued resources.
+               *
+               * @param {function} [cb] - Optional callback that will be bound to the `complete` event.
+               * @return {this} Returns itself.
+               */
+              ;
 
-                        _this3.progress = Math.min(MAX_PROGRESS, _this3.progress + resource.progressChunk);
-                        _this3.onProgress.dispatch(_this3, resource);
+              _proto.load = function load(cb) {
+                // register complete callback if they pass one
+                if (typeof cb === 'function') {
+                  this.onComplete.once(cb);
+                } // if the queue has already started we are done here
 
-                        if (resource.error) {
-                            _this3.onError.dispatch(resource.error, _this3, resource);
-                        } else {
-                            _this3.onLoad.dispatch(_this3, resource);
-                        }
 
-                        _this3._resourcesParsing.splice(_this3._resourcesParsing.indexOf(resource), 1);
+                if (this.loading) {
+                  return this;
+                }
 
-                        // do completion check
-                        if (_this3._queue.idle() && _this3._resourcesParsing.length === 0) {
-                            _this3._onComplete();
-                        }
-                    }, true);
-                };
+                if (this._queue.idle()) {
+                  this._onStart();
 
-                _createClass(Loader, [{
-                    key: 'concurrency',
-                    get: function get() {
-                        return this._queue.concurrency;
-                    }
-                    // eslint-disable-next-line require-jsdoc
-                    ,
-                    set: function set(concurrency) {
-                        this._queue.concurrency = concurrency;
-                    }
-                }]);
+                  this._onComplete();
+                } else {
+                  // distribute progress chunks
+                  var numTasks = this._queue._tasks.length;
+                  var chunk = MAX_PROGRESS / numTasks;
 
-                return Loader;
+                  for (var i = 0; i < this._queue._tasks.length; ++i) {
+                    this._queue._tasks[i].data.progressChunk = chunk;
+                  } // notify we are starting
+
+
+                  this._onStart(); // start loading
+
+
+                  this._queue.resume();
+                }
+
+                return this;
+              }
+              /**
+               * The number of resources to load concurrently.
+               *
+               * @member {number}
+               * @default 10
+               */
+              ;
+
+              /**
+               * Prepares a url for usage based on the configuration of this object
+               *
+               * @private
+               * @param {string} url - The url to prepare.
+               * @return {string} The prepared url.
+               */
+              _proto._prepareUrl = function _prepareUrl(url) {
+                var parsedUrl = parseUri(url, {
+                  strictMode: true
+                });
+                var result; // absolute url, just use it as is.
+
+                if (parsedUrl.protocol || !parsedUrl.path || url.indexOf('//') === 0) {
+                  result = url;
+                } // if baseUrl doesn't end in slash and url doesn't start with slash, then add a slash inbetween
+                else if (this.baseUrl.length && this.baseUrl.lastIndexOf('/') !== this.baseUrl.length - 1 && url.charAt(0) !== '/') {
+                    result = this.baseUrl + "/" + url;
+                  } else {
+                    result = this.baseUrl + url;
+                  } // if we need to add a default querystring, there is a bit more work
+
+
+                if (this.defaultQueryString) {
+                  var hash = rgxExtractUrlHash.exec(result)[0];
+                  result = result.substr(0, result.length - hash.length);
+
+                  if (result.indexOf('?') !== -1) {
+                    result += "&" + this.defaultQueryString;
+                  } else {
+                    result += "?" + this.defaultQueryString;
+                  }
+
+                  result += hash;
+                }
+
+                return result;
+              }
+              /**
+               * Loads a single resource.
+               *
+               * @private
+               * @param {Resource} resource - The resource to load.
+               * @param {function} dequeue - The function to call when we need to dequeue this item.
+               */
+              ;
+
+              _proto._loadResource = function _loadResource(resource, dequeue) {
+                var _this2 = this;
+
+                resource._dequeue = dequeue; // run before middleware
+
+                eachSeries(this._beforeMiddleware, function (fn, next) {
+                  fn.call(_this2, resource, function () {
+                    // if the before middleware marks the resource as complete,
+                    // break and don't process any more before middleware
+                    next(resource.isComplete ? {} : null);
+                  });
+                }, function () {
+                  if (resource.isComplete) {
+                    _this2._onLoad(resource);
+                  } else {
+                    resource._onLoadBinding = resource.onComplete.once(_this2._onLoad, _this2);
+                    resource.load();
+                  }
+                }, true);
+              }
+              /**
+               * Called once loading has started.
+               *
+               * @private
+               */
+              ;
+
+              _proto._onStart = function _onStart() {
+                this.progress = 0;
+                this.loading = true;
+                this.onStart.dispatch(this);
+              }
+              /**
+               * Called once each resource has loaded.
+               *
+               * @private
+               */
+              ;
+
+              _proto._onComplete = function _onComplete() {
+                this.progress = MAX_PROGRESS;
+                this.loading = false;
+                this.onComplete.dispatch(this, this.resources);
+              }
+              /**
+               * Called each time a resources is loaded.
+               *
+               * @private
+               * @param {Resource} resource - The resource that was loaded
+               */
+              ;
+
+              _proto._onLoad = function _onLoad(resource) {
+                var _this3 = this;
+
+                resource._onLoadBinding = null; // remove this resource from the async queue, and add it to our list of resources that are being parsed
+
+                this._resourcesParsing.push(resource);
+
+                resource._dequeue(); // run all the after middleware for this resource
+
+
+                eachSeries(this._afterMiddleware, function (fn, next) {
+                  fn.call(_this3, resource, next);
+                }, function () {
+                  resource.onAfterMiddleware.dispatch(resource);
+                  _this3.progress = Math.min(MAX_PROGRESS, _this3.progress + resource.progressChunk);
+
+                  _this3.onProgress.dispatch(_this3, resource);
+
+                  if (resource.error) {
+                    _this3.onError.dispatch(resource.error, _this3, resource);
+                  } else {
+                    _this3.onLoad.dispatch(_this3, resource);
+                  }
+
+                  _this3._resourcesParsing.splice(_this3._resourcesParsing.indexOf(resource), 1); // do completion check
+
+
+                  if (_this3._queue.idle() && _this3._resourcesParsing.length === 0) {
+                    _this3._onComplete();
+                  }
+                }, true);
+              };
+
+              _createClass(Loader, [{
+                key: "concurrency",
+                get: function get() {
+                  return this._queue.concurrency;
+                } // eslint-disable-next-line require-jsdoc
+                ,
+                set: function set(concurrency) {
+                  this._queue.concurrency = concurrency;
+                }
+              }]);
+
+              return Loader;
             }();
-
             /**
              * A default array of middleware to run before loading each resource.
              * Each of these middlewares are added to any new Loader instances when they are created.
@@ -35558,7 +36700,6 @@
 
 
             Loader._defaultBeforeMiddleware = [];
-
             /**
              * A default array of middleware to run after loading each resource.
              * Each of these middlewares are added to any new Loader instances when they are created.
@@ -35566,8 +36707,8 @@
              * @private
              * @member {function[]}
              */
-            Loader._defaultAfterMiddleware = [];
 
+            Loader._defaultAfterMiddleware = [];
             /**
              * Sets up a middleware function that will run *before* the
              * resource is loaded.
@@ -35576,12 +36717,12 @@
              * @param {function} fn - The middleware function to register.
              * @return {Loader} Returns itself.
              */
+
             Loader.pre = function LoaderPreStatic(fn) {
-                Loader._defaultBeforeMiddleware.push(fn);
+              Loader._defaultBeforeMiddleware.push(fn);
 
-                return Loader;
+              return Loader;
             };
-
             /**
              * Sets up a middleware function that will run *after* the
              * resource is loaded.
@@ -35590,1785 +36731,21 @@
              * @param {function} fn - The middleware function to register.
              * @return {Loader} Returns itself.
              */
+
+
             Loader.use = function LoaderUseStatic(fn) {
-                Loader._defaultAfterMiddleware.push(fn);
+              Loader._defaultAfterMiddleware.push(fn);
 
-                return Loader;
+              return Loader;
             };
-            //# sourceMappingURL=Loader.js.map
-            });
-
-            unwrapExports(Loader_1);
-            var Loader_2 = Loader_1.Loader;
-
-            var b64 = createCommonjsModule(function (module, exports) {
-
-            exports.__esModule = true;
-            exports.encodeBinary = encodeBinary;
-            var _keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-
-            /**
-             * Encodes binary into base64.
-             *
-             * @param {string} input The input data to encode.
-             * @returns {string} The encoded base64 string
-             */
-            function encodeBinary(input) {
-                var output = '';
-                var inx = 0;
-
-                while (inx < input.length) {
-                    // Fill byte buffer array
-                    var bytebuffer = [0, 0, 0];
-                    var encodedCharIndexes = [0, 0, 0, 0];
-
-                    for (var jnx = 0; jnx < bytebuffer.length; ++jnx) {
-                        if (inx < input.length) {
-                            // throw away high-order byte, as documented at:
-                            // https://developer.mozilla.org/En/Using_XMLHttpRequest#Handling_binary_data
-                            bytebuffer[jnx] = input.charCodeAt(inx++) & 0xff;
-                        } else {
-                            bytebuffer[jnx] = 0;
-                        }
-                    }
-
-                    // Get each encoded character, 6 bits at a time
-                    // index 1: first 6 bits
-                    encodedCharIndexes[0] = bytebuffer[0] >> 2;
-
-                    // index 2: second 6 bits (2 least significant bits from input byte 1 + 4 most significant bits from byte 2)
-                    encodedCharIndexes[1] = (bytebuffer[0] & 0x3) << 4 | bytebuffer[1] >> 4;
-
-                    // index 3: third 6 bits (4 least significant bits from input byte 2 + 2 most significant bits from byte 3)
-                    encodedCharIndexes[2] = (bytebuffer[1] & 0x0f) << 2 | bytebuffer[2] >> 6;
-
-                    // index 3: forth 6 bits (6 least significant bits from input byte 3)
-                    encodedCharIndexes[3] = bytebuffer[2] & 0x3f;
-
-                    // Determine whether padding happened, and adjust accordingly
-                    var paddingBytes = inx - (input.length - 1);
-
-                    switch (paddingBytes) {
-                        case 2:
-                            // Set last 2 characters to padding char
-                            encodedCharIndexes[3] = 64;
-                            encodedCharIndexes[2] = 64;
-                            break;
-
-                        case 1:
-                            // Set last character to padding char
-                            encodedCharIndexes[3] = 64;
-                            break;
-
-                        default:
-                            break; // No padding - proceed
-                    }
-
-                    // Now we will grab each appropriate character out of our keystring
-                    // based on our index array and append it to the output string
-                    for (var _jnx = 0; _jnx < encodedCharIndexes.length; ++_jnx) {
-                        output += _keyStr.charAt(encodedCharIndexes[_jnx]);
-                    }
-                }
-
-                return output;
-            }
-
-            // Backwards compat
-            {
-                module.exports.default = encodeBinary; // eslint-disable-line no-undef
-            }
-            //# sourceMappingURL=b64.js.map
-            });
-
-            unwrapExports(b64);
-            var b64_1 = b64.encodeBinary;
-
-            // import Loader from './Loader';
-            // import Resource from './Resource';
-            // import * as async from './async';
-            // import * as b64 from './b64';
-
-            /* eslint-disable no-undef */
-
-            var Loader = Loader_1.Loader;
-            var Resource$1 = Resource_1.Resource;
-
-
-
-            /**
-             *
-             * @static
-             * @memberof Loader
-             * @member {Class<Resource>}
-             */
-            Loader.Resource = Resource$1;
-
-            /**
-             *
-             * @static
-             * @memberof Loader
-             * @member {Class<async>}
-             */
-            Loader.async = async;
-
-            /**
-             *
-             * @static
-             * @memberof Loader
-             * @member {Class<encodeBinary>}
-             */
-            Loader.encodeBinary = b64;
-
-            /**
-             *
-             * @deprecated
-             * @see Loader.encodeBinary
-             *
-             * @static
-             * @memberof Loader
-             * @member {Class<encodeBinary>}
-             */
-            Loader.base64 = b64;
-
-            // export manually, and also as default
-            var lib = Loader;
-
-            // default & named export
-            var Loader_1$1 = Loader;
-            var default_1$1 = Loader;
-            var lib_1 = lib.Resource;
-            lib.Loader = Loader_1$1;
-            lib.default = default_1$1;
 
             /*!
-             * @pixi/loaders - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/loaders - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/loaders is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
              */
-
-            function unwrapExports$1 (x) {
-            	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
-            }
-
-            function createCommonjsModule$1(fn, module) {
-            	return module = { exports: {} }, fn(module, module.exports), module.exports;
-            }
-
-            var parseUri$1 = function parseURI (str, opts) {
-              opts = opts || {};
-
-              var o = {
-                key: ['source', 'protocol', 'authority', 'userInfo', 'user', 'password', 'host', 'port', 'relative', 'path', 'directory', 'file', 'query', 'anchor'],
-                q: {
-                  name: 'queryKey',
-                  parser: /(?:^|&)([^&=]*)=?([^&]*)/g
-                },
-                parser: {
-                  strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
-                  loose: /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
-                }
-              };
-
-              var m = o.parser[opts.strictMode ? 'strict' : 'loose'].exec(str);
-              var uri = {};
-              var i = 14;
-
-              while (i--) { uri[o.key[i]] = m[i] || ''; }
-
-              uri[o.q.name] = {};
-              uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
-                if ($1) { uri[o.q.name][$1] = $2; }
-              });
-
-              return uri
-            };
-
-            var miniSignals$1 = createCommonjsModule$1(function (module, exports) {
-
-            Object.defineProperty(exports, '__esModule', {
-              value: true
-            });
-
-            var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) { descriptor.writable = true; } Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) { defineProperties(Constructor.prototype, protoProps); } if (staticProps) { defineProperties(Constructor, staticProps); } return Constructor; }; })();
-
-            function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-            var MiniSignalBinding = (function () {
-              function MiniSignalBinding(fn, once, thisArg) {
-                if (once === undefined) { once = false; }
-
-                _classCallCheck(this, MiniSignalBinding);
-
-                this._fn = fn;
-                this._once = once;
-                this._thisArg = thisArg;
-                this._next = this._prev = this._owner = null;
-              }
-
-              _createClass(MiniSignalBinding, [{
-                key: 'detach',
-                value: function detach() {
-                  if (this._owner === null) { return false; }
-                  this._owner.detach(this);
-                  return true;
-                }
-              }]);
-
-              return MiniSignalBinding;
-            })();
-
-            function _addMiniSignalBinding(self, node) {
-              if (!self._head) {
-                self._head = node;
-                self._tail = node;
-              } else {
-                self._tail._next = node;
-                node._prev = self._tail;
-                self._tail = node;
-              }
-
-              node._owner = self;
-
-              return node;
-            }
-
-            var MiniSignal = (function () {
-              function MiniSignal() {
-                _classCallCheck(this, MiniSignal);
-
-                this._head = this._tail = undefined;
-              }
-
-              _createClass(MiniSignal, [{
-                key: 'handlers',
-                value: function handlers() {
-                  var exists = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
-
-                  var node = this._head;
-
-                  if (exists) { return !!node; }
-
-                  var ee = [];
-
-                  while (node) {
-                    ee.push(node);
-                    node = node._next;
-                  }
-
-                  return ee;
-                }
-              }, {
-                key: 'has',
-                value: function has(node) {
-                  if (!(node instanceof MiniSignalBinding)) {
-                    throw new Error('MiniSignal#has(): First arg must be a MiniSignalBinding object.');
-                  }
-
-                  return node._owner === this;
-                }
-              }, {
-                key: 'dispatch',
-                value: function dispatch() {
-                  var arguments$1 = arguments;
-
-                  var node = this._head;
-
-                  if (!node) { return false; }
-
-                  while (node) {
-                    if (node._once) { this.detach(node); }
-                    node._fn.apply(node._thisArg, arguments$1);
-                    node = node._next;
-                  }
-
-                  return true;
-                }
-              }, {
-                key: 'add',
-                value: function add(fn) {
-                  var thisArg = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
-
-                  if (typeof fn !== 'function') {
-                    throw new Error('MiniSignal#add(): First arg must be a Function.');
-                  }
-                  return _addMiniSignalBinding(this, new MiniSignalBinding(fn, false, thisArg));
-                }
-              }, {
-                key: 'once',
-                value: function once(fn) {
-                  var thisArg = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
-
-                  if (typeof fn !== 'function') {
-                    throw new Error('MiniSignal#once(): First arg must be a Function.');
-                  }
-                  return _addMiniSignalBinding(this, new MiniSignalBinding(fn, true, thisArg));
-                }
-              }, {
-                key: 'detach',
-                value: function detach(node) {
-                  if (!(node instanceof MiniSignalBinding)) {
-                    throw new Error('MiniSignal#detach(): First arg must be a MiniSignalBinding object.');
-                  }
-                  if (node._owner !== this) { return this; }
-
-                  if (node._prev) { node._prev._next = node._next; }
-                  if (node._next) { node._next._prev = node._prev; }
-
-                  if (node === this._head) {
-                    this._head = node._next;
-                    if (node._next === null) {
-                      this._tail = null;
-                    }
-                  } else if (node === this._tail) {
-                    this._tail = node._prev;
-                    this._tail._next = null;
-                  }
-
-                  node._owner = null;
-                  return this;
-                }
-              }, {
-                key: 'detachAll',
-                value: function detachAll() {
-                  var node = this._head;
-                  if (!node) { return this; }
-
-                  this._head = this._tail = null;
-
-                  while (node) {
-                    node._owner = null;
-                    node = node._next;
-                  }
-                  return this;
-                }
-              }]);
-
-              return MiniSignal;
-            })();
-
-            MiniSignal.MiniSignalBinding = MiniSignalBinding;
-
-            exports['default'] = MiniSignal;
-            module.exports = exports['default'];
-            });
-
-            unwrapExports$1(miniSignals$1);
-
-            var Resource_1$1 = createCommonjsModule$1(function (module, exports) {
-
-            exports.__esModule = true;
-            exports.Resource = undefined;
-
-            var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) { descriptor.writable = true; } Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) { defineProperties(Constructor.prototype, protoProps); } if (staticProps) { defineProperties(Constructor, staticProps); } return Constructor; }; }();
-
-
-
-            var _parseUri2 = _interopRequireDefault(parseUri$1);
-
-
-
-            var _miniSignals2 = _interopRequireDefault(miniSignals$1);
-
-            function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-            function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-            // tests if CORS is supported in XHR, if not we need to use XDR
-            var useXdr = !!(window.XDomainRequest && !('withCredentials' in new XMLHttpRequest()));
-            var tempAnchor = null;
-
-            // some status constants
-            var STATUS_NONE = 0;
-            var STATUS_OK = 200;
-            var STATUS_EMPTY = 204;
-            var STATUS_IE_BUG_EMPTY = 1223;
-            var STATUS_TYPE_OK = 2;
-
-            // noop
-            function _noop() {} /* empty */
-
-            /**
-             * Manages the state and loading of a resource and all child resources.
-             *
-             * @class
-             */
-
-            var Resource = exports.Resource = function () {
-                /**
-                 * Sets the load type to be used for a specific extension.
-                 *
-                 * @static
-                 * @param {string} extname - The extension to set the type for, e.g. "png" or "fnt"
-                 * @param {Resource.LOAD_TYPE} loadType - The load type to set it to.
-                 */
-                Resource.setExtensionLoadType = function setExtensionLoadType(extname, loadType) {
-                    setExtMap(Resource._loadTypeMap, extname, loadType);
-                };
-
-                /**
-                 * Sets the load type to be used for a specific extension.
-                 *
-                 * @static
-                 * @param {string} extname - The extension to set the type for, e.g. "png" or "fnt"
-                 * @param {Resource.XHR_RESPONSE_TYPE} xhrType - The xhr type to set it to.
-                 */
-
-
-                Resource.setExtensionXhrType = function setExtensionXhrType(extname, xhrType) {
-                    setExtMap(Resource._xhrTypeMap, extname, xhrType);
-                };
-
-                /**
-                 * @param {string} name - The name of the resource to load.
-                 * @param {string|string[]} url - The url for this resource, for audio/video loads you can pass
-                 *      an array of sources.
-                 * @param {object} [options] - The options for the load.
-                 * @param {string|boolean} [options.crossOrigin] - Is this request cross-origin? Default is to
-                 *      determine automatically.
-                 * @param {number} [options.timeout=0] - A timeout in milliseconds for the load. If the load takes
-                 *      longer than this time it is cancelled and the load is considered a failure. If this value is
-                 *      set to `0` then there is no explicit timeout.
-                 * @param {Resource.LOAD_TYPE} [options.loadType=Resource.LOAD_TYPE.XHR] - How should this resource
-                 *      be loaded?
-                 * @param {Resource.XHR_RESPONSE_TYPE} [options.xhrType=Resource.XHR_RESPONSE_TYPE.DEFAULT] - How
-                 *      should the data being loaded be interpreted when using XHR?
-                 * @param {Resource.IMetadata} [options.metadata] - Extra configuration for middleware and the Resource object.
-                 */
-
-
-                function Resource(name, url, options) {
-                    _classCallCheck(this, Resource);
-
-                    if (typeof name !== 'string' || typeof url !== 'string') {
-                        throw new Error('Both name and url are required for constructing a resource.');
-                    }
-
-                    options = options || {};
-
-                    /**
-                     * The state flags of this resource.
-                     *
-                     * @private
-                     * @member {number}
-                     */
-                    this._flags = 0;
-
-                    // set data url flag, needs to be set early for some _determineX checks to work.
-                    this._setFlag(Resource.STATUS_FLAGS.DATA_URL, url.indexOf('data:') === 0);
-
-                    /**
-                     * The name of this resource.
-                     *
-                     * @readonly
-                     * @member {string}
-                     */
-                    this.name = name;
-
-                    /**
-                     * The url used to load this resource.
-                     *
-                     * @readonly
-                     * @member {string}
-                     */
-                    this.url = url;
-
-                    /**
-                     * The extension used to load this resource.
-                     *
-                     * @readonly
-                     * @member {string}
-                     */
-                    this.extension = this._getExtension();
-
-                    /**
-                     * The data that was loaded by the resource.
-                     *
-                     * @member {any}
-                     */
-                    this.data = null;
-
-                    /**
-                     * Is this request cross-origin? If unset, determined automatically.
-                     *
-                     * @member {string}
-                     */
-                    this.crossOrigin = options.crossOrigin === true ? 'anonymous' : options.crossOrigin;
-
-                    /**
-                     * A timeout in milliseconds for the load. If the load takes longer than this time
-                     * it is cancelled and the load is considered a failure. If this value is set to `0`
-                     * then there is no explicit timeout.
-                     *
-                     * @member {number}
-                     */
-                    this.timeout = options.timeout || 0;
-
-                    /**
-                     * The method of loading to use for this resource.
-                     *
-                     * @member {Resource.LOAD_TYPE}
-                     */
-                    this.loadType = options.loadType || this._determineLoadType();
-
-                    /**
-                     * The type used to load the resource via XHR. If unset, determined automatically.
-                     *
-                     * @member {string}
-                     */
-                    this.xhrType = options.xhrType;
-
-                    /**
-                     * Extra info for middleware, and controlling specifics about how the resource loads.
-                     *
-                     * Note that if you pass in a `loadElement`, the Resource class takes ownership of it.
-                     * Meaning it will modify it as it sees fit.
-                     *
-                     * @member {Resource.IMetadata}
-                     */
-                    this.metadata = options.metadata || {};
-
-                    /**
-                     * The error that occurred while loading (if any).
-                     *
-                     * @readonly
-                     * @member {Error}
-                     */
-                    this.error = null;
-
-                    /**
-                     * The XHR object that was used to load this resource. This is only set
-                     * when `loadType` is `Resource.LOAD_TYPE.XHR`.
-                     *
-                     * @readonly
-                     * @member {XMLHttpRequest}
-                     */
-                    this.xhr = null;
-
-                    /**
-                     * The child resources this resource owns.
-                     *
-                     * @readonly
-                     * @member {Resource[]}
-                     */
-                    this.children = [];
-
-                    /**
-                     * The resource type.
-                     *
-                     * @readonly
-                     * @member {Resource.TYPE}
-                     */
-                    this.type = Resource.TYPE.UNKNOWN;
-
-                    /**
-                     * The progress chunk owned by this resource.
-                     *
-                     * @readonly
-                     * @member {number}
-                     */
-                    this.progressChunk = 0;
-
-                    /**
-                     * The `dequeue` method that will be used a storage place for the async queue dequeue method
-                     * used privately by the loader.
-                     *
-                     * @private
-                     * @member {function}
-                     */
-                    this._dequeue = _noop;
-
-                    /**
-                     * Used a storage place for the on load binding used privately by the loader.
-                     *
-                     * @private
-                     * @member {function}
-                     */
-                    this._onLoadBinding = null;
-
-                    /**
-                     * The timer for element loads to check if they timeout.
-                     *
-                     * @private
-                     * @member {number}
-                     */
-                    this._elementTimer = 0;
-
-                    /**
-                     * The `complete` function bound to this resource's context.
-                     *
-                     * @private
-                     * @member {function}
-                     */
-                    this._boundComplete = this.complete.bind(this);
-
-                    /**
-                     * The `_onError` function bound to this resource's context.
-                     *
-                     * @private
-                     * @member {function}
-                     */
-                    this._boundOnError = this._onError.bind(this);
-
-                    /**
-                     * The `_onProgress` function bound to this resource's context.
-                     *
-                     * @private
-                     * @member {function}
-                     */
-                    this._boundOnProgress = this._onProgress.bind(this);
-
-                    /**
-                     * The `_onTimeout` function bound to this resource's context.
-                     *
-                     * @private
-                     * @member {function}
-                     */
-                    this._boundOnTimeout = this._onTimeout.bind(this);
-
-                    // xhr callbacks
-                    this._boundXhrOnError = this._xhrOnError.bind(this);
-                    this._boundXhrOnTimeout = this._xhrOnTimeout.bind(this);
-                    this._boundXhrOnAbort = this._xhrOnAbort.bind(this);
-                    this._boundXhrOnLoad = this._xhrOnLoad.bind(this);
-
-                    /**
-                     * Dispatched when the resource beings to load.
-                     *
-                     * The callback looks like {@link Resource.OnStartSignal}.
-                     *
-                     * @member {Signal<Resource.OnStartSignal>}
-                     */
-                    this.onStart = new _miniSignals2.default();
-
-                    /**
-                     * Dispatched each time progress of this resource load updates.
-                     * Not all resources types and loader systems can support this event
-                     * so sometimes it may not be available. If the resource
-                     * is being loaded on a modern browser, using XHR, and the remote server
-                     * properly sets Content-Length headers, then this will be available.
-                     *
-                     * The callback looks like {@link Resource.OnProgressSignal}.
-                     *
-                     * @member {Signal<Resource.OnProgressSignal>}
-                     */
-                    this.onProgress = new _miniSignals2.default();
-
-                    /**
-                     * Dispatched once this resource has loaded, if there was an error it will
-                     * be in the `error` property.
-                     *
-                     * The callback looks like {@link Resource.OnCompleteSignal}.
-                     *
-                     * @member {Signal<Resource.OnCompleteSignal>}
-                     */
-                    this.onComplete = new _miniSignals2.default();
-
-                    /**
-                     * Dispatched after this resource has had all the *after* middleware run on it.
-                     *
-                     * The callback looks like {@link Resource.OnCompleteSignal}.
-                     *
-                     * @member {Signal<Resource.OnCompleteSignal>}
-                     */
-                    this.onAfterMiddleware = new _miniSignals2.default();
-                }
-
-                /**
-                 * When the resource starts to load.
-                 *
-                 * @memberof Resource
-                 * @callback OnStartSignal
-                 * @param {Resource} resource - The resource that the event happened on.
-                 */
-
-                /**
-                 * When the resource reports loading progress.
-                 *
-                 * @memberof Resource
-                 * @callback OnProgressSignal
-                 * @param {Resource} resource - The resource that the event happened on.
-                 * @param {number} percentage - The progress of the load in the range [0, 1].
-                 */
-
-                /**
-                 * When the resource finishes loading.
-                 *
-                 * @memberof Resource
-                 * @callback OnCompleteSignal
-                 * @param {Resource} resource - The resource that the event happened on.
-                 */
-
-                /**
-                 * @memberof Resource
-                 * @typedef {object} IMetadata
-                 * @property {HTMLImageElement|HTMLAudioElement|HTMLVideoElement} [loadElement=null] - The
-                 *      element to use for loading, instead of creating one.
-                 * @property {boolean} [skipSource=false] - Skips adding source(s) to the load element. This
-                 *      is useful if you want to pass in a `loadElement` that you already added load sources to.
-                 * @property {string|string[]} [mimeType] - The mime type to use for the source element
-                 *      of a video/audio elment. If the urls are an array, you can pass this as an array as well
-                 *      where each index is the mime type to use for the corresponding url index.
-                 */
-
-                /**
-                 * Stores whether or not this url is a data url.
-                 *
-                 * @readonly
-                 * @member {boolean}
-                 */
-
-
-                /**
-                 * Marks the resource as complete.
-                 *
-                 */
-                Resource.prototype.complete = function complete() {
-                    this._clearEvents();
-                    this._finish();
-                };
-
-                /**
-                 * Aborts the loading of this resource, with an optional message.
-                 *
-                 * @param {string} message - The message to use for the error
-                 */
-
-
-                Resource.prototype.abort = function abort(message) {
-                    // abort can be called multiple times, ignore subsequent calls.
-                    if (this.error) {
-                        return;
-                    }
-
-                    // store error
-                    this.error = new Error(message);
-
-                    // clear events before calling aborts
-                    this._clearEvents();
-
-                    // abort the actual loading
-                    if (this.xhr) {
-                        this.xhr.abort();
-                    } else if (this.xdr) {
-                        this.xdr.abort();
-                    } else if (this.data) {
-                        // single source
-                        if (this.data.src) {
-                            this.data.src = Resource.EMPTY_GIF;
-                        }
-                        // multi-source
-                        else {
-                                while (this.data.firstChild) {
-                                    this.data.removeChild(this.data.firstChild);
-                                }
-                            }
-                    }
-
-                    // done now.
-                    this._finish();
-                };
-
-                /**
-                 * Kicks off loading of this resource. This method is asynchronous.
-                 *
-                 * @param {Resource.OnCompleteSignal} [cb] - Optional callback to call once the resource is loaded.
-                 */
-
-
-                Resource.prototype.load = function load(cb) {
-                    var _this = this;
-
-                    if (this.isLoading) {
-                        return;
-                    }
-
-                    if (this.isComplete) {
-                        if (cb) {
-                            setTimeout(function () {
-                                return cb(_this);
-                            }, 1);
-                        }
-
-                        return;
-                    } else if (cb) {
-                        this.onComplete.once(cb);
-                    }
-
-                    this._setFlag(Resource.STATUS_FLAGS.LOADING, true);
-
-                    this.onStart.dispatch(this);
-
-                    // if unset, determine the value
-                    if (this.crossOrigin === false || typeof this.crossOrigin !== 'string') {
-                        this.crossOrigin = this._determineCrossOrigin(this.url);
-                    }
-
-                    switch (this.loadType) {
-                        case Resource.LOAD_TYPE.IMAGE:
-                            this.type = Resource.TYPE.IMAGE;
-                            this._loadElement('image');
-                            break;
-
-                        case Resource.LOAD_TYPE.AUDIO:
-                            this.type = Resource.TYPE.AUDIO;
-                            this._loadSourceElement('audio');
-                            break;
-
-                        case Resource.LOAD_TYPE.VIDEO:
-                            this.type = Resource.TYPE.VIDEO;
-                            this._loadSourceElement('video');
-                            break;
-
-                        case Resource.LOAD_TYPE.XHR:
-                        /* falls through */
-                        default:
-                            if (useXdr && this.crossOrigin) {
-                                this._loadXdr();
-                            } else {
-                                this._loadXhr();
-                            }
-                            break;
-                    }
-                };
-
-                /**
-                 * Checks if the flag is set.
-                 *
-                 * @private
-                 * @param {number} flag - The flag to check.
-                 * @return {boolean} True if the flag is set.
-                 */
-
-
-                Resource.prototype._hasFlag = function _hasFlag(flag) {
-                    return (this._flags & flag) !== 0;
-                };
-
-                /**
-                 * (Un)Sets the flag.
-                 *
-                 * @private
-                 * @param {number} flag - The flag to (un)set.
-                 * @param {boolean} value - Whether to set or (un)set the flag.
-                 */
-
-
-                Resource.prototype._setFlag = function _setFlag(flag, value) {
-                    this._flags = value ? this._flags | flag : this._flags & ~flag;
-                };
-
-                /**
-                 * Clears all the events from the underlying loading source.
-                 *
-                 * @private
-                 */
-
-
-                Resource.prototype._clearEvents = function _clearEvents() {
-                    clearTimeout(this._elementTimer);
-
-                    if (this.data && this.data.removeEventListener) {
-                        this.data.removeEventListener('error', this._boundOnError, false);
-                        this.data.removeEventListener('load', this._boundComplete, false);
-                        this.data.removeEventListener('progress', this._boundOnProgress, false);
-                        this.data.removeEventListener('canplaythrough', this._boundComplete, false);
-                    }
-
-                    if (this.xhr) {
-                        if (this.xhr.removeEventListener) {
-                            this.xhr.removeEventListener('error', this._boundXhrOnError, false);
-                            this.xhr.removeEventListener('timeout', this._boundXhrOnTimeout, false);
-                            this.xhr.removeEventListener('abort', this._boundXhrOnAbort, false);
-                            this.xhr.removeEventListener('progress', this._boundOnProgress, false);
-                            this.xhr.removeEventListener('load', this._boundXhrOnLoad, false);
-                        } else {
-                            this.xhr.onerror = null;
-                            this.xhr.ontimeout = null;
-                            this.xhr.onprogress = null;
-                            this.xhr.onload = null;
-                        }
-                    }
-                };
-
-                /**
-                 * Finalizes the load.
-                 *
-                 * @private
-                 */
-
-
-                Resource.prototype._finish = function _finish() {
-                    if (this.isComplete) {
-                        throw new Error('Complete called again for an already completed resource.');
-                    }
-
-                    this._setFlag(Resource.STATUS_FLAGS.COMPLETE, true);
-                    this._setFlag(Resource.STATUS_FLAGS.LOADING, false);
-
-                    this.onComplete.dispatch(this);
-                };
-
-                /**
-                 * Loads this resources using an element that has a single source,
-                 * like an HTMLImageElement.
-                 *
-                 * @private
-                 * @param {string} type - The type of element to use.
-                 */
-
-
-                Resource.prototype._loadElement = function _loadElement(type) {
-                    if (this.metadata.loadElement) {
-                        this.data = this.metadata.loadElement;
-                    } else if (type === 'image' && typeof window.Image !== 'undefined') {
-                        this.data = new Image();
-                    } else {
-                        this.data = document.createElement(type);
-                    }
-
-                    if (this.crossOrigin) {
-                        this.data.crossOrigin = this.crossOrigin;
-                    }
-
-                    if (!this.metadata.skipSource) {
-                        this.data.src = this.url;
-                    }
-
-                    this.data.addEventListener('error', this._boundOnError, false);
-                    this.data.addEventListener('load', this._boundComplete, false);
-                    this.data.addEventListener('progress', this._boundOnProgress, false);
-
-                    if (this.timeout) {
-                        this._elementTimer = setTimeout(this._boundOnTimeout, this.timeout);
-                    }
-                };
-
-                /**
-                 * Loads this resources using an element that has multiple sources,
-                 * like an HTMLAudioElement or HTMLVideoElement.
-                 *
-                 * @private
-                 * @param {string} type - The type of element to use.
-                 */
-
-
-                Resource.prototype._loadSourceElement = function _loadSourceElement(type) {
-                    if (this.metadata.loadElement) {
-                        this.data = this.metadata.loadElement;
-                    } else if (type === 'audio' && typeof window.Audio !== 'undefined') {
-                        this.data = new Audio();
-                    } else {
-                        this.data = document.createElement(type);
-                    }
-
-                    if (this.data === null) {
-                        this.abort('Unsupported element: ' + type);
-
-                        return;
-                    }
-
-                    if (this.crossOrigin) {
-                        this.data.crossOrigin = this.crossOrigin;
-                    }
-
-                    if (!this.metadata.skipSource) {
-                        // support for CocoonJS Canvas+ runtime, lacks document.createElement('source')
-                        if (navigator.isCocoonJS) {
-                            this.data.src = Array.isArray(this.url) ? this.url[0] : this.url;
-                        } else if (Array.isArray(this.url)) {
-                            var mimeTypes = this.metadata.mimeType;
-
-                            for (var i = 0; i < this.url.length; ++i) {
-                                this.data.appendChild(this._createSource(type, this.url[i], Array.isArray(mimeTypes) ? mimeTypes[i] : mimeTypes));
-                            }
-                        } else {
-                            var _mimeTypes = this.metadata.mimeType;
-
-                            this.data.appendChild(this._createSource(type, this.url, Array.isArray(_mimeTypes) ? _mimeTypes[0] : _mimeTypes));
-                        }
-                    }
-
-                    this.data.addEventListener('error', this._boundOnError, false);
-                    this.data.addEventListener('load', this._boundComplete, false);
-                    this.data.addEventListener('progress', this._boundOnProgress, false);
-                    this.data.addEventListener('canplaythrough', this._boundComplete, false);
-
-                    this.data.load();
-
-                    if (this.timeout) {
-                        this._elementTimer = setTimeout(this._boundOnTimeout, this.timeout);
-                    }
-                };
-
-                /**
-                 * Loads this resources using an XMLHttpRequest.
-                 *
-                 * @private
-                 */
-
-
-                Resource.prototype._loadXhr = function _loadXhr() {
-                    // if unset, determine the value
-                    if (typeof this.xhrType !== 'string') {
-                        this.xhrType = this._determineXhrType();
-                    }
-
-                    var xhr = this.xhr = new XMLHttpRequest();
-
-                    // set the request type and url
-                    xhr.open('GET', this.url, true);
-
-                    xhr.timeout = this.timeout;
-
-                    // load json as text and parse it ourselves. We do this because some browsers
-                    // *cough* safari *cough* can't deal with it.
-                    if (this.xhrType === Resource.XHR_RESPONSE_TYPE.JSON || this.xhrType === Resource.XHR_RESPONSE_TYPE.DOCUMENT) {
-                        xhr.responseType = Resource.XHR_RESPONSE_TYPE.TEXT;
-                    } else {
-                        xhr.responseType = this.xhrType;
-                    }
-
-                    xhr.addEventListener('error', this._boundXhrOnError, false);
-                    xhr.addEventListener('timeout', this._boundXhrOnTimeout, false);
-                    xhr.addEventListener('abort', this._boundXhrOnAbort, false);
-                    xhr.addEventListener('progress', this._boundOnProgress, false);
-                    xhr.addEventListener('load', this._boundXhrOnLoad, false);
-
-                    xhr.send();
-                };
-
-                /**
-                 * Loads this resources using an XDomainRequest. This is here because we need to support IE9 (gross).
-                 *
-                 * @private
-                 */
-
-
-                Resource.prototype._loadXdr = function _loadXdr() {
-                    // if unset, determine the value
-                    if (typeof this.xhrType !== 'string') {
-                        this.xhrType = this._determineXhrType();
-                    }
-
-                    var xdr = this.xhr = new XDomainRequest(); // eslint-disable-line no-undef
-
-                    // XDomainRequest has a few quirks. Occasionally it will abort requests
-                    // A way to avoid this is to make sure ALL callbacks are set even if not used
-                    // More info here: http://stackoverflow.com/questions/15786966/xdomainrequest-aborts-post-on-ie-9
-                    xdr.timeout = this.timeout || 5000; // XDR needs a timeout value or it breaks in IE9
-
-                    xdr.onerror = this._boundXhrOnError;
-                    xdr.ontimeout = this._boundXhrOnTimeout;
-                    xdr.onprogress = this._boundOnProgress;
-                    xdr.onload = this._boundXhrOnLoad;
-
-                    xdr.open('GET', this.url, true);
-
-                    // Note: The xdr.send() call is wrapped in a timeout to prevent an
-                    // issue with the interface where some requests are lost if multiple
-                    // XDomainRequests are being sent at the same time.
-                    // Some info here: https://github.com/photonstorm/phaser/issues/1248
-                    setTimeout(function () {
-                        return xdr.send();
-                    }, 1);
-                };
-
-                /**
-                 * Creates a source used in loading via an element.
-                 *
-                 * @private
-                 * @param {string} type - The element type (video or audio).
-                 * @param {string} url - The source URL to load from.
-                 * @param {string} [mime] - The mime type of the video
-                 * @return {HTMLSourceElement} The source element.
-                 */
-
-
-                Resource.prototype._createSource = function _createSource(type, url, mime) {
-                    if (!mime) {
-                        mime = type + '/' + this._getExtension(url);
-                    }
-
-                    var source = document.createElement('source');
-
-                    source.src = url;
-                    source.type = mime;
-
-                    return source;
-                };
-
-                /**
-                 * Called if a load errors out.
-                 *
-                 * @param {Event} event - The error event from the element that emits it.
-                 * @private
-                 */
-
-
-                Resource.prototype._onError = function _onError(event) {
-                    this.abort('Failed to load element using: ' + event.target.nodeName);
-                };
-
-                /**
-                 * Called if a load progress event fires for an element or xhr/xdr.
-                 *
-                 * @private
-                 * @param {XMLHttpRequestProgressEvent|Event} event - Progress event.
-                 */
-
-
-                Resource.prototype._onProgress = function _onProgress(event) {
-                    if (event && event.lengthComputable) {
-                        this.onProgress.dispatch(this, event.loaded / event.total);
-                    }
-                };
-
-                /**
-                 * Called if a timeout event fires for an element.
-                 *
-                 * @private
-                 */
-
-
-                Resource.prototype._onTimeout = function _onTimeout() {
-                    this.abort('Load timed out.');
-                };
-
-                /**
-                 * Called if an error event fires for xhr/xdr.
-                 *
-                 * @private
-                 */
-
-
-                Resource.prototype._xhrOnError = function _xhrOnError() {
-                    var xhr = this.xhr;
-
-                    this.abort(reqType(xhr) + ' Request failed. Status: ' + xhr.status + ', text: "' + xhr.statusText + '"');
-                };
-
-                /**
-                 * Called if an error event fires for xhr/xdr.
-                 *
-                 * @private
-                 */
-
-
-                Resource.prototype._xhrOnTimeout = function _xhrOnTimeout() {
-                    var xhr = this.xhr;
-
-                    this.abort(reqType(xhr) + ' Request timed out.');
-                };
-
-                /**
-                 * Called if an abort event fires for xhr/xdr.
-                 *
-                 * @private
-                 */
-
-
-                Resource.prototype._xhrOnAbort = function _xhrOnAbort() {
-                    var xhr = this.xhr;
-
-                    this.abort(reqType(xhr) + ' Request was aborted by the user.');
-                };
-
-                /**
-                 * Called when data successfully loads from an xhr/xdr request.
-                 *
-                 * @private
-                 * @param {XMLHttpRequestLoadEvent|Event} event - Load event
-                 */
-
-
-                Resource.prototype._xhrOnLoad = function _xhrOnLoad() {
-                    var xhr = this.xhr;
-                    var text = '';
-                    var status = typeof xhr.status === 'undefined' ? STATUS_OK : xhr.status; // XDR has no `.status`, assume 200.
-
-                    // responseText is accessible only if responseType is '' or 'text' and on older browsers
-                    if (xhr.responseType === '' || xhr.responseType === 'text' || typeof xhr.responseType === 'undefined') {
-                        text = xhr.responseText;
-                    }
-
-                    // status can be 0 when using the `file://` protocol so we also check if a response is set.
-                    // If it has a response, we assume 200; otherwise a 0 status code with no contents is an aborted request.
-                    if (status === STATUS_NONE && (text.length > 0 || xhr.responseType === Resource.XHR_RESPONSE_TYPE.BUFFER)) {
-                        status = STATUS_OK;
-                    }
-                    // handle IE9 bug: http://stackoverflow.com/questions/10046972/msie-returns-status-code-of-1223-for-ajax-request
-                    else if (status === STATUS_IE_BUG_EMPTY) {
-                            status = STATUS_EMPTY;
-                        }
-
-                    var statusType = status / 100 | 0;
-
-                    if (statusType === STATUS_TYPE_OK) {
-                        // if text, just return it
-                        if (this.xhrType === Resource.XHR_RESPONSE_TYPE.TEXT) {
-                            this.data = text;
-                            this.type = Resource.TYPE.TEXT;
-                        }
-                        // if json, parse into json object
-                        else if (this.xhrType === Resource.XHR_RESPONSE_TYPE.JSON) {
-                                try {
-                                    this.data = JSON.parse(text);
-                                    this.type = Resource.TYPE.JSON;
-                                } catch (e) {
-                                    this.abort('Error trying to parse loaded json: ' + e);
-
-                                    return;
-                                }
-                            }
-                            // if xml, parse into an xml document or div element
-                            else if (this.xhrType === Resource.XHR_RESPONSE_TYPE.DOCUMENT) {
-                                    try {
-                                        if (window.DOMParser) {
-                                            var domparser = new DOMParser();
-
-                                            this.data = domparser.parseFromString(text, 'text/xml');
-                                        } else {
-                                            var div = document.createElement('div');
-
-                                            div.innerHTML = text;
-
-                                            this.data = div;
-                                        }
-
-                                        this.type = Resource.TYPE.XML;
-                                    } catch (e) {
-                                        this.abort('Error trying to parse loaded xml: ' + e);
-
-                                        return;
-                                    }
-                                }
-                                // other types just return the response
-                                else {
-                                        this.data = xhr.response || text;
-                                    }
-                    } else {
-                        this.abort('[' + xhr.status + '] ' + xhr.statusText + ': ' + xhr.responseURL);
-
-                        return;
-                    }
-
-                    this.complete();
-                };
-
-                /**
-                 * Sets the `crossOrigin` property for this resource based on if the url
-                 * for this resource is cross-origin. If crossOrigin was manually set, this
-                 * function does nothing.
-                 *
-                 * @private
-                 * @param {string} url - The url to test.
-                 * @param {object} [loc=window.location] - The location object to test against.
-                 * @return {string} The crossOrigin value to use (or empty string for none).
-                 */
-
-
-                Resource.prototype._determineCrossOrigin = function _determineCrossOrigin(url, loc) {
-                    // data: and javascript: urls are considered same-origin
-                    if (url.indexOf('data:') === 0) {
-                        return '';
-                    }
-
-                    // A sandboxed iframe without the 'allow-same-origin' attribute will have a special
-                    // origin designed not to match window.location.origin, and will always require
-                    // crossOrigin requests regardless of whether the location matches.
-                    if (window.origin !== window.location.origin) {
-                        return 'anonymous';
-                    }
-
-                    // default is window.location
-                    loc = loc || window.location;
-
-                    if (!tempAnchor) {
-                        tempAnchor = document.createElement('a');
-                    }
-
-                    // let the browser determine the full href for the url of this resource and then
-                    // parse with the node url lib, we can't use the properties of the anchor element
-                    // because they don't work in IE9 :(
-                    tempAnchor.href = url;
-                    url = (0, _parseUri2.default)(tempAnchor.href, { strictMode: true });
-
-                    var samePort = !url.port && loc.port === '' || url.port === loc.port;
-                    var protocol = url.protocol ? url.protocol + ':' : '';
-
-                    // if cross origin
-                    if (url.host !== loc.hostname || !samePort || protocol !== loc.protocol) {
-                        return 'anonymous';
-                    }
-
-                    return '';
-                };
-
-                /**
-                 * Determines the responseType of an XHR request based on the extension of the
-                 * resource being loaded.
-                 *
-                 * @private
-                 * @return {Resource.XHR_RESPONSE_TYPE} The responseType to use.
-                 */
-
-
-                Resource.prototype._determineXhrType = function _determineXhrType() {
-                    return Resource._xhrTypeMap[this.extension] || Resource.XHR_RESPONSE_TYPE.TEXT;
-                };
-
-                /**
-                 * Determines the loadType of a resource based on the extension of the
-                 * resource being loaded.
-                 *
-                 * @private
-                 * @return {Resource.LOAD_TYPE} The loadType to use.
-                 */
-
-
-                Resource.prototype._determineLoadType = function _determineLoadType() {
-                    return Resource._loadTypeMap[this.extension] || Resource.LOAD_TYPE.XHR;
-                };
-
-                /**
-                 * Extracts the extension (sans '.') of the file being loaded by the resource.
-                 *
-                 * @private
-                 * @return {string} The extension.
-                 */
-
-
-                Resource.prototype._getExtension = function _getExtension() {
-                    var url = this.url;
-                    var ext = '';
-
-                    if (this.isDataUrl) {
-                        var slashIndex = url.indexOf('/');
-
-                        ext = url.substring(slashIndex + 1, url.indexOf(';', slashIndex));
-                    } else {
-                        var queryStart = url.indexOf('?');
-                        var hashStart = url.indexOf('#');
-                        var index = Math.min(queryStart > -1 ? queryStart : url.length, hashStart > -1 ? hashStart : url.length);
-
-                        url = url.substring(0, index);
-                        ext = url.substring(url.lastIndexOf('.') + 1);
-                    }
-
-                    return ext.toLowerCase();
-                };
-
-                /**
-                 * Determines the mime type of an XHR request based on the responseType of
-                 * resource being loaded.
-                 *
-                 * @private
-                 * @param {Resource.XHR_RESPONSE_TYPE} type - The type to get a mime type for.
-                 * @return {string} The mime type to use.
-                 */
-
-
-                Resource.prototype._getMimeFromXhrType = function _getMimeFromXhrType(type) {
-                    switch (type) {
-                        case Resource.XHR_RESPONSE_TYPE.BUFFER:
-                            return 'application/octet-binary';
-
-                        case Resource.XHR_RESPONSE_TYPE.BLOB:
-                            return 'application/blob';
-
-                        case Resource.XHR_RESPONSE_TYPE.DOCUMENT:
-                            return 'application/xml';
-
-                        case Resource.XHR_RESPONSE_TYPE.JSON:
-                            return 'application/json';
-
-                        case Resource.XHR_RESPONSE_TYPE.DEFAULT:
-                        case Resource.XHR_RESPONSE_TYPE.TEXT:
-                        /* falls through */
-                        default:
-                            return 'text/plain';
-                    }
-                };
-
-                _createClass(Resource, [{
-                    key: 'isDataUrl',
-                    get: function get() {
-                        return this._hasFlag(Resource.STATUS_FLAGS.DATA_URL);
-                    }
-
-                    /**
-                     * Describes if this resource has finished loading. Is true when the resource has completely
-                     * loaded.
-                     *
-                     * @readonly
-                     * @member {boolean}
-                     */
-
-                }, {
-                    key: 'isComplete',
-                    get: function get() {
-                        return this._hasFlag(Resource.STATUS_FLAGS.COMPLETE);
-                    }
-
-                    /**
-                     * Describes if this resource is currently loading. Is true when the resource starts loading,
-                     * and is false again when complete.
-                     *
-                     * @readonly
-                     * @member {boolean}
-                     */
-
-                }, {
-                    key: 'isLoading',
-                    get: function get() {
-                        return this._hasFlag(Resource.STATUS_FLAGS.LOADING);
-                    }
-                }]);
-
-                return Resource;
-            }();
-
-            /**
-             * The types of resources a resource could represent.
-             *
-             * @static
-             * @readonly
-             * @enum {number}
-             */
-
-
-            Resource.STATUS_FLAGS = {
-                NONE: 0,
-                DATA_URL: 1 << 0,
-                COMPLETE: 1 << 1,
-                LOADING: 1 << 2
-            };
-
-            /**
-             * The types of resources a resource could represent.
-             *
-             * @static
-             * @readonly
-             * @enum {number}
-             */
-            Resource.TYPE = {
-                UNKNOWN: 0,
-                JSON: 1,
-                XML: 2,
-                IMAGE: 3,
-                AUDIO: 4,
-                VIDEO: 5,
-                TEXT: 6
-            };
-
-            /**
-             * The types of loading a resource can use.
-             *
-             * @static
-             * @readonly
-             * @enum {number}
-             */
-            Resource.LOAD_TYPE = {
-                /** Uses XMLHttpRequest to load the resource. */
-                XHR: 1,
-                /** Uses an `Image` object to load the resource. */
-                IMAGE: 2,
-                /** Uses an `Audio` object to load the resource. */
-                AUDIO: 3,
-                /** Uses a `Video` object to load the resource. */
-                VIDEO: 4
-            };
-
-            /**
-             * The XHR ready states, used internally.
-             *
-             * @static
-             * @readonly
-             * @enum {string}
-             */
-            Resource.XHR_RESPONSE_TYPE = {
-                /** string */
-                DEFAULT: 'text',
-                /** ArrayBuffer */
-                BUFFER: 'arraybuffer',
-                /** Blob */
-                BLOB: 'blob',
-                /** Document */
-                DOCUMENT: 'document',
-                /** Object */
-                JSON: 'json',
-                /** String */
-                TEXT: 'text'
-            };
-
-            Resource._loadTypeMap = {
-                // images
-                gif: Resource.LOAD_TYPE.IMAGE,
-                png: Resource.LOAD_TYPE.IMAGE,
-                bmp: Resource.LOAD_TYPE.IMAGE,
-                jpg: Resource.LOAD_TYPE.IMAGE,
-                jpeg: Resource.LOAD_TYPE.IMAGE,
-                tif: Resource.LOAD_TYPE.IMAGE,
-                tiff: Resource.LOAD_TYPE.IMAGE,
-                webp: Resource.LOAD_TYPE.IMAGE,
-                tga: Resource.LOAD_TYPE.IMAGE,
-                svg: Resource.LOAD_TYPE.IMAGE,
-                'svg+xml': Resource.LOAD_TYPE.IMAGE, // for SVG data urls
-
-                // audio
-                mp3: Resource.LOAD_TYPE.AUDIO,
-                ogg: Resource.LOAD_TYPE.AUDIO,
-                wav: Resource.LOAD_TYPE.AUDIO,
-
-                // videos
-                mp4: Resource.LOAD_TYPE.VIDEO,
-                webm: Resource.LOAD_TYPE.VIDEO
-            };
-
-            Resource._xhrTypeMap = {
-                // xml
-                xhtml: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-                html: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-                htm: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-                xml: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-                tmx: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-                svg: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-
-                // This was added to handle Tiled Tileset XML, but .tsx is also a TypeScript React Component.
-                // Since it is way less likely for people to be loading TypeScript files instead of Tiled files,
-                // this should probably be fine.
-                tsx: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-
-                // images
-                gif: Resource.XHR_RESPONSE_TYPE.BLOB,
-                png: Resource.XHR_RESPONSE_TYPE.BLOB,
-                bmp: Resource.XHR_RESPONSE_TYPE.BLOB,
-                jpg: Resource.XHR_RESPONSE_TYPE.BLOB,
-                jpeg: Resource.XHR_RESPONSE_TYPE.BLOB,
-                tif: Resource.XHR_RESPONSE_TYPE.BLOB,
-                tiff: Resource.XHR_RESPONSE_TYPE.BLOB,
-                webp: Resource.XHR_RESPONSE_TYPE.BLOB,
-                tga: Resource.XHR_RESPONSE_TYPE.BLOB,
-
-                // json
-                json: Resource.XHR_RESPONSE_TYPE.JSON,
-
-                // text
-                text: Resource.XHR_RESPONSE_TYPE.TEXT,
-                txt: Resource.XHR_RESPONSE_TYPE.TEXT,
-
-                // fonts
-                ttf: Resource.XHR_RESPONSE_TYPE.BUFFER,
-                otf: Resource.XHR_RESPONSE_TYPE.BUFFER
-            };
-
-            // We can't set the `src` attribute to empty string, so on abort we set it to this 1px transparent gif
-            Resource.EMPTY_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
-
-            /**
-             * Quick helper to set a value on one of the extension maps. Ensures there is no
-             * dot at the start of the extension.
-             *
-             * @ignore
-             * @param {object} map - The map to set on.
-             * @param {string} extname - The extension (or key) to set.
-             * @param {number} val - The value to set.
-             */
-            function setExtMap(map, extname, val) {
-                if (extname && extname.indexOf('.') === 0) {
-                    extname = extname.substring(1);
-                }
-
-                if (!extname) {
-                    return;
-                }
-
-                map[extname] = val;
-            }
-
-            /**
-             * Quick helper to get string xhr type.
-             *
-             * @ignore
-             * @param {XMLHttpRequest|XDomainRequest} xhr - The request to check.
-             * @return {string} The type.
-             */
-            function reqType(xhr) {
-                return xhr.toString().replace('object ', '');
-            }
-
-            // Backwards compat
-            {
-                module.exports.default = Resource; // eslint-disable-line no-undef
-            }
-
-            });
-
-            unwrapExports$1(Resource_1$1);
-            var Resource_2$1 = Resource_1$1.Resource;
-
-            var b64$1 = createCommonjsModule$1(function (module, exports) {
-
-            exports.__esModule = true;
-            exports.encodeBinary = encodeBinary;
-            var _keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-
-            /**
-             * Encodes binary into base64.
-             *
-             * @param {string} input The input data to encode.
-             * @returns {string} The encoded base64 string
-             */
-            function encodeBinary(input) {
-                var output = '';
-                var inx = 0;
-
-                while (inx < input.length) {
-                    // Fill byte buffer array
-                    var bytebuffer = [0, 0, 0];
-                    var encodedCharIndexes = [0, 0, 0, 0];
-
-                    for (var jnx = 0; jnx < bytebuffer.length; ++jnx) {
-                        if (inx < input.length) {
-                            // throw away high-order byte, as documented at:
-                            // https://developer.mozilla.org/En/Using_XMLHttpRequest#Handling_binary_data
-                            bytebuffer[jnx] = input.charCodeAt(inx++) & 0xff;
-                        } else {
-                            bytebuffer[jnx] = 0;
-                        }
-                    }
-
-                    // Get each encoded character, 6 bits at a time
-                    // index 1: first 6 bits
-                    encodedCharIndexes[0] = bytebuffer[0] >> 2;
-
-                    // index 2: second 6 bits (2 least significant bits from input byte 1 + 4 most significant bits from byte 2)
-                    encodedCharIndexes[1] = (bytebuffer[0] & 0x3) << 4 | bytebuffer[1] >> 4;
-
-                    // index 3: third 6 bits (4 least significant bits from input byte 2 + 2 most significant bits from byte 3)
-                    encodedCharIndexes[2] = (bytebuffer[1] & 0x0f) << 2 | bytebuffer[2] >> 6;
-
-                    // index 3: forth 6 bits (6 least significant bits from input byte 3)
-                    encodedCharIndexes[3] = bytebuffer[2] & 0x3f;
-
-                    // Determine whether padding happened, and adjust accordingly
-                    var paddingBytes = inx - (input.length - 1);
-
-                    switch (paddingBytes) {
-                        case 2:
-                            // Set last 2 characters to padding char
-                            encodedCharIndexes[3] = 64;
-                            encodedCharIndexes[2] = 64;
-                            break;
-
-                        case 1:
-                            // Set last character to padding char
-                            encodedCharIndexes[3] = 64;
-                            break;
-
-                        default:
-                            break; // No padding - proceed
-                    }
-
-                    // Now we will grab each appropriate character out of our keystring
-                    // based on our index array and append it to the output string
-                    for (var _jnx = 0; _jnx < encodedCharIndexes.length; ++_jnx) {
-                        output += _keyStr.charAt(encodedCharIndexes[_jnx]);
-                    }
-                }
-
-                return output;
-            }
-
-            // Backwards compat
-            {
-                module.exports.default = encodeBinary; // eslint-disable-line no-undef
-            }
-
-            });
-
-            unwrapExports$1(b64$1);
-            var b64_1$1 = b64$1.encodeBinary;
-
-            var blob = createCommonjsModule$1(function (module, exports) {
-
-            exports.__esModule = true;
-            exports.blobMiddlewareFactory = blobMiddlewareFactory;
-
-
-
-
-
-            var Url = window.URL || window.webkitURL;
-
-            // a middleware for transforming XHR loaded Blobs into more useful objects
-            function blobMiddlewareFactory() {
-                return function blobMiddleware(resource, next) {
-                    if (!resource.data) {
-                        next();
-
-                        return;
-                    }
-
-                    // if this was an XHR load of a blob
-                    if (resource.xhr && resource.xhrType === Resource_1$1.Resource.XHR_RESPONSE_TYPE.BLOB) {
-                        // if there is no blob support we probably got a binary string back
-                        if (!window.Blob || typeof resource.data === 'string') {
-                            var type = resource.xhr.getResponseHeader('content-type');
-
-                            // this is an image, convert the binary string into a data url
-                            if (type && type.indexOf('image') === 0) {
-                                resource.data = new Image();
-                                resource.data.src = 'data:' + type + ';base64,' + (0, b64$1.encodeBinary)(resource.xhr.responseText);
-
-                                resource.type = Resource_1$1.Resource.TYPE.IMAGE;
-
-                                // wait until the image loads and then callback
-                                resource.data.onload = function () {
-                                    resource.data.onload = null;
-
-                                    next();
-                                };
-
-                                // next will be called on load
-                                return;
-                            }
-                        }
-                        // if content type says this is an image, then we should transform the blob into an Image object
-                        else if (resource.data.type.indexOf('image') === 0) {
-                                var src = Url.createObjectURL(resource.data);
-
-                                resource.blob = resource.data;
-                                resource.data = new Image();
-                                resource.data.src = src;
-
-                                resource.type = Resource_1$1.Resource.TYPE.IMAGE;
-
-                                // cleanup the no longer used blob after the image loads
-                                // TODO: Is this correct? Will the image be invalid after revoking?
-                                resource.data.onload = function () {
-                                    Url.revokeObjectURL(src);
-                                    resource.data.onload = null;
-
-                                    next();
-                                };
-
-                                // next will be called on load.
-                                return;
-                            }
-                    }
-
-                    next();
-                };
-            }
-
-            });
-
-            unwrapExports$1(blob);
-            var blob_1 = blob.blobMiddlewareFactory;
 
             /**
              * Loader plugin for handling Texture resources.
@@ -37381,7 +36758,7 @@
             TextureLoader.use = function use (resource, next)
             {
                 // create a new texture if the data is an Image object
-                if (resource.data && resource.type === lib_1.TYPE.IMAGE)
+                if (resource.data && resource.type === Resource$1.TYPE.IMAGE)
                 {
                     resource.texture = Texture.fromLoader(
                         resource.data,
@@ -37527,7 +36904,7 @@
                 Object.defineProperties( Loader, staticAccessors );
 
                 return Loader;
-            }(lib));
+            }(Loader));
 
             // Copy EE3 prototype (mixin)
             Object.assign(Loader$1.prototype, eventemitter3.prototype);
@@ -37565,7 +36942,7 @@
             };
 
             // parse any blob into more usable objects (e.g. Image)
-            Loader$1.registerPlugin({ use: blob_1() });
+            Loader$1.registerPlugin({ use: index$1.parsing });
 
             // parse any Image objects into textures
             Loader$1.registerPlugin(TextureLoader);
@@ -37661,12 +37038,11 @@
              * @class LoaderResource
              * @memberof PIXI
              */
-            var LoaderResource = lib_1;
-            //# sourceMappingURL=loaders.es.js.map
+            var LoaderResource = Resource$1;
 
             /*!
-             * @pixi/particles - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/particles - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/particles is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -38200,7 +37576,7 @@
                 this.geometry.destroy();
             };
 
-            var vertex$2 = "attribute vec2 aVertexPosition;\nattribute vec2 aTextureCoord;\nattribute vec4 aColor;\n\nattribute vec2 aPositionCoord;\nattribute float aRotation;\n\nuniform mat3 translationMatrix;\nuniform vec4 uColor;\n\nvarying vec2 vTextureCoord;\nvarying vec4 vColor;\n\nvoid main(void){\n    float x = (aVertexPosition.x) * cos(aRotation) - (aVertexPosition.y) * sin(aRotation);\n    float y = (aVertexPosition.x) * sin(aRotation) + (aVertexPosition.y) * cos(aRotation);\n\n    vec2 v = vec2(x, y);\n    v = v + aPositionCoord;\n\n    gl_Position = vec4((translationMatrix * vec3(v, 1.0)).xy, 0.0, 1.0);\n\n    vTextureCoord = aTextureCoord;\n    vColor = aColor * uColor;\n}\n";
+            var vertex$1 = "attribute vec2 aVertexPosition;\nattribute vec2 aTextureCoord;\nattribute vec4 aColor;\n\nattribute vec2 aPositionCoord;\nattribute float aRotation;\n\nuniform mat3 translationMatrix;\nuniform vec4 uColor;\n\nvarying vec2 vTextureCoord;\nvarying vec4 vColor;\n\nvoid main(void){\n    float x = (aVertexPosition.x) * cos(aRotation) - (aVertexPosition.y) * sin(aRotation);\n    float y = (aVertexPosition.x) * sin(aRotation) + (aVertexPosition.y) * cos(aRotation);\n\n    vec2 v = vec2(x, y);\n    v = v + aPositionCoord;\n\n    gl_Position = vec4((translationMatrix * vec3(v, 1.0)).xy, 0.0, 1.0);\n\n    vTextureCoord = aTextureCoord;\n    vColor = aColor * uColor;\n}\n";
 
             var fragment$1 = "varying vec2 vTextureCoord;\nvarying vec4 vColor;\n\nuniform sampler2D uSampler;\n\nvoid main(void){\n    vec4 color = texture2D(uSampler, vTextureCoord) * vColor;\n    gl_FragColor = color;\n}";
 
@@ -38282,7 +37658,7 @@
                             offset: 0,
                         } ];
 
-                    this.shader = Shader.from(vertex$2, fragment$1, {});
+                    this.shader = Shader.from(vertex$1, fragment$1, {});
                 }
 
                 if ( ObjectRenderer ) ParticleRenderer.__proto__ = ObjectRenderer;
@@ -38631,11 +38007,10 @@
 
                 return ParticleRenderer;
             }(ObjectRenderer));
-            //# sourceMappingURL=particles.es.js.map
 
             /*!
-             * @pixi/spritesheet - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/spritesheet - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/spritesheet is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -39040,11 +38415,10 @@
 
                 return url.resolve(resource.url.replace(baseUrl, ''), resource.data.meta.image);
             };
-            //# sourceMappingURL=spritesheet.es.js.map
 
             /*!
-             * @pixi/sprite-tiling - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/sprite-tiling - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/sprite-tiling is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -39404,7 +38778,7 @@
                 return TilingSprite;
             }(Sprite));
 
-            var vertex$3 = "attribute vec2 aVertexPosition;\nattribute vec2 aTextureCoord;\n\nuniform mat3 projectionMatrix;\nuniform mat3 translationMatrix;\nuniform mat3 uTransform;\n\nvarying vec2 vTextureCoord;\n\nvoid main(void)\n{\n    gl_Position = vec4((projectionMatrix * translationMatrix * vec3(aVertexPosition, 1.0)).xy, 0.0, 1.0);\n\n    vTextureCoord = (uTransform * vec3(aTextureCoord, 1.0)).xy;\n}\n";
+            var vertex$2 = "attribute vec2 aVertexPosition;\nattribute vec2 aTextureCoord;\n\nuniform mat3 projectionMatrix;\nuniform mat3 translationMatrix;\nuniform mat3 uTransform;\n\nvarying vec2 vTextureCoord;\n\nvoid main(void)\n{\n    gl_Position = vec4((projectionMatrix * translationMatrix * vec3(aVertexPosition, 1.0)).xy, 0.0, 1.0);\n\n    vTextureCoord = (uTransform * vec3(aTextureCoord, 1.0)).xy;\n}\n";
 
             var fragment$2 = "varying vec2 vTextureCoord;\n\nuniform sampler2D uSampler;\nuniform vec4 uColor;\nuniform mat3 uMapCoord;\nuniform vec4 uClampFrame;\nuniform vec2 uClampOffset;\n\nvoid main(void)\n{\n    vec2 coord = mod(vTextureCoord - uClampOffset, vec2(1.0, 1.0)) + uClampOffset;\n    coord = (uMapCoord * vec3(coord, 1.0)).xy;\n    coord = clamp(coord, uClampFrame.xy, uClampFrame.zw);\n\n    vec4 sample = texture2D(uSampler, coord);\n    gl_FragColor = sample * uColor;\n}\n";
 
@@ -39426,9 +38800,9 @@
 
                     var uniforms = { globals: this.renderer.globalUniforms };
 
-                    this.shader = Shader.from(vertex$3, fragment$2, uniforms);
+                    this.shader = Shader.from(vertex$2, fragment$2, uniforms);
 
-                    this.simpleShader = Shader.from(vertex$3, fragmentSimple, uniforms);
+                    this.simpleShader = Shader.from(vertex$2, fragmentSimple, uniforms);
 
                     this.quad = new QuadUv();
                 }
@@ -39537,11 +38911,10 @@
 
                 return TilingSpriteRenderer;
             }(ObjectRenderer));
-            //# sourceMappingURL=sprite-tiling.es.js.map
 
             /*!
-             * @pixi/text-bitmap - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/text-bitmap - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/text-bitmap is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -40363,11 +39736,10 @@
                     }
                 }
             };
-            //# sourceMappingURL=text-bitmap.es.js.map
 
             /*!
-             * @pixi/filter-alpha - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/filter-alpha - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/filter-alpha is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -40428,11 +39800,10 @@
 
                 return AlphaFilter;
             }(Filter));
-            //# sourceMappingURL=filter-alpha.es.js.map
 
             /*!
-             * @pixi/filter-blur - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/filter-blur - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/filter-blur is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -40491,7 +39862,7 @@
                 15: [0.000489, 0.002403, 0.009246, 0.02784, 0.065602, 0.120999, 0.174697, 0.197448],
             };
 
-            var fragTemplate$2 = [
+            var fragTemplate$1 = [
                 'varying vec2 vBlurTexCoords[%size%];',
                 'uniform sampler2D uSampler;',
 
@@ -40506,7 +39877,7 @@
                 var kernel = GAUSSIAN_VALUES[kernelSize];
                 var halfLength = kernel.length;
 
-                var fragSource = fragTemplate$2;
+                var fragSource = fragTemplate$1;
 
                 var blurLoop = '';
                 var template = 'gl_FragColor += texture2D(uSampler, vBlurTexCoords[%index%]) * %value%;';
@@ -40854,11 +40225,10 @@
 
                 return BlurFilter;
             }(Filter));
-            //# sourceMappingURL=filter-blur.es.js.map
 
             /*!
-             * @pixi/filter-color-matrix - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/filter-color-matrix - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/filter-color-matrix is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -41453,17 +40823,16 @@
 
             // Americanized alias
             ColorMatrixFilter.prototype.grayscale = ColorMatrixFilter.prototype.greyscale;
-            //# sourceMappingURL=filter-color-matrix.es.js.map
 
             /*!
-             * @pixi/filter-displacement - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/filter-displacement - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/filter-displacement is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
              */
 
-            var vertex$4 = "attribute vec2 aVertexPosition;\n\nuniform mat3 projectionMatrix;\nuniform mat3 filterMatrix;\n\nvarying vec2 vTextureCoord;\nvarying vec2 vFilterCoord;\n\nuniform vec4 inputSize;\nuniform vec4 outputFrame;\n\nvec4 filterVertexPosition( void )\n{\n    vec2 position = aVertexPosition * max(outputFrame.zw, vec2(0.)) + outputFrame.xy;\n\n    return vec4((projectionMatrix * vec3(position, 1.0)).xy, 0.0, 1.0);\n}\n\nvec2 filterTextureCoord( void )\n{\n    return aVertexPosition * (outputFrame.zw * inputSize.zw);\n}\n\nvoid main(void)\n{\n\tgl_Position = filterVertexPosition();\n\tvTextureCoord = filterTextureCoord();\n\tvFilterCoord = ( filterMatrix * vec3( vTextureCoord, 1.0)  ).xy;\n}\n";
+            var vertex$3 = "attribute vec2 aVertexPosition;\n\nuniform mat3 projectionMatrix;\nuniform mat3 filterMatrix;\n\nvarying vec2 vTextureCoord;\nvarying vec2 vFilterCoord;\n\nuniform vec4 inputSize;\nuniform vec4 outputFrame;\n\nvec4 filterVertexPosition( void )\n{\n    vec2 position = aVertexPosition * max(outputFrame.zw, vec2(0.)) + outputFrame.xy;\n\n    return vec4((projectionMatrix * vec3(position, 1.0)).xy, 0.0, 1.0);\n}\n\nvec2 filterTextureCoord( void )\n{\n    return aVertexPosition * (outputFrame.zw * inputSize.zw);\n}\n\nvoid main(void)\n{\n\tgl_Position = filterVertexPosition();\n\tvTextureCoord = filterTextureCoord();\n\tvFilterCoord = ( filterMatrix * vec3( vTextureCoord, 1.0)  ).xy;\n}\n";
 
             var fragment$5 = "varying vec2 vFilterCoord;\nvarying vec2 vTextureCoord;\n\nuniform vec2 scale;\nuniform mat2 rotation;\nuniform sampler2D uSampler;\nuniform sampler2D mapSampler;\n\nuniform highp vec4 inputSize;\nuniform vec4 inputClamp;\n\nvoid main(void)\n{\n  vec4 map =  texture2D(mapSampler, vFilterCoord);\n\n  map -= 0.5;\n  map.xy = scale * inputSize.zw * (rotation * map.xy);\n\n  gl_FragColor = texture2D(uSampler, clamp(vec2(vTextureCoord.x + map.x, vTextureCoord.y + map.y), inputClamp.xy, inputClamp.zw));\n}\n";
 
@@ -41492,7 +40861,7 @@
 
                     sprite.renderable = false;
 
-                    Filter.call(this, vertex$4, fragment$5, {
+                    Filter.call(this, vertex$3, fragment$5, {
                         mapSampler: sprite._texture,
                         filterMatrix: maskMatrix,
                         scale: { x: 1, y: 1 },
@@ -41571,17 +40940,16 @@
 
                 return DisplacementFilter;
             }(Filter));
-            //# sourceMappingURL=filter-displacement.es.js.map
 
             /*!
-             * @pixi/filter-fxaa - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/filter-fxaa - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/filter-fxaa is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
              */
 
-            var vertex$5 = "\nattribute vec2 aVertexPosition;\n\nuniform mat3 projectionMatrix;\n\nvarying vec2 v_rgbNW;\nvarying vec2 v_rgbNE;\nvarying vec2 v_rgbSW;\nvarying vec2 v_rgbSE;\nvarying vec2 v_rgbM;\n\nvarying vec2 vFragCoord;\n\nuniform vec4 inputPixel;\nuniform vec4 outputFrame;\n\nvec4 filterVertexPosition( void )\n{\n    vec2 position = aVertexPosition * max(outputFrame.zw, vec2(0.)) + outputFrame.xy;\n\n    return vec4((projectionMatrix * vec3(position, 1.0)).xy, 0.0, 1.0);\n}\n\nvoid texcoords(vec2 fragCoord, vec2 inverseVP,\n               out vec2 v_rgbNW, out vec2 v_rgbNE,\n               out vec2 v_rgbSW, out vec2 v_rgbSE,\n               out vec2 v_rgbM) {\n    v_rgbNW = (fragCoord + vec2(-1.0, -1.0)) * inverseVP;\n    v_rgbNE = (fragCoord + vec2(1.0, -1.0)) * inverseVP;\n    v_rgbSW = (fragCoord + vec2(-1.0, 1.0)) * inverseVP;\n    v_rgbSE = (fragCoord + vec2(1.0, 1.0)) * inverseVP;\n    v_rgbM = vec2(fragCoord * inverseVP);\n}\n\nvoid main(void) {\n\n   gl_Position = filterVertexPosition();\n\n   vFragCoord = aVertexPosition * outputFrame.zw;\n\n   texcoords(vFragCoord, inputPixel.zw, v_rgbNW, v_rgbNE, v_rgbSW, v_rgbSE, v_rgbM);\n}\n";
+            var vertex$4 = "\nattribute vec2 aVertexPosition;\n\nuniform mat3 projectionMatrix;\n\nvarying vec2 v_rgbNW;\nvarying vec2 v_rgbNE;\nvarying vec2 v_rgbSW;\nvarying vec2 v_rgbSE;\nvarying vec2 v_rgbM;\n\nvarying vec2 vFragCoord;\n\nuniform vec4 inputPixel;\nuniform vec4 outputFrame;\n\nvec4 filterVertexPosition( void )\n{\n    vec2 position = aVertexPosition * max(outputFrame.zw, vec2(0.)) + outputFrame.xy;\n\n    return vec4((projectionMatrix * vec3(position, 1.0)).xy, 0.0, 1.0);\n}\n\nvoid texcoords(vec2 fragCoord, vec2 inverseVP,\n               out vec2 v_rgbNW, out vec2 v_rgbNE,\n               out vec2 v_rgbSW, out vec2 v_rgbSE,\n               out vec2 v_rgbM) {\n    v_rgbNW = (fragCoord + vec2(-1.0, -1.0)) * inverseVP;\n    v_rgbNE = (fragCoord + vec2(1.0, -1.0)) * inverseVP;\n    v_rgbSW = (fragCoord + vec2(-1.0, 1.0)) * inverseVP;\n    v_rgbSE = (fragCoord + vec2(1.0, 1.0)) * inverseVP;\n    v_rgbM = vec2(fragCoord * inverseVP);\n}\n\nvoid main(void) {\n\n   gl_Position = filterVertexPosition();\n\n   vFragCoord = aVertexPosition * outputFrame.zw;\n\n   texcoords(vFragCoord, inputPixel.zw, v_rgbNW, v_rgbNE, v_rgbSW, v_rgbSE, v_rgbM);\n}\n";
 
             var fragment$6 = "varying vec2 v_rgbNW;\nvarying vec2 v_rgbNE;\nvarying vec2 v_rgbSW;\nvarying vec2 v_rgbSE;\nvarying vec2 v_rgbM;\n\nvarying vec2 vFragCoord;\nuniform sampler2D uSampler;\nuniform highp vec4 inputPixel;\n\n\n/**\n Basic FXAA implementation based on the code on geeks3d.com with the\n modification that the texture2DLod stuff was removed since it's\n unsupported by WebGL.\n\n --\n\n From:\n https://github.com/mitsuhiko/webgl-meincraft\n\n Copyright (c) 2011 by Armin Ronacher.\n\n Some rights reserved.\n\n Redistribution and use in source and binary forms, with or without\n modification, are permitted provided that the following conditions are\n met:\n\n * Redistributions of source code must retain the above copyright\n notice, this list of conditions and the following disclaimer.\n\n * Redistributions in binary form must reproduce the above\n copyright notice, this list of conditions and the following\n disclaimer in the documentation and/or other materials provided\n with the distribution.\n\n * The names of the contributors may not be used to endorse or\n promote products derived from this software without specific\n prior written permission.\n\n THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\n LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\n A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\n OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\n SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\n LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\n DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\n THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n#ifndef FXAA_REDUCE_MIN\n#define FXAA_REDUCE_MIN   (1.0/ 128.0)\n#endif\n#ifndef FXAA_REDUCE_MUL\n#define FXAA_REDUCE_MUL   (1.0 / 8.0)\n#endif\n#ifndef FXAA_SPAN_MAX\n#define FXAA_SPAN_MAX     8.0\n#endif\n\n//optimized version for mobile, where dependent\n//texture reads can be a bottleneck\nvec4 fxaa(sampler2D tex, vec2 fragCoord, vec2 inverseVP,\n          vec2 v_rgbNW, vec2 v_rgbNE,\n          vec2 v_rgbSW, vec2 v_rgbSE,\n          vec2 v_rgbM) {\n    vec4 color;\n    vec3 rgbNW = texture2D(tex, v_rgbNW).xyz;\n    vec3 rgbNE = texture2D(tex, v_rgbNE).xyz;\n    vec3 rgbSW = texture2D(tex, v_rgbSW).xyz;\n    vec3 rgbSE = texture2D(tex, v_rgbSE).xyz;\n    vec4 texColor = texture2D(tex, v_rgbM);\n    vec3 rgbM  = texColor.xyz;\n    vec3 luma = vec3(0.299, 0.587, 0.114);\n    float lumaNW = dot(rgbNW, luma);\n    float lumaNE = dot(rgbNE, luma);\n    float lumaSW = dot(rgbSW, luma);\n    float lumaSE = dot(rgbSE, luma);\n    float lumaM  = dot(rgbM,  luma);\n    float lumaMin = min(lumaM, min(min(lumaNW, lumaNE), min(lumaSW, lumaSE)));\n    float lumaMax = max(lumaM, max(max(lumaNW, lumaNE), max(lumaSW, lumaSE)));\n\n    mediump vec2 dir;\n    dir.x = -((lumaNW + lumaNE) - (lumaSW + lumaSE));\n    dir.y =  ((lumaNW + lumaSW) - (lumaNE + lumaSE));\n\n    float dirReduce = max((lumaNW + lumaNE + lumaSW + lumaSE) *\n                          (0.25 * FXAA_REDUCE_MUL), FXAA_REDUCE_MIN);\n\n    float rcpDirMin = 1.0 / (min(abs(dir.x), abs(dir.y)) + dirReduce);\n    dir = min(vec2(FXAA_SPAN_MAX, FXAA_SPAN_MAX),\n              max(vec2(-FXAA_SPAN_MAX, -FXAA_SPAN_MAX),\n                  dir * rcpDirMin)) * inverseVP;\n\n    vec3 rgbA = 0.5 * (\n                       texture2D(tex, fragCoord * inverseVP + dir * (1.0 / 3.0 - 0.5)).xyz +\n                       texture2D(tex, fragCoord * inverseVP + dir * (2.0 / 3.0 - 0.5)).xyz);\n    vec3 rgbB = rgbA * 0.5 + 0.25 * (\n                                     texture2D(tex, fragCoord * inverseVP + dir * -0.5).xyz +\n                                     texture2D(tex, fragCoord * inverseVP + dir * 0.5).xyz);\n\n    float lumaB = dot(rgbB, luma);\n    if ((lumaB < lumaMin) || (lumaB > lumaMax))\n        color = vec4(rgbA, texColor.a);\n    else\n        color = vec4(rgbB, texColor.a);\n    return color;\n}\n\nvoid main() {\n\n      vec4 color;\n\n      color = fxaa(uSampler, vFragCoord, inputPixel.zw, v_rgbNW, v_rgbNE, v_rgbSW, v_rgbSE, v_rgbM);\n\n      gl_FragColor = color;\n}\n";
 
@@ -41600,7 +40968,7 @@
                 function FXAAFilter()
                 {
                     // TODO - needs work
-                    Filter.call(this, vertex$5, fragment$6);
+                    Filter.call(this, vertex$4, fragment$6);
                 }
 
                 if ( Filter ) FXAAFilter.__proto__ = Filter;
@@ -41609,11 +40977,10 @@
 
                 return FXAAFilter;
             }(Filter));
-            //# sourceMappingURL=filter-fxaa.es.js.map
 
             /*!
-             * @pixi/filter-noise - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/filter-noise - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/filter-noise is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -41689,11 +41056,10 @@
 
                 return NoiseFilter;
             }(Filter));
-            //# sourceMappingURL=filter-noise.es.js.map
 
             /*!
-             * @pixi/mixin-cache-as-bitmap - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/mixin-cache-as-bitmap - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/mixin-cache-as-bitmap is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -41875,7 +41241,10 @@
 
                 // for now we cache the current renderTarget that the WebGL renderer is currently using.
                 // this could be more elegant..
-                var cachedRenderTarget = renderer._activeRenderTarget;
+                var cachedRenderTexture = renderer.renderTexture.current;
+                var cachedSourceFrame = renderer.renderTexture.sourceFrame;
+                var cachedProjectionTransform = renderer.projection.transform;
+
                 // We also store the filter stack - I will definitely look to change how this works a little later down the line.
                 // const stack = renderer.filterManager.filterStack;
 
@@ -41902,9 +41271,10 @@
                 this.render = this._cacheData.originalRender;
 
                 renderer.render(this, renderTexture, true, m, true);
-                // now restore the state be setting the new properties
 
-                renderer.renderTexture.bind(cachedRenderTarget);
+                // now restore the state be setting the new properties
+                renderer.projection.transform = cachedProjectionTransform;
+                renderer.renderTexture.bind(cachedRenderTexture, cachedSourceFrame);
 
                 // renderer.filterManager.filterStack = stack;
 
@@ -42111,11 +41481,10 @@
                 this.cacheAsBitmap = false;
                 this.destroy(options);
             };
-            //# sourceMappingURL=mixin-cache-as-bitmap.es.js.map
 
             /*!
-             * @pixi/mixin-get-child-by-name - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/mixin-get-child-by-name - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/mixin-get-child-by-name is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -42149,11 +41518,10 @@
 
                 return null;
             };
-            //# sourceMappingURL=mixin-get-child-by-name.es.js.map
 
             /*!
-             * @pixi/mixin-get-global-position - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/mixin-get-global-position - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/mixin-get-global-position is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -42187,11 +41555,10 @@
 
                 return point;
             };
-            //# sourceMappingURL=mixin-get-global-position.es.js.map
 
             /*!
-             * @pixi/mesh - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/mesh - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/mesh is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -42503,6 +41870,7 @@
                 /**
                  * Standard renderer draw.
                  * @protected
+                 * @param {PIXI.Renderer} renderer - Instance to renderer.
                  */
                 Mesh.prototype._render = function _render (renderer)
                 {
@@ -42547,7 +41915,7 @@
                     renderer.shader.bind(shader);
 
                     // set state..
-                    renderer.state.setState(this.state);
+                    renderer.state.set(this.state);
 
                     // bind the geometry...
                     renderer.geometry.bind(this.geometry, shader);
@@ -42751,7 +42119,7 @@
              */
             Mesh.BATCHABLE_SIZE = 100;
 
-            var vertex$6 = "attribute vec2 aVertexPosition;\nattribute vec2 aTextureCoord;\n\nuniform mat3 projectionMatrix;\nuniform mat3 translationMatrix;\nuniform mat3 uTextureMatrix;\n\nvarying vec2 vTextureCoord;\n\nvoid main(void)\n{\n    gl_Position = vec4((projectionMatrix * translationMatrix * vec3(aVertexPosition, 1.0)).xy, 0.0, 1.0);\n\n    vTextureCoord = (uTextureMatrix * vec3(aTextureCoord, 1.0)).xy;\n}\n";
+            var vertex$5 = "attribute vec2 aVertexPosition;\nattribute vec2 aTextureCoord;\n\nuniform mat3 projectionMatrix;\nuniform mat3 translationMatrix;\nuniform mat3 uTextureMatrix;\n\nvarying vec2 vTextureCoord;\n\nvoid main(void)\n{\n    gl_Position = vec4((projectionMatrix * translationMatrix * vec3(aVertexPosition, 1.0)).xy, 0.0, 1.0);\n\n    vTextureCoord = (uTextureMatrix * vec3(aTextureCoord, 1.0)).xy;\n}\n";
 
             var fragment$8 = "varying vec2 vTextureCoord;\nuniform vec4 uColor;\n\nuniform sampler2D uSampler;\n\nvoid main(void)\n{\n    gl_FragColor = texture2D(uSampler, vTextureCoord) * uColor;\n}\n";
 
@@ -42783,7 +42151,7 @@
                         Object.assign(uniforms, options.uniforms);
                     }
 
-                    Shader.call(this, options.program || Program.from(vertex$6, fragment$8), uniforms);
+                    Shader.call(this, options.program || Program.from(vertex$5, fragment$8), uniforms);
 
                     /**
                      * Only do update if tint or alpha changes.
@@ -42965,11 +42333,10 @@
 
                 return MeshGeometry;
             }(Geometry));
-            //# sourceMappingURL=mesh.es.js.map
 
             /*!
-             * @pixi/mesh-extras - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/mesh-extras - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/mesh-extras is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -43721,11 +43088,10 @@
 
                 return NineSlicePlane;
             }(SimplePlane));
-            //# sourceMappingURL=mesh-extras.es.js.map
 
             /*!
-             * @pixi/sprite-animated - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * @pixi/sprite-animated - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * @pixi/sprite-animated is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -44164,11 +43530,10 @@
 
                 return AnimatedSprite;
             }(Sprite));
-            //# sourceMappingURL=sprite-animated.es.js.map
 
             /*!
-             * pixi.js - v5.0.4
-             * Compiled Fri, 07 Jun 2019 17:17:49 UTC
+             * pixi.js - v5.1.0
+             * Compiled Fri, 19 Jul 2019 21:54:36 UTC
              *
              * pixi.js is licensed under the MIT License.
              * http://www.opensource.org/licenses/mit-license
@@ -44948,6 +44313,18 @@
                     return this.copyTo(p);
                 };
 
+                /**
+                 * @method PIXI.systems.StateSystem#setState
+                 * @deprecated since 5.1.0
+                 * @see PIXI.systems.StateSystem#set
+                 */
+                PIXI.systems.StateSystem.prototype.setState = function setState(s)
+                {
+                    deprecation('v5.1.0', 'StateSystem.setState has been renamed to StateSystem.set');
+
+                    return this.set(s);
+                };
+
                 Object.assign(PIXI.systems.FilterSystem.prototype, {
                     /**
                      * @method PIXI.FilterManager#getRenderTarget
@@ -45246,6 +44623,20 @@
                 });
 
                 /**
+                 * @deprecated since 5.0.0
+                 * @member {PIXI.systems.TextureSystem} PIXI.Renderer#textureManager
+                 * @see PIXI.Renderer#texture
+                 */
+                Object.defineProperty(PIXI.Renderer.prototype, 'textureManager', {
+                    get: function get()
+                    {
+                        deprecation(v5, 'PIXI.Renderer.textureManager property is deprecated, use texture');
+
+                        return this.texture;
+                    },
+                });
+
+                /**
                  * @namespace PIXI.utils.mixins
                  * @deprecated since 5.0.0
                  */
@@ -45304,7 +44695,7 @@
              * @name VERSION
              * @type {string}
              */
-            var VERSION$1 = '5.0.4';
+            var VERSION$1 = '5.1.0';
 
             /**
              * @namespace PIXI
@@ -45346,7 +44737,6 @@
                 FXAAFilter: FXAAFilter,
                 NoiseFilter: NoiseFilter,
             };
-            //# sourceMappingURL=pixi.es.js.map
 
             var PIXI = /*#__PURE__*/Object.freeze({
                         accessibility: accessibility_es,
@@ -45388,13 +44778,16 @@
                         TARGETS: TARGETS,
                         TYPES: TYPES,
                         WRAP_MODES: WRAP_MODES,
+                        AbstractBatchRenderer: AbstractBatchRenderer,
                         AbstractRenderer: AbstractRenderer,
                         Attribute: Attribute,
                         BaseRenderTexture: BaseRenderTexture,
                         BaseTexture: BaseTexture,
                         BatchDrawCall: BatchDrawCall,
                         BatchGeometry: BatchGeometry,
+                        BatchPluginFactory: BatchPluginFactory,
                         BatchRenderer: BatchRenderer,
+                        BatchShaderGenerator: BatchShaderGenerator,
                         Buffer: Buffer$1,
                         CubeTexture: CubeTexture,
                         Filter: Filter,
@@ -45407,6 +44800,7 @@
                         Quad: Quad,
                         QuadUv: QuadUv,
                         RenderTexture: RenderTexture,
+                        RenderTexturePool: RenderTexturePool,
                         Renderer: Renderer,
                         Shader: Shader,
                         SpriteMaskFilter: SpriteMaskFilter,
@@ -45416,11 +44810,11 @@
                         TextureMatrix: TextureMatrix,
                         TextureUvs: TextureUvs,
                         UniformGroup: UniformGroup,
+                        ViewableBuffer: ViewableBuffer,
                         autoDetectRenderer: autoDetectRenderer,
                         checkMaxIfStatementsInShader: checkMaxIfStatementsInShader,
                         defaultFilterVertex: defaultFilter,
                         defaultVertex: _default,
-                        generateMultiTextureShader: generateMultiTextureShader,
                         resources: index,
                         systems: systems,
                         FillStyle: FillStyle,
@@ -45464,7 +44858,13 @@
                         isMobile: isMobile_min
             });
 
-            var penner = createCommonjsModule(function (module, exports) {
+            var commonjsGlobal$2 = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global$1 !== 'undefined' ? global$1 : typeof self !== 'undefined' ? self : {};
+
+            function createCommonjsModule$1(fn, module) {
+            	return module = { exports: {} }, fn(module, module.exports), module.exports;
+            }
+
+            var penner = createCommonjsModule$1(function (module, exports) {
             /*
             	Copyright © 2001 Robert Penner
             	All rights reserved.
@@ -45707,862 +45107,1080 @@
 
               umd(penner);
 
-            }).call(commonjsGlobal);
+            }).call(commonjsGlobal$2);
             });
 
-            var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+            var eventemitter3$1 = createCommonjsModule$1(function (module) {
 
-            function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-            function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-            function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-            var wait = function (_EventEmitter) {
-                _inherits(wait, _EventEmitter);
-
-                /**
-                 * @param {object|object[]} object or list of objects to animate
-                 * @param {object} [options]
-                 * @param {number} [options.wait=0] n milliseconds before starting animation (can also be used to pause animation for a length of time)
-                 * @param {boolean} [options.pause] start the animation paused
-                 * @param {(boolean|number)} [options.repeat] true: repeat animation forever n: repeat animation n times
-                 * @param {(boolean|number)} [options.reverse] true: reverse animation (if combined with repeat, then pulse) n: reverse animation n times
-                 *
-                 * @param {number} [options.id] user-generated id (e.g., I use it to properly load animations when an object has multiple animations running)
-                 * @param {Function} [options.load] loads an animation using an .save() object note the * parameters below cannot be loaded and must be re-set
-                 * @param {Function|string} [options.ease] function (or penner function name) from easing.js (see http://easings.net for examples)*
-                 *
-                 * @emits {done} animation expires
-                 * @emits {wait} each update during a wait
-                 * @emits {first} first update when animation starts
-                 * @emits {each} each update while animation is running
-                 * @emits {loop} when animation is repeated
-                 * @emits {reverse} when animation is reversed
-                 */
-                function wait(object, options) {
-                    _classCallCheck(this, wait);
-
-                    var _this = _possibleConstructorReturn(this, (wait.__proto__ || Object.getPrototypeOf(wait)).call(this));
-
-                    _this.object = object;
-                    _this.options = options || {};
-                    _this.type = 'Wait';
-                    if (_this.options.load) {
-                        _this.load(_this.options.load);
-                    } else {
-                        _this.time = 0;
-                    }
-                    if (_this.options.ease && typeof _this.options.ease !== 'function') {
-                        _this.options.easeName = _this.options.ease;
-                        _this.options.ease = penner[_this.options.ease];
-                    }
-                    if (!_this.options.ease) {
-                        _this.options.ease = penner['linear'];
-                    }
-                    return _this;
-                }
-
-                _createClass(wait, [{
-                    key: 'save',
-                    value: function save() {
-                        var save = { type: this.type, time: this.time, duration: this.duration, ease: this.options.easeName };
-                        var options = this.options;
-                        if (options.wait) {
-                            save.wait = options.wait;
-                        }
-                        if (typeof options.id !== 'undefined') {
-                            save.id = options.id;
-                        }
-                        if (options.pause) {
-                            save.pause = options.pause;
-                        }
-                        if (options.repeat) {
-                            save.repeat = options.repeat;
-                        }
-                        if (options.reverse) {
-                            save.reverse = options.reverse;
-                        }
-                        return save;
-                    }
-                }, {
-                    key: 'load',
-                    value: function load(_load) {
-                        this.options.wait = _load.wait;
-                        this.options.pause = _load.pause;
-                        this.options.repeat = _load.repeat;
-                        this.options.reverse = _load.reverse;
-                        this.options.id = _load.id;
-                        this.options.ease = _load.ease;
-                        if (this.options.ease && typeof this.options.ease !== 'function') {
-                            this.options.easeName = this.options.ease;
-                            this.options.ease = penner[this.options.ease];
-                        }
-                        if (!this.options.ease) {
-                            this.options.ease = penner['linear'];
-                        }
-                        this.time = _load.time;
-                        this.duration = _load.duration;
-                    }
-
-                    /**
-                     * pause this entry
-                     * @type {boolean}
-                     */
-
-                }, {
-                    key: 'end',
-                    value: function end(leftOver) {
-                        if (this.options.reverse) {
-                            this.reverse();
-                            this.time = leftOver;
-                            if (!this.options.repeat) {
-                                if (this.options.reverse === true) {
-                                    this.options.reverse = false;
-                                } else {
-                                    this.options.reverse--;
-                                }
-                            } else {
-                                if (this.options.repeat !== true) {
-                                    this.options.repeat--;
-                                }
-                            }
-                            this.emit('loop', this.list || this.object);
-                        } else if (this.options.repeat) {
-                            this.time = leftOver;
-                            if (this.options.repeat !== true) {
-                                this.options.repeat--;
-                            }
-                            this.emit('loop', this.list || this.object);
-                        } else {
-                            this.done();
-                            this.emit('done', this.list || this.object, leftOver);
-                            // this.list = this.object = null
-                            return true;
-                        }
-                    }
-                }, {
-                    key: 'update',
-                    value: function update(elapsed) {
-                        var options = this.options;
-                        if (options.pause) {
-                            return;
-                        }
-                        if (options.wait) {
-                            options.wait -= elapsed;
-                            if (options.wait <= 0) {
-                                elapsed = -options.wait;
-                                options.wait = false;
-                            } else {
-                                this.emit('wait', elapsed, this.list || this.object);
-                                return;
-                            }
-                        }
-                        if (!this.first) {
-                            this.first = true;
-                            this.emit('first', this.list || this.object);
-                        }
-                        this.time += elapsed;
-                        var leftOver = 0;
-                        var duration = this.duration;
-                        var time = this.time;
-                        if (duration !== 0 && time > duration) {
-                            leftOver = time - duration;
-                            this.time = time = duration;
-                        }
-                        var force = this.calculate(elapsed);
-                        this.emit('each', elapsed, this.list || this.object, this);
-                        if (this.type === 'Wait' || duration !== 0 && time === duration) {
-                            return this.end(leftOver);
-                        }
-                        return force || time === duration;
-                    }
-
-                    // correct certain DOM values
-
-                }, {
-                    key: '_correctDOM',
-                    value: function _correctDOM(key, value) {
-                        switch (key) {
-                            case 'opacity':
-                                return isNaN(value) ? 1 : value;
-                        }
-                        return value;
-                    }
-                }, {
-                    key: 'reverse',
-                    value: function reverse() {}
-                }, {
-                    key: 'calculate',
-                    value: function calculate() {}
-                }, {
-                    key: 'done',
-                    value: function done() {}
-                }, {
-                    key: 'pause',
-                    set: function set(value) {
-                        this.options.pause = value;
-                    },
-                    get: function get() {
-                        return this.options.pause;
-                    }
-                }]);
-
-                return wait;
-            }(eventemitter3);
-
-            var wait_1 = wait;
-
-            var _createClass$1 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-            var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
-            function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-            function _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-            function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-            var angle = function (_wait) {
-                _inherits$1(angle, _wait);
-
-                /**
-                 * animate object's {x, y} using an angle
-                 * @param {object} object to animate
-                 * @param {number} angle in radians
-                 * @param {number} speed in pixels/millisecond
-                 * @param {number} [duration=0] in milliseconds; if 0, then continues forever
-                 * @param {object} [options] @see {@link Wait}
-                 * @private
-                 */
-                function angle(object, _angle, speed, duration, options) {
-                    _classCallCheck$1(this, angle);
-
-                    options = options || {};
-
-                    var _this = _possibleConstructorReturn$1(this, (angle.__proto__ || Object.getPrototypeOf(angle)).call(this, object, options));
-
-                    _this.type = 'Angle';
-                    if (options.load) {
-                        _this.load(options.load);
-                    } else {
-                        _this.angle = _angle;
-                        _this.speed = speed;
-                        _this.duration = duration || 0;
-                    }
-                    return _this;
-                }
-
-                _createClass$1(angle, [{
-                    key: 'save',
-                    value: function save() {
-                        var save = _get(angle.prototype.__proto__ || Object.getPrototypeOf(angle.prototype), 'save', this).call(this);
-                        save.angle = this.angle;
-                        save.speed = this.speed;
-                        return save;
-                    }
-                }, {
-                    key: 'load',
-                    value: function load(_load) {
-                        _get(angle.prototype.__proto__ || Object.getPrototypeOf(angle.prototype), 'load', this).call(this, _load);
-                        this.angle = _load.angle;
-                        this.speed = _load.speed;
-                    }
-                }, {
-                    key: 'calculate',
-                    value: function calculate(elapsed) {
-                        this.object.x += this.cos * elapsed * this.speed;
-                        this.object.y += this.sin * elapsed * this.speed;
-                    }
-                }, {
-                    key: 'reverse',
-                    value: function reverse() {
-                        this.angle += Math.PI;
-                    }
-                }, {
-                    key: 'angle',
-                    get: function get() {
-                        return this._angle;
-                    },
-                    set: function set(value) {
-                        this._angle = value;
-                        this.sin = Math.sin(this._angle);
-                        this.cos = Math.cos(this._angle);
-                    }
-                }]);
-
-                return angle;
-            }(wait_1);
-
-            var angle_1 = angle;
-
-            // angle.js <https://github.com/davidfig/anglejs>
-            // Released under MIT license <https://github.com/davidfig/angle/blob/master/LICENSE>
-            // Author: David Figatner
-            // Copyright (c) 2016-17 YOPEY YOPEY LLC
-
-            var _toDegreeConversion = 180 / Math.PI;
-            var _toRadianConversion = Math.PI / 180;
-
-            /** @constant {number} */
-            var UP = Math.PI / 2;
-            var DOWN = 3 * Math.PI / 2;
-            var LEFT = Math.PI;
-            var RIGHT = 0;
-
-            var NORTH = UP;
-            var SOUTH = DOWN;
-            var WEST = LEFT;
-            var EAST = RIGHT;
-
-            var PI_2$1 = Math.PI * 2;
-            var PI_QUARTER = Math.PI / 4;
-            var PI_HALF = Math.PI / 2;
+            var has = Object.prototype.hasOwnProperty
+              , prefix = '~';
 
             /**
-             * converts from radians to degrees (all other functions expect radians)
-             * @param {number} radians
-             * @return {number} degrees
+             * Constructor to create a storage for our `EE` objects.
+             * An `Events` instance is a plain object whose properties are event names.
+             *
+             * @constructor
+             * @private
              */
-            function toDegrees(radians)
-            {
-                return radians * _toDegreeConversion
+            function Events() {}
+
+            //
+            // We try to not inherit from `Object.prototype`. In some engines creating an
+            // instance in this way is faster than calling `Object.create(null)` directly.
+            // If `Object.create(null)` is not supported we prefix the event names with a
+            // character to make sure that the built-in object properties are not
+            // overridden or used as an attack vector.
+            //
+            if (Object.create) {
+              Events.prototype = Object.create(null);
+
+              //
+              // This hack is needed because the `__proto__` property is still inherited in
+              // some old browsers like Android 4, iPhone 5.1, Opera 11 and Safari 5.
+              //
+              if (!new Events().__proto__) prefix = false;
             }
 
             /**
-             * converts from degrees to radians (all other functions expect radians)
-             * @param {number} degrees
-             * @return {number} radians
+             * Representation of a single event listener.
+             *
+             * @param {Function} fn The listener function.
+             * @param {*} context The context to invoke the listener with.
+             * @param {Boolean} [once=false] Specify if the listener is a one-time listener.
+             * @constructor
+             * @private
              */
-            function toRadians(degrees)
-            {
-                return degrees * _toRadianConversion
+            function EE(fn, context, once) {
+              this.fn = fn;
+              this.context = context;
+              this.once = once || false;
             }
 
             /**
-             * returns whether the target angle is between angle1 and angle2 (in radians)
-             * (based on: http://stackoverflow.com/questions/11406189/determine-if-angle-lies-between-2-other-angles)
-             * @param {number} target angle
-             * @param {number} angle1
-             * @param {number} angle2
-             * @return {boolean}
+             * Add a listener for a given event.
+             *
+             * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.
+             * @param {(String|Symbol)} event The event name.
+             * @param {Function} fn The listener function.
+             * @param {*} context The context to invoke the listener with.
+             * @param {Boolean} once Specify if the listener is a one-time listener.
+             * @returns {EventEmitter}
+             * @private
              */
-            function isAngleBetween(target, angle1, angle2)
-            {
-                var rAngle = ((angle2 - angle1) % PI_2$1 + PI_2$1) % PI_2$1;
-                if (rAngle >= Math.PI)
-                {
-                    var swap = angle1;
-                    angle1 = angle2;
-                    angle2 = swap;
-                }
+            function addListener(emitter, event, fn, context, once) {
+              if (typeof fn !== 'function') {
+                throw new TypeError('The listener must be a function');
+              }
 
-                if (angle1 <= angle2)
-                {
-                    return target >= angle1 && target <= angle2
-                }
-                else
-                {
-                    return target >= angle1 || target <= angle2
-                }
+              var listener = new EE(fn, context || emitter, once)
+                , evt = prefix ? prefix + event : event;
+
+              if (!emitter._events[evt]) emitter._events[evt] = listener, emitter._eventsCount++;
+              else if (!emitter._events[evt].fn) emitter._events[evt].push(listener);
+              else emitter._events[evt] = [emitter._events[evt], listener];
+
+              return emitter;
             }
 
             /**
-             * returns +1 or -1 based on whether the difference between two angles is positive or negative (in radians)
-             * @param {number} target angle
-             * @param {number} source angle
-             * @return {number} 1 or -1
+             * Clear event by name.
+             *
+             * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.
+             * @param {(String|Symbol)} evt The Event name.
+             * @private
              */
-            function differenceAnglesSign(target, source)
-            {
-                function mod(a, n)
-                {
-                    return (a % n + n) % n
-                }
-
-                var a = target - source;
-                return mod((a + Math.PI), PI_2$1) - Math.PI > 0 ? 1 : -1
+            function clearEvent(emitter, evt) {
+              if (--emitter._eventsCount === 0) emitter._events = new Events();
+              else delete emitter._events[evt];
             }
 
             /**
-             * returns the normalized difference between two angles (in radians)
-             * @param {number} a - first angle
-             * @param {number} b - second angle
-             * @return {number} normalized difference between a and b
+             * Minimal `EventEmitter` interface that is molded against the Node.js
+             * `EventEmitter` interface.
+             *
+             * @constructor
+             * @public
              */
-            function differenceAngles(a, b)
-            {
-                var c = Math.abs(a - b) % PI_2$1;
-                return c > Math.PI ? (PI_2$1 - c) : c
+            function EventEmitter() {
+              this._events = new Events();
+              this._eventsCount = 0;
             }
 
             /**
-             * returns a target angle that is the shortest way to rotate an object between start and to--may choose a negative angle
-             * @param {number} start
-             * @param {number} to
-             * @return {number} shortest target angle
+             * Return an array listing the events for which the emitter has registered
+             * listeners.
+             *
+             * @returns {Array}
+             * @public
              */
-            function shortestAngle(start, to)
-            {
-                var difference = differenceAngles(to, start);
-                var sign = differenceAnglesSign(to, start);
-                var delta = difference * sign;
-                return delta + start
-            }
+            EventEmitter.prototype.eventNames = function eventNames() {
+              var names = []
+                , events
+                , name;
 
-            /**
-             * returns the normalized angle (0 - PI x 2)
-             * @param {number} radians
-             * @return {number} normalized angle in radians
-             */
-            function normalize(radians)
-            {
-                return radians - PI_2$1 * Math.floor(radians / PI_2$1)
-            }
+              if (this._eventsCount === 0) return names;
 
-            /**
-             * returns angle between two points (in radians)
-             * @param {Point} [point1] {x: x, y: y}
-             * @param {Point} [point2] {x: x, y: y}
-             * @param {number} [x1]
-             * @param {number} [y1]
-             * @param {number} [x2]
-             * @param {number} [y2]
-             * @return {number} angle
-             */
-            function angleTwoPoints(/* (point1, point2) OR (x1, y1, x2, y2) */)
-            {
-                if (arguments.length === 4)
-                {
-                    return Math.atan2(arguments[3] - arguments[1], arguments[2] - arguments[0])
-                }
-                else
-                {
-                    return Math.atan2(arguments[1].y - arguments[0].y, arguments[1].x - arguments[0].x)
-                }
-            }
+              for (name in (events = this._events)) {
+                if (has.call(events, name)) names.push(prefix ? name.slice(1) : name);
+              }
 
-            /**
-             * returns distance between two points
-             * @param {Point} [point1] {x: x, y: y}
-             * @param {Point} [point2] {x: x, y: y}
-             * @param {number} [x1]
-             * @param {number} [y1]
-             * @param {number} [x2]
-             * @param {number} [y2]
-             * @return {number} distance
-             */
-            function distanceTwoPoints(/* (point1, point2) OR (x1, y1, x2, y2) */)
-            {
-                if (arguments.length === 2)
-                {
-                    return Math.sqrt(Math.pow(arguments[1].x - arguments[0].x, 2) + Math.pow(arguments[1].y - arguments[0].y, 2))
-                }
-                else
-                {
-                    return Math.sqrt(Math.pow(arguments[2] - arguments[0], 2) + Math.pow(arguments[3] - arguments[1], 2))
-                }
-            }
+              if (Object.getOwnPropertySymbols) {
+                return names.concat(Object.getOwnPropertySymbols(events));
+              }
 
-            /**
-             * returns the squared distance between two points
-             * @param {Point} [point1] {x: x, y: y}
-             * @param {Point} [point2] {x: x, y: y}
-             * @param {number} [x1]
-             * @param {number} [y1]
-             * @param {number} [x2]
-             * @param {number} [y2]
-             * @return {number} squared distance
-             */
-            function distanceTwoPointsSquared(/* (point1, point2) OR (x1, y1, x2, y2) */)
-            {
-                if (arguments.length === 2)
-                {
-                    return Math.pow(arguments[1].x - arguments[0].x, 2) + Math.pow(arguments[1].y - arguments[0].y, 2)
-                }
-                else
-                {
-                    return Math.pow(arguments[2] - arguments[0], 2) + Math.pow(arguments[3] - arguments[1], 2)
-                }
-            }
-
-            /**
-             * returns the closest cardinal (N, S, E, W) to the given angle (in radians)
-             * @param {number} angle
-             * @return {number} closest cardinal in radians
-             */
-            function closestAngle(angle)
-            {
-                var left = differenceAngles(angle, LEFT);
-                var right = differenceAngles(angle, RIGHT);
-                var up = differenceAngles(angle, UP);
-                var down = differenceAngles(angle, DOWN);
-                if (left <= right && left <= up && left <= down)
-                {
-                    return LEFT
-                }
-                else if (right <= up && right <= down)
-                {
-                    return RIGHT
-                }
-                else if (up <= down)
-                {
-                    return UP
-                }
-                else
-                {
-                    return DOWN
-                }
-            }
-
-            /**
-             * checks whether angles a1 and a2 are equal (after normalizing)
-             * @param {number} a1
-             * @param {number} a2
-             * @param {number} [wiggle] return true if the difference between the angles is <= wiggle
-             * @return {boolean} a1 === a2
-             */
-            function equals$1(a1, a2, wiggle)
-            {
-                if (wiggle)
-                {
-                    return differenceAngles(a1, a2) < wiggle
-                }
-                else
-                {
-                    return normalize(a1) === normalize(a2)
-                }
-            }
-
-            /**
-             * return a text representation of the cardinal direction
-             * @param {number} angle
-             * @returns {string} UP, DOWN, LEFT, RIGHT, or NOT CARDINAL
-             */
-            function explain(angle)
-            {
-                switch (angle)
-                {
-                    case UP: return 'UP'
-                    case DOWN: return 'DOWN'
-                    case LEFT: return 'LEFT'
-                    case RIGHT: return 'RIGHT'
-                    default: return 'NOT CARDINAL'
-                }
-            }
-
-            var yyAngle = {
-                UP: UP,
-                DOWN: DOWN,
-                LEFT: LEFT,
-                RIGHT: RIGHT,
-                NORTH: NORTH,
-                SOUTH: SOUTH,
-                WEST: WEST,
-                EAST: EAST,
-                PI_2: PI_2$1,
-                PI_QUARTER: PI_QUARTER,
-                PI_HALF: PI_HALF,
-
-                toDegrees: toDegrees,
-                toRadians: toRadians,
-                isAngleBetween: isAngleBetween,
-                differenceAnglesSign: differenceAnglesSign,
-                differenceAngles: differenceAngles,
-                shortestAngle: shortestAngle,
-                normalize: normalize,
-                angleTwoPoints: angleTwoPoints,
-                distanceTwoPoints: distanceTwoPoints,
-                distanceTwoPointsSquared: distanceTwoPointsSquared,
-                closestAngle: closestAngle,
-                equals: equals$1,
-                explain: explain
+              return names;
             };
 
-            var _createClass$2 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+            /**
+             * Return the listeners registered for a given event.
+             *
+             * @param {(String|Symbol)} event The event name.
+             * @returns {Array} The registered listeners.
+             * @public
+             */
+            EventEmitter.prototype.listeners = function listeners(event) {
+              var evt = prefix ? prefix + event : event
+                , handlers = this._events[evt];
 
-            var _get$1 = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+              if (!handlers) return [];
+              if (handlers.fn) return [handlers.fn];
 
-            function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+              for (var i = 0, l = handlers.length, ee = new Array(l); i < l; i++) {
+                ee[i] = handlers[i].fn;
+              }
 
-            function _possibleConstructorReturn$2(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+              return ee;
+            };
 
-            function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+            /**
+             * Return the number of listeners listening to a given event.
+             *
+             * @param {(String|Symbol)} event The event name.
+             * @returns {Number} The number of listeners.
+             * @public
+             */
+            EventEmitter.prototype.listenerCount = function listenerCount(event) {
+              var evt = prefix ? prefix + event : event
+                , listeners = this._events[evt];
 
+              if (!listeners) return 0;
+              if (listeners.fn) return 1;
+              return listeners.length;
+            };
 
+            /**
+             * Calls each of the listeners registered for a given event.
+             *
+             * @param {(String|Symbol)} event The event name.
+             * @returns {Boolean} `true` if the event had listeners, else `false`.
+             * @public
+             */
+            EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
+              var evt = prefix ? prefix + event : event;
 
+              if (!this._events[evt]) return false;
 
-            /** Rotates an object to face the target */
+              var listeners = this._events[evt]
+                , len = arguments.length
+                , args
+                , i;
 
-            var face = function (_wait) {
-                _inherits$2(face, _wait);
+              if (listeners.fn) {
+                if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
 
-                /**
-                 * @param {object} object
-                 * @param {Point} target
-                 * @param {number} speed in radians/millisecond
-                 * @param {object} [options] @see {@link Wait}
-                 * @param {boolean} [options.keepAlive] don't stop animation when complete
-                 */
-                function face(object, target, speed, options) {
-                    _classCallCheck$2(this, face);
-
-                    options = options || {};
-
-                    var _this = _possibleConstructorReturn$2(this, (face.__proto__ || Object.getPrototypeOf(face)).call(this, object, options));
-
-                    _this.type = 'Face';
-                    _this.target = target;
-                    if (options.load) {
-                        _this.load(options.load);
-                    } else {
-                        _this.speed = speed;
-                    }
-                    return _this;
+                switch (len) {
+                  case 1: return listeners.fn.call(listeners.context), true;
+                  case 2: return listeners.fn.call(listeners.context, a1), true;
+                  case 3: return listeners.fn.call(listeners.context, a1, a2), true;
+                  case 4: return listeners.fn.call(listeners.context, a1, a2, a3), true;
+                  case 5: return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;
+                  case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
                 }
 
-                _createClass$2(face, [{
-                    key: 'save',
-                    value: function save() {
-                        if (this.options.cancel) {
-                            return null;
+                for (i = 1, args = new Array(len -1); i < len; i++) {
+                  args[i - 1] = arguments[i];
+                }
+
+                listeners.fn.apply(listeners.context, args);
+              } else {
+                var length = listeners.length
+                  , j;
+
+                for (i = 0; i < length; i++) {
+                  if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
+
+                  switch (len) {
+                    case 1: listeners[i].fn.call(listeners[i].context); break;
+                    case 2: listeners[i].fn.call(listeners[i].context, a1); break;
+                    case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;
+                    case 4: listeners[i].fn.call(listeners[i].context, a1, a2, a3); break;
+                    default:
+                      if (!args) for (j = 1, args = new Array(len -1); j < len; j++) {
+                        args[j - 1] = arguments[j];
+                      }
+
+                      listeners[i].fn.apply(listeners[i].context, args);
+                  }
+                }
+              }
+
+              return true;
+            };
+
+            /**
+             * Add a listener for a given event.
+             *
+             * @param {(String|Symbol)} event The event name.
+             * @param {Function} fn The listener function.
+             * @param {*} [context=this] The context to invoke the listener with.
+             * @returns {EventEmitter} `this`.
+             * @public
+             */
+            EventEmitter.prototype.on = function on(event, fn, context) {
+              return addListener(this, event, fn, context, false);
+            };
+
+            /**
+             * Add a one-time listener for a given event.
+             *
+             * @param {(String|Symbol)} event The event name.
+             * @param {Function} fn The listener function.
+             * @param {*} [context=this] The context to invoke the listener with.
+             * @returns {EventEmitter} `this`.
+             * @public
+             */
+            EventEmitter.prototype.once = function once(event, fn, context) {
+              return addListener(this, event, fn, context, true);
+            };
+
+            /**
+             * Remove the listeners of a given event.
+             *
+             * @param {(String|Symbol)} event The event name.
+             * @param {Function} fn Only remove the listeners that match this function.
+             * @param {*} context Only remove the listeners that have this context.
+             * @param {Boolean} once Only remove one-time listeners.
+             * @returns {EventEmitter} `this`.
+             * @public
+             */
+            EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
+              var evt = prefix ? prefix + event : event;
+
+              if (!this._events[evt]) return this;
+              if (!fn) {
+                clearEvent(this, evt);
+                return this;
+              }
+
+              var listeners = this._events[evt];
+
+              if (listeners.fn) {
+                if (
+                  listeners.fn === fn &&
+                  (!once || listeners.once) &&
+                  (!context || listeners.context === context)
+                ) {
+                  clearEvent(this, evt);
+                }
+              } else {
+                for (var i = 0, events = [], length = listeners.length; i < length; i++) {
+                  if (
+                    listeners[i].fn !== fn ||
+                    (once && !listeners[i].once) ||
+                    (context && listeners[i].context !== context)
+                  ) {
+                    events.push(listeners[i]);
+                  }
+                }
+
+                //
+                // Reset the array, or remove it completely if we have no more listeners.
+                //
+                if (events.length) this._events[evt] = events.length === 1 ? events[0] : events;
+                else clearEvent(this, evt);
+              }
+
+              return this;
+            };
+
+            /**
+             * Remove all listeners, or those of the specified event.
+             *
+             * @param {(String|Symbol)} [event] The event name.
+             * @returns {EventEmitter} `this`.
+             * @public
+             */
+            EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
+              var evt;
+
+              if (event) {
+                evt = prefix ? prefix + event : event;
+                if (this._events[evt]) clearEvent(this, evt);
+              } else {
+                this._events = new Events();
+                this._eventsCount = 0;
+              }
+
+              return this;
+            };
+
+            //
+            // Alias methods names because people roll like that.
+            //
+            EventEmitter.prototype.off = EventEmitter.prototype.removeListener;
+            EventEmitter.prototype.addListener = EventEmitter.prototype.on;
+
+            //
+            // Expose the prefix.
+            //
+            EventEmitter.prefixed = prefix;
+
+            //
+            // Allow `EventEmitter` to be imported as module namespace.
+            //
+            EventEmitter.EventEmitter = EventEmitter;
+
+            //
+            // Expose the module.
+            //
+            {
+              module.exports = EventEmitter;
+            }
+            });
+
+            class Easing extends eventemitter3$1
+            {
+                /**
+                 * an easing that acts on an element or an array of elements
+                 * @param {(PIXI.DisplayObject|PIXI.DisplayObject[])} element
+                 * @param {object} params
+                 * @param {object} options
+                 * @extends EventEmitter
+                 * @fires EaseElement#complete
+                 * @fires EaseElement#each
+                 * @fires EaseElement#complete
+                 * @fires EaseElement#reverse
+                 * @fires EaseElement#repeat
+                 * @fires EaseElement#wait
+                 * @fires EaseElement#wait-end
+                 */
+                constructor(element, params, options)
+                {
+                    super();
+
+                    /**
+                     * element(s) being eased
+                     * @member {(PIXI.DisplayObject|PIXI.DisplayObject[])}
+                     */
+                    this.elements = Array.isArray(element) ? element : [element];
+                    this.eases = [];
+                    this.options = options || {};
+                    this.wait = options.wait || 0;
+                    this.time = 0;
+                    for (let param in params)
+                    {
+                        for (let element of this.elements)
+                        {
+                            this.addParam(element, param, params[param]);
                         }
-                        var save = _get$1(face.prototype.__proto__ || Object.getPrototypeOf(face.prototype), 'save', this).call(this);
-                        save.speed = this.speed;
-                        save.keepAlive = this.options.keepAlive;
-                        return save;
                     }
-                }, {
-                    key: 'load',
-                    value: function load(_load) {
-                        _get$1(face.prototype.__proto__ || Object.getPrototypeOf(face.prototype), 'load', this).call(this, _load);
-                        this.speed = _load.speed;
-                        this.options.keepAlive = _load.keepAlive;
+                }
+
+                addParam(element, entry, param)
+                {
+                    let start, to, delta, update, name = entry;
+                    switch (entry)
+                    {
+                        case 'scaleX':
+                        case 'skewX':
+                            name = entry.substr(0, entry.length - 1);
+                            start = element[name].x;
+                            to = param;
+                            delta = param - start;
+                            update = ease => this.updateCoord(ease, name, 'x');
+                            break
+
+                        case 'scaleY':
+                        case 'skewY':
+                            name = entry.substr(0, entry.length - 1);
+                            start = element[name].y;
+                            to = param;
+                            delta = param - start;
+                            update = ease => this.updateCoord(ease, name, 'y');
+                            break
+
+                        case 'tint':
+                        case 'blend':
+                            const colors = Array.isArray(param) ? param : [element.tint, param];
+                            start = 0;
+                            to = colors.length;
+                            delta = to;
+                            update = (entry === 'tint') ? ease => this.updateTint(ease, colors) : ease => this.updateBlend(ease, colors);
+                            break
+
+                        case 'shake':
+                            start = { x: element.x, y: element.y };
+                            to = param;
+                            update = ease => this.updateShake(ease);
+                            break
+
+                        case 'position':
+                            start = { x: element.x, y: element.y };
+                            to = { x: param.x, y: param.y };
+                            delta = { x: to.x - start.x, y: to.y - start.y };
+                            update = ease => this.updatePosition(ease);
+                            break
+
+                        case 'skew':
+                        case 'scale':
+                            start = element[entry].x;
+                            to = param;
+                            delta = param - start;
+                            update = ease => this.updatePoint(ease, entry);
+                            break
+
+                        case 'face':
+                            start = element.rotation;
+                            to = Easing.shortestAngle(start, Math.atan2(param.y - element.y, param.x - element.x));
+                            delta = to - start;
+                            update = ease => this.updateOne(ease, 'rotation');
+                            break
+
+                        default:
+                            start = element[entry];
+                            to = param;
+                            delta = param - start;
+                            update = ease => this.updateOne(ease, entry);
                     }
-                }, {
-                    key: 'calculate',
-                    value: function calculate(elapsed) {
-                        var angle = yyAngle.angleTwoPoints(this.object.position, this.target);
-                        var difference = yyAngle.differenceAngles(angle, this.object.rotation);
-                        if (difference === 0) {
-                            this.emit('done', this.object);
-                            if (!this.options.keepAlive) {
-                                return true;
-                            }
-                        } else {
-                            var sign = yyAngle.differenceAnglesSign(angle, this.object.rotation);
-                            var change = this.speed * elapsed;
-                            var delta = change > difference ? difference : change;
-                            this.object.rotation += delta * sign;
-                        }
-                    }
-                }]);
-
-                return face;
-            }(wait_1);
-
-            var face_1 = face;
-
-            var _createClass$3 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-            var _get$2 = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
-            function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-            function _possibleConstructorReturn$3(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-            function _inherits$3(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-            /** animate any numeric parameter of an object or array of objects */
-
-            var to = function (_wait) {
-                _inherits$3(to, _wait);
+                    this.eases.push({ element, entry, update, start, to, delta });
+                }
 
                 /**
-                 * @private
-                 * @param {object} object to animate
-                 * @param {object} goto - parameters to animate, e.g.: {alpha: 5, scale: {3, 5}, scale: 5, rotation: Math.PI}
-                 * @param {number} duration - time to run
+                 * helper function to find closest angle to change between angle start and angle finish (used by face)
+                 * @param {number} start angle
+                 * @param {number} finish angle
+                 */
+                static shortestAngle(start, finish)
+                {
+                    function mod(a, n)
+                    {
+                        return (a % n + n) % n
+                    }
+
+                    const PI_2 = Math.PI * 2;
+                    let diff = Math.abs(start - finish) % PI_2;
+                    diff = diff > Math.PI ? (PI_2 - diff) : diff;
+
+                    const simple = finish - start;
+                    const sign = mod((simple + Math.PI), PI_2) - Math.PI > 0 ? 1 : -1;
+
+                    return diff * sign
+                }
+
+                /**
+                 * remove all easings with matching element and params
+                 * @param {PIXI.DisplayObject} element
+                 * @param {(string|string[])} [params] if not set, removes all params for the element
+                 */
+                remove(element, params)
+                {
+                    params = typeof params === 'undefined' ? false : typeof params === 'string' ? [params] : params;
+                    for (let i = 0; i < this.eases.length; i++)
+                    {
+                        const ease = this.eases[i];
+                        if (ease.element === element && (params === false || params.indexOf(ease.entry) !== -1))
+                        {
+                            this.eases.splice(i, 1);
+                            i--;
+                        }
+                    }
+                    if (this.eases.length === 0)
+                    {
+                        return true
+                    }
+                }
+
+                updateOne(ease, entry)
+                {
+                    ease.element[entry] = this.options.ease(this.time, ease.start, ease.delta, this.options.duration);
+                }
+
+                updatePoint(ease, entry)
+                {
+                    ease.element[entry].x = ease.element[entry].y = this.options.ease(this.time, ease.start, ease.delta, this.options.duration);
+                }
+
+                updatePosition(ease)
+                {
+                    ease.element.x = this.options.ease(this.time, ease.start.x, ease.delta.x, this.options.duration);
+                    ease.element.y = this.options.ease(this.time, ease.start.y, ease.delta.y, this.options.duration);
+                }
+
+                updateCoord(ease, name, coord)
+                {
+                    ease.element[name][coord] = this.options.ease(this.time, ease.start, ease.delta, this.options.duration);
+                }
+
+                updateTint(ease, colors)
+                {
+                    const index = Math.floor(this.options.ease(this.time, ease.start, ease.delta, this.options.duration));
+                    ease.element.tint = colors[index];
+                }
+
+                updateBlend(ease, colors)
+                {
+                    const calc = this.options.ease(this.time, ease.start, ease.delta, this.options.duration);
+                    const index = Math.floor(calc);
+                    let next = index + 1;
+                    if (next === colors.length)
+                    {
+                        next = this.options.reverse ? index - 1 : this.options.repeat ? 0 : index;
+                    }
+                    const percent = calc - index;
+                    const color1 = colors[index];
+                    const color2 = colors[next];
+                    const r1 = color1 >> 16;
+                    const g1 = color1 >> 8 & 0x0000ff;
+                    const b1 = color1 & 0x0000ff;
+                    const r2 = color2 >> 16;
+                    const g2 = color2 >> 8 & 0x0000ff;
+                    const b2 = color2 & 0x0000ff;
+                    const percent1 = 1 - percent;
+                    const r = percent1 * r1 + percent * r2;
+                    const g = percent1 * g1 + percent * g2;
+                    const b = percent1 * b1 + percent * b2;
+                    ease.element.tint = r << 16 | g << 8 | b;
+                }
+
+                updateShake(ease)
+                {
+                    function random(n)
+                    {
+                        return Math.floor(Math.random() * n) - Math.floor(n / 2)
+                    }
+                    ease.element.x = ease.start.x + random(ease.to);
+                    ease.element.y = ease.start.y + random(ease.to);
+                }
+
+                complete(ease)
+                {
+                    if (ease.entry === 'shake')
+                    {
+                        ease.element.x = ease.start.x;
+                        ease.element.y = ease.start.y;
+                    }
+                }
+
+                reverse(ease)
+                {
+                    if (ease.entry === 'position')
+                    {
+                        const swapX = ease.to.x;
+                        const swapY = ease.to.y;
+                        ease.to.x = ease.start.x;
+                        ease.to.y = ease.start.y;
+                        ease.start.x = swapX;
+                        ease.start.y = swapY;
+                        ease.delta.x = -ease.delta.x;
+                        ease.delta.y = -ease.delta.y;
+                    }
+                    else
+                    {
+                        const swap = ease.to;
+                        ease.to = ease.start;
+                        ease.start = swap;
+                        ease.delta = -ease.delta;
+                    }
+                }
+
+                repeat(ease)
+                {
+                    switch (ease.entry)
+                    {
+                        case 'skewX':
+                            ease.element.skew.x = ease.start;
+                            break
+
+                        case 'skewY':
+                            ease.element.skew.y = ease.start;
+                            break
+
+                        case 'skew':
+                            ease.element.skew.x = ease.start;
+                            ease.element.skew.y = ease.start;
+                            break
+
+                        case 'scaleX':
+                            ease.element.scale.x = ease.start;
+                            break
+
+                        case 'scaleY':
+                            ease.element.scale.y = ease.start;
+                            break
+
+                        case 'scale':
+                            ease.element.scale.x = ease.start;
+                            ease.element.scale.y = ease.start;
+                            break
+
+                        case 'position':
+                            ease.element.x = ease.start.x;
+                            ease.element.y = ease.start.y;
+                            break
+
+                        default:
+                            ease.element[ease.entry] = ease.start;
+                    }
+                }
+
+                update(elapsed)
+                {
+                    if (this.wait)
+                    {
+                        this.wait -= elapsed;
+                        if (this.wait >= 0)
+                        {
+                            this.emit('wait', this);
+                            return
+                        }
+                        if (this.wait <= 0)
+                        {
+                            elapsed = -this.wait;
+                            this.wait = 0;
+                            this.emit('wait-end', this);
+                        }
+                    }
+                    this.time += elapsed;
+                    let leftover = 0;
+                    if (this.time >= this.options.duration)
+                    {
+                        leftover = this.time - this.options.duration;
+                        this.time = this.options.duration;
+                    }
+                    for (let i = 0; i < this.eases.length; i++)
+                    {
+                        const ease = this.eases[i];
+                        if (ease.element._destroyed)
+                        {
+                            this.eases.splice(i, 1);
+                            i--;
+                        }
+                        else
+                        {
+                            ease.update(ease);
+                        }
+                    }
+                    this.emit('each', this);
+                    if (this.time >= this.options.duration)
+                    {
+                        if (this.options.reverse)
+                        {
+                            this.eases.forEach(ease => this.reverse(ease));
+                            this.time = leftover;
+                            if (leftover)
+                            {
+                                this.eases.forEach(ease => ease.update(ease));
+                            }
+                            this.emit('reverse', this);
+                            if (!this.options.repeat)
+                            {
+                                this.options.reverse = false;
+                            }
+                            else if (this.options.repeat !== true)
+                            {
+                                this.options.repeat--;
+                            }
+                        }
+                        else if (this.options.repeat)
+                        {
+                            this.eases.forEach(ease => this.repeat(ease));
+                            this.time = leftover;
+                            if (leftover)
+                            {
+                                this.eases.forEach(ease => ease.update(ease));
+                            }
+                            if (this.options.repeat !== true)
+                            {
+                                this.options.repeat--;
+                            }
+                            this.emit('repeat', this);
+                        }
+                        else
+                        {
+                            this.eases.forEach(ease => this.complete(ease));
+                            this.emit('complete', this);
+                            return true
+                        }
+                    }
+                }
+
+                /**
+                 * number of parameters being eased
+                 * @returns {number}
+                 */
+                get count()
+                {
+                    return this.eases.length
+                }
+            }
+
+            /**
+             * fires when easings are finished
+             * @event EaseElement#complete
+             * @type {EaseElement}
+             */
+
+            /**
+             * fires on each loop where there are easings
+             * @event EaseElement#each
+             * @type {EaseElement}
+             */
+
+            /**
+             * fires when easings repeats
+             * @event EaseElement#repeat
+             * @type {EaseElement}
+             */
+
+             /**
+             * fires when easings reverse
+             * @event EaseElement#reverse
+             * @type {EaseElement}
+             */
+
+            /**
+             * fires on each frame while a wait is counting down
+             * @event EaseElement#wait
+             * @type {object}
+             * @property {EaseElement} element
+             * @property {number} wait
+             */
+
+            /**
+             * fires after a wait expires
+             * @event EaseElement#wait-end
+             * @type { EaseElement }
+             */
+
+            const easeOptions = {
+                duration: 1000,
+                ease: penner.easeInOutSine,
+                useTicker: true,
+                maxFrame: 1000 / 60
+            };
+
+            /**
+             * Manages a group of eases
+             * @extends EventEmitter
+             * @example
+             * import * as PIXI from 'pixi.js'
+             * import { Ease, ease } from 'pixi-ease'
+             *
+             * const app = new PIXI.Application()
+             * const test = app.stage.addChild(new PIXI.Sprite(PIXI.Texture.WHITE))
+             *
+             * const move = ease.add(test, { x: 20, y: 15, alpha: 0.25 }, { reverse: true })
+             * move.once('complete', () => console.log('move ease complete.'))
+             *
+             * test.generic = 25
+             * const generic = ease.add(test, { generic: 0 }, { duration: 1500, ease: 'easeOutQuad' })
+             * generic.on('each', () => console.log(test.generic))
+             *
+             * const secondEase = new Ease({ duration: 3000, ease: 'easeInBack' })
+             * const test2 = app.stage.addChild(new PIXI.Sprite(PIXI.Texture.WHITE))
+             * test2.tint = 0x0000ff
+             * secondEase.add(test2, { blend: [0xff0000, 0x00ff00], scale: 2 })
+             */
+            class Ease extends eventemitter3$1
+            {
+                /**
                  * @param {object} [options]
-                 * @param {number} [options.wait=0] n milliseconds before starting animation (can also be used to pause animation for a length of time)
-                 * @param {boolean} [options.pause] start the animation paused
-                 * @param {boolean|number} [options.repeat] true: repeat animation forever n: repeat animation n times
-                 * @param {boolean|number} [options.reverse] true: reverse animation (if combined with repeat, then pulse) n: reverse animation n times
-                 * @param {Function} [options.load] loads an animation using an .save() object note the * parameters below cannot be loaded and must be re-set
-                 * @param {string|Function} [options.ease] name or function from easing.js (see http://easings.net for examples)
-                 * @emits to:done animation expires
-                 * @emits to:wait each update during a wait
-                 * @emits to:first first update when animation starts
-                 * @emits to:each each update while animation is running
-                 * @emits to:loop when animation is repeated
-                 * @emits to:reverse when animation is reversed
+                 * @param {number} [options.duration=1000] default duration if not set
+                 * @param {(string|function)} [options.ease=Penner.easeInOutSine] default ease function if not set (see {@link https://www.npmjs.com/package/penner} for names of easing functions)
+                 * @param {boolean} [options.useTicker=true] attach updates to a PIXI.Ticker
+                 * @param {PIXI.Ticker} [options.ticker=PIXI.ticker.shared || PIXI.Ticker.shared] which PIXI.Ticker to use
+                 * @param {number} [options.maxFrame=1000/60] maximum frame time (set to Infinity to ignore)
+                 * @fires Ease#complete
+                 * @fires Ease#each
                  */
-                function to(object, goto, duration, options) {
-                    _classCallCheck$3(this, to);
-
-                    options = options || {};
-
-                    var _this = _possibleConstructorReturn$3(this, (to.__proto__ || Object.getPrototypeOf(to)).call(this, object, options));
-
-                    _this.type = 'To';
-                    if (Array.isArray(object)) {
-                        _this.list = object;
-                        _this.object = _this.list[0];
+                constructor(options)
+                {
+                    super();
+                    this.options = Object.assign({}, easeOptions, options);
+                    this.easings = [];
+                    this.empty = true;
+                    if (this.options.useTicker === true)
+                    {
+                        if (this.options.ticker)
+                        {
+                            this.ticker = this.options.ticker;
+                        }
+                        else
+                        {
+                            // weird code to ensure pixi.js v4 support (which changed from PIXI.ticker.shared to PIXI.Ticker.shared)
+                            // to avoid Rollup transforming our import, save pixi namespace in a variable
+                            // from here: https://github.com/pixijs/pixi.js/issues/5757
+                            const pixiNS = PIXI;
+                            if (parseInt(/^(\d+)\./.exec(VERSION$1)[1]) < 5)
+                            {
+                                this.ticker = pixiNS.ticker.shared;
+                            }
+                            else
+                            {
+                                this.ticker = pixiNS.Ticker.shared;
+                            }
+                        }
+                        this.ticker.add(this.update, this);
                     }
-                    if (options.load) {
-                        _this.load(options.load);
-                    } else {
-                        _this.goto = goto;
-                        _this.fixScale();
-                        _this.duration = duration;
-                        _this.restart();
-                    }
-                    return _this;
                 }
 
                 /**
-                 * converts scale from { scale: n } to { scale: { x: n, y: n }}
-                 * @private
+                 * removes all eases and tickers
                  */
+                destroy()
+                {
+                    this.removeAll();
+                    if (this.options.useTicker === true)
+                    {
+                        this.ticker.remove(this.update, this);
+                    }
+                }
 
+                /**
+                 * add ease(s) to a PIXI.DisplayObject element
+                 * @param {(PIXI.DisplayObject|PIXI.DisplayObject[])} element
+                 *
+                 * @param {object} params
+                 * @param {number} [params.x]
+                 * @param {number} [params.y]
+                 * @param {(PIXI.DisplayObject|PIXI.Point)} [params.position] changes both x and y
+                 * @param {number} [params.width]
+                 * @param {number} [params.height]
+                 * @param {number} [params.scale] changes both scale.x and scale.y
+                 * @param {number} [params.scaleX]
+                 * @param {number} [params.scaleY]
+                 * @param {number} [params.alpha]
+                 * @param {number} [params.rotation]
+                 * @param {(PIXI.DisplayObject|PIXI.Point)} [params.face] rotate the element to face a DisplayObject using the closest angle
+                 * @param {number} [params.skew] changes both skew.x and skew.y
+                 * @param {number} [params.skewX]
+                 * @param {number} [params.skewY]
+                 * @param {(number|number[])} [params.tint] cycle through colors - if number is provided then it cycles between current tint and number; if number[] is provided is cycles only between tints in the number[]
+                 * @param {(number|number[])} [params.blend] blend between colors - if number is provided then it blends current tint to number; if number[] is provided then it blends between the tints in the number[]
+                 * @param {number} [params.shake] shakes the object by this number (randomly placing the element +/-shake pixels away from starting point)
+                 * @param {number} [params.*] generic number parameter
+                 *
+                 * @param {object} [options]
+                 * @param {number} [options.duration]
+                 * @param {(string|function)} [options.ease]
+                 * @param {(boolean|number)} [options.repeat]
+                 * @param {boolean} [options.reverse]
+                 * @param {number} [options.wait] wait this number of milliseconds before ease starts
+                 *
+                 * @returns {Easing}
+                 */
+                add(element, params, options)
+                {
+                    options = options || {};
+                    options.duration = typeof options.duration !== 'undefined' ? options.duration : this.options.duration;
+                    options.ease = options.ease || this.options.ease;
+                    if (typeof options.ease === 'string')
+                    {
+                        options.ease = penner[options.ease];
+                    }
+                    const easing = new Easing(element, params, options);
+                    this.easings.push(easing);
+                    this.empty = false;
+                    return easing
+                }
 
-                _createClass$3(to, [{
-                    key: 'fixScale',
-                    value: function fixScale() {
-                        if (typeof this.goto['scale'] !== 'undefined' && !Number.isNaN(this.goto['scale'])) {
-                            this.goto['scale'] = { x: this.goto['scale'], y: this.goto['scale'] };
+                /**
+                 * create an ease that changes position (x, y) of the element by moving to the target at the speed
+                 * NOTE: under the hood this calls add(element, { x, y }, { duration: <calculated speed based on distance and speed> })
+                 * @param {PIXI.DisplayObject} element
+                 * @param {(PIXI.DisplayObject|PIXI.Point)} target
+                 * @param {number} speed in pixels / ms
+                 *
+                 * @param {object} [options]
+                 * @param {(string|function)} [options.ease]
+                 * @param {(boolean|number)} [options.repeat]
+                 * @param {boolean} [options.reverse]
+                 * @param {number} [options.wait] wait this number of milliseconds before ease starts
+                 * @param {boolean} [options.removeExisting] removes existing eases on the element of the same type (including x,y/position, skewX,skewY/skew, scaleX,scaleY/scale)
+                 *
+                 * @returns {Easing}
+                 */
+                target(element, target, speed, options)
+                {
+                    const duration = Math.sqrt(Math.pow(element.x - target.x, 2) + Math.pow(element.y - target.y, 2)) / speed;
+                    options = options || {};
+                    options.duration = duration;
+                    return this.add(element, { x: target.x, y: target.y }, options)
+                }
+
+                /**
+                 * helper function to add an ease that changes rotation to face the element at the desired target using the speed
+                 * NOTE: under the hood this calls add(element {x, y }, { duration: <calculated speed based on shortest rotation and speed> })
+                 * @param {PIXI.DisplayObject} element
+                 * @param {(PIXI.DisplayObject|PIXI.Point)} target
+                 * @param {number} speed in radians / ms
+                 *
+                 * @param {object} [options]
+                 * @param {(string|function)} [options.ease]
+                 * @param {(boolean|number)} [options.repeat]
+                 * @param {boolean} [options.reverse]
+                 * @param {number} [options.wait] wait this number of milliseconds before ease starts
+                 *
+                 * @returns {Easing}
+                 */
+                face(element, target, speed, options)
+                {
+                    const shortestAngle = Easing.shortestAngle(element.rotation, Math.atan2(target.y - element.y, target.x - element.x));
+                    const duration = Math.abs(shortestAngle - element.rotation) / speed;
+                    options = options || {};
+                    options.duration = duration;
+                    return this.add(element, { rotation: shortestAngle }, options)
+                }
+
+                /**
+                 * remove all eases from a DisplayObject
+                 * WARNING: 'complete' events will not fire for these removals
+                 * @param {PIXI.DisplayObject} object
+                 */
+                removeAllEases(element)
+                {
+                    for (let i = 0; i < this.easings.length; i++)
+                    {
+                        if (this.easings[i].remove(element))
+                        {
+                            this.easings.splice(i, 1);
+                            i--;
                         }
                     }
-                }, {
-                    key: 'save',
-                    value: function save() {
-                        var save = _get$2(to.prototype.__proto__ || Object.getPrototypeOf(to.prototype), 'save', this).call(this);
-                        save.goto = this.goto;
-                        save.start = this.start;
-                        save.delta = this.delta;
-                        save.keys = this.keys;
-                        return save;
+                    if (this.easings.length === 0)
+                    {
+                        this.empty = true;
                     }
-                }, {
-                    key: 'load',
-                    value: function load(_load) {
-                        _get$2(to.prototype.__proto__ || Object.getPrototypeOf(to.prototype), 'load', this).call(this, _load);
-                        this.goto = _load.goto;
-                        this.start = _load.start;
-                        this.delta = _load.delta;
-                        this.keys = _load.keys;
+                }
+
+                /**
+                 * removes one or more eases from a DisplayObject
+                 * WARNING: 'complete' events will not fire for these removals
+                 * @param {PIXI.DisplayObject} element
+                 * @param {(string|string[])} param
+                 */
+                removeEase(element, param)
+                {
+                    for (let i = 0; i < this.easings.length; i++)
+                    {
+                        if (this.easings[i].remove(element, param))
+                        {
+                            this.easings.splice(i, 1);
+                            i--;
+                        }
                     }
-                }, {
-                    key: 'restart',
-                    value: function restart() {
-                        var i = 0;
-                        var start = this.start = [];
-                        var delta = this.delta = [];
-                        var keys = this.keys = [];
-                        var goto = this.goto;
-                        var object = this.object;
+                    if (this.easings.length === 0)
+                    {
+                        this.empty = true;
+                    }
+                }
 
-                        // loops through all keys in goto object
-                        for (var key in goto) {
+                /**
+                 * remove all easings
+                 * WARNING: 'complete' events will not fire for these removals
+                 */
+                removeAll()
+                {
+                    this.easings = [];
+                    this.empty = true;
+                }
 
-                            // handles keys with one additional level e.g.: goto = {scale: {x: 5, y: 3}}
-                            if (isNaN(goto[key])) {
-                                keys[i] = { key: key, children: [] };
-                                start[i] = [];
-                                delta[i] = [];
-                                var j = 0;
-                                for (var key2 in goto[key]) {
-                                    keys[i].children[j] = key2;
-                                    start[i][j] = parseFloat(object[key][key2]);
-                                    start[i][j] = this._correctDOM(key2, start[i][j]);
-                                    start[i][j] = isNaN(this.start[i][j]) ? 0 : start[i][j];
-                                    delta[i][j] = goto[key][key2] - start[i][j];
-                                    j++;
-                                }
-                            } else {
-                                start[i] = parseFloat(object[key]);
-                                start[i] = this._correctDOM(key, start[i]);
-                                start[i] = isNaN(this.start[i]) ? 0 : start[i];
-                                delta[i] = goto[key] - start[i];
-                                keys[i] = key;
+                /**
+                 * update frame; this is called automatically if options.useTicker !== false
+                 * @param {number} elapsed time in ms since last frame (capped at options.maxFrame)
+                 */
+                update()
+                {
+                    if (!this.empty)
+                    {
+                        const elapsed = Math.max(this.ticker.elapsedMS, this.options.maxFrame);
+                        for (let i = 0; i < this.easings.length; i++)
+                        {
+                            if (this.easings[i].update(elapsed))
+                            {
+                                this.easings.splice(i, 1);
+                                i--;
                             }
-                            i++;
                         }
-                        this.time = 0;
-                    }
-                }, {
-                    key: 'reverse',
-                    value: function reverse() {
-                        var object = this.object;
-                        var keys = this.keys;
-                        var goto = this.goto;
-                        var delta = this.delta;
-                        var start = this.start;
-
-                        for (var i = 0, _i = keys.length; i < _i; i++) {
-                            var key = keys[i];
-                            if (isNaN(goto[key])) {
-                                for (var j = 0, _j = key.children.length; j < _j; j++) {
-                                    delta[i][j] = -delta[i][j];
-                                    start[i][j] = parseFloat(object[key.key][key.children[j]]);
-                                    start[i][j] = isNaN(start[i][j]) ? 0 : start[i][j];
-                                }
-                            } else {
-                                delta[i] = -delta[i];
-                                start[i] = parseFloat(object[key]);
-                                start[i] = isNaN(start[i]) ? 0 : start[i];
-                            }
+                        this.emit('each', this);
+                        if (this.easings.length === 0)
+                        {
+                            this.empty = true;
+                            this.emit('complete', this);
                         }
                     }
-                }, {
-                    key: 'calculate',
-                    value: function calculate() /*elapsed*/{
-                        var object = this.object;
-                        var list = this.list;
-                        var keys = this.keys;
-                        var goto = this.goto;
-                        var time = this.time;
-                        var start = this.start;
-                        var delta = this.delta;
-                        var duration = this.duration;
-                        var ease = this.options.ease;
-                        for (var i = 0, _i = this.keys.length; i < _i; i++) {
-                            var key = keys[i];
-                            if (isNaN(goto[key])) {
-                                var key1 = key.key;
-                                for (var j = 0, _j = key.children.length; j < _j; j++) {
-                                    var key2 = key.children[j];
-                                    var others = object[key1][key2] = time >= duration ? start[i][j] + delta[i][j] : ease(time, start[i][j], delta[i][j], duration);
-                                    if (list) {
-                                        for (var k = 1, _k = list.length; k < _k; k++) {
-                                            list[k][key1][key2] = others;
-                                        }
-                                    }
-                                }
-                            } else {
-                                var _key = keys[i];
-                                var _others = object[_key] = time >= duration ? start[i] + delta[i] : ease(time, start[i], delta[i], duration);
-                                if (list) {
-                                    for (var _j2 = 1, _j3 = this.list.length; _j2 < _j3; _j2++) {
-                                        list[_j2][_key] = _others;
-                                    }
-                                }
-                            }
-                        }
+                }
+
+                /**
+                 * number of easings
+                 * @type {number}
+                 */
+                get count()
+                {
+                    return this.easings.length
+                }
+
+                /**
+                 * number of active easings across all elements
+                 * @returns {number}
+                 */
+                countRunning()
+                {
+                    let count = 0;
+                    for (let entry of this.easings)
+                    {
+                        count += entry.count;
                     }
-                }]);
+                    return count
+                }
 
-                return to;
-            }(wait_1);
+                /**
+                 * default duration for eases.add() (only applies to newly added eases)
+                 * @type {number}
+                 */
+                set duration(duration)
+                {
+                    this.options.duration = duration;
+                }
+                get duration()
+                {
+                    return this.options.duration
+                }
 
-            var to_1 = to;
+                /**
+                 * default ease for eases.add() (only applies to newly added eases)
+                 * @type {(string|Function)}
+                 */
+                set ease(ease)
+                {
+                    this.options.ease = ease;
+                }
+                get ease()
+                {
+                    return this.options.ease
+                }
+            }
+
+            // manages the ids used to define the DisplayObject ease variable (enabled multiple eases attached to the same object)
+            Ease.id = 0;
+
+            /**
+             * default instantiated Ease class
+             * @type {Ease}
+             */
+            let ease = new Ease();
+
+            Ease.ease = ease;
 
             var alea = createCommonjsModule(function (module) {
             // A port of an algorithm by Johannes Baagøe <baagoe@baagoe.com>, 2010
@@ -46578,10 +46196,10 @@
             // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
             // copies of the Software, and to permit persons to whom the Software is
             // furnished to do so, subject to the following conditions:
-            // 
+            //
             // The above copyright notice and this permission notice shall be included in
             // all copies or substantial portions of the Software.
-            // 
+            //
             // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
             // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
             // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -46646,7 +46264,7 @@
               var n = 0xefc8249d;
 
               var mash = function(data) {
-                data = data.toString();
+                data = String(data);
                 for (var i = 0; i < data.length; i++) {
                   n += data.charCodeAt(i);
                   var h = 0.02519603282416938 * n;
@@ -47308,7 +46926,6 @@
               'global' in options ? options.global : (this == math),
               options.state);
             }
-            math['seed' + rngname] = seedrandom;
 
             //
             // ARC4
@@ -47441,7 +47058,11 @@
               try {
                 nodecrypto = require$$0;
               } catch (ex) {}
+            } else {
+              // When included as a plain script, set up Math.seedrandom global.
+              math['seed' + rngname] = seedrandom;
             }
+
 
             // End anonymous scope, and pass initial values.
             })(
@@ -47511,9 +47132,9 @@
 
             var seedrandom$1 = seedrandom;
 
-            var _createClass$4 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+            var _createClass$1 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-            function _classCallCheck$4(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+            function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
             // yy-random
             // by David Figatner
@@ -47525,7 +47146,7 @@
 
             var Random = function () {
                 function Random() {
-                    _classCallCheck$4(this, Random);
+                    _classCallCheck(this, Random);
 
                     this.generator = Math.random;
                 }
@@ -47539,7 +47160,7 @@
                  */
 
 
-                _createClass$4(Random, [{
+                _createClass$1(Random, [{
                     key: 'seed',
                     value: function seed(_seed, options) {
                         options = options || {};
@@ -47953,2615 +47574,6 @@
             }();
 
             var yyRandom = new Random();
-
-            // yy-color
-            // by David Figatner
-            // MIT License
-            // (c) YOPEY YOPEY LLC 2017
-            // https://github.com/davidfig/color
-
-
-
-            /**
-             * converts a #FFFFFF to 0x123456
-             * @param  {string} color
-             * @return {string}
-             */
-            function poundToHex(color)
-            {
-                return '0x' + parseInt(color.substr(1)).toString(16)
-            }
-
-            /**
-             * converts a 0x123456 to #FFFFFF
-             * @param  {string} color
-             * @return {string}
-             */
-            function hexToPound(color)
-            {
-                return '#' + color.substr(2)
-            }
-
-            /**
-             * converts a number to #FFFFFF
-             * @param  {number} color
-             * @return {string}
-             */
-            function valueToPound(color)
-            {
-                return '#' + color.toString(16)
-            }
-
-            /**
-             * based on tinycolor
-             * https://github.com/bgrins/TinyColor
-             * BSD license: https://github.com/bgrins/TinyColor/blob/master/LICENSE
-             * @param {string} color
-             * @returns {object}
-             */
-            function hexToHsl (color)
-            {
-                var rgb = this.hexToRgb(color),
-                    r = rgb.r,
-                    g = rgb.g,
-                    b = rgb.b;
-                var max = Math.max(r, g, b),
-                    min = Math.min(r, g, b);
-                var h, s, l = (max + min) / 2;
-
-                if (max === min)
-                {
-                    h = s = 0; // achromatic
-                }
-                else
-                {
-                    var d = max - min;
-                    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-                    switch (max)
-                    {
-                        case r: h = (g - b) / d + (g < b ? 6 : 0); break
-                        case g: h = (b - r) / d + 2; break
-                        case b: h = (r - g) / d + 4; break
-                    }
-
-                    h /= 6;
-                }
-
-                return { h: h, s: s, l: l }
-            }
-
-            /** based on tinycolor
-            * https://github.com/bgrins/TinyColor
-            * BSD license: https://github.com/bgrins/TinyColor/blob/master/LICENSE
-            * @param {object|number} color {h, s, b} or h
-            * @param {number} [s]
-            * @param {number} [l]
-            * @returns number
-            */
-            function hslToHex(color)
-            {
-                var r, g, b, h, s, l;
-                if (arguments.length === 1)
-                {
-                    h = color.h,
-                    s = color.s,
-                    l = color.l;
-                }
-                else
-                {
-                    h = arguments[0];
-                    s = arguments[1];
-                    l = arguments[2];
-                }
-
-                function hue2rgb(p, q, t) {
-                    if (t < 0) t += 1;
-                    if (t > 1) t -= 1;
-                    if (t < 1/6) return p + (q - p) * 6 * t
-                    if (t < 1/2) return q
-                    if (t < 2/3) return p + (q - p) * (2/3 - t) * 6
-                    return p
-                }
-
-                if (s === 0)
-                {
-                    r = g = b = l; // achromatic
-                }
-                else
-                {
-                    var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-                    var p = 2 * l - q;
-                    r = hue2rgb(p, q, h + 1/3);
-                    g = hue2rgb(p, q, h);
-                    b = hue2rgb(p, q, h - 1/3);
-                }
-
-                return this.rgbToHex(r * 255, g * 255, b * 255)
-            }
-
-            /* darkens a color by the percentage
-            * @param {object} color in hex (0xabcdef)
-            * @param {number} amount
-            * @return {number}
-            */
-            function darken(color, amount)
-            {
-                return this.blend(amount, color, 0)
-            }
-
-            /** based on tinycolor
-            * https://github.com/bgrins/TinyColor
-            * BSD license: https://github.com/bgrins/TinyColor/blob/master/LICENSE
-            * @param {object} color
-            * @param {number} amount
-            */
-            function saturate(color, amount)
-            {
-                amount = (amount === 0) ? 0 : (amount || 10);
-                var hsl = this.hexToHsl(color);
-                hsl.s += amount / 100;
-                hsl.s = Math.min(1, Math.max(0, hsl.s));
-                return this.hslToHex(hsl)
-            }
-
-            /** based on tinycolor
-            * https://github.com/bgrins/TinyColor
-            * BSD license: https://github.com/bgrins/TinyColor/blob/master/LICENSE
-            * @param {object} color
-            * @param {number} amount
-            */
-            function desaturate(color, amount)
-            {
-                amount = (amount === 0) ? 0 : (amount || 10);
-                var hsl = this.hexToHsl(color);
-                hsl.s -= amount / 100;
-                hsl.s = Math.min(1, Math.max(0, hsl.s));
-                return this.hslToHex(hsl)
-            }
-
-            /**
-             * blends two colors together
-             * @param  {number} percent [0.0 - 1.0]
-             * @param  {string} color1 first color in 0x123456 format
-             * @param  {string} color2 second color in 0x123456 format
-             * @return {number}
-             */
-            function blend(percent, color1, color2)
-            {
-                if (percent === 0)
-                {
-                    return color1
-                }
-                if (percent === 1)
-                {
-                    return color2
-                }
-                var r1 = color1 >> 16;
-                var g1 = color1 >> 8 & 0x0000ff;
-                var b1 = color1 & 0x0000ff;
-                var r2 = color2 >> 16;
-                var g2 = color2 >> 8 & 0x0000ff;
-                var b2 = color2 & 0x0000ff;
-                var percent1 = 1 - percent;
-                var r = percent1 * r1 + percent * r2;
-                var g = percent1 * g1 + percent * g2;
-                var b = percent1 * b1 + percent * b2;
-                return r << 16 | g << 8 | b
-            }
-
-            /**
-             * returns a hex color into an rgb value
-             * @param  {number} hex
-             * @return {string}
-             */
-            function hexToRgb(hex)
-            {
-                if (hex === 0)
-                {
-                    hex = '0x000000';
-                }
-                else if (typeof hex !== 'string')
-                {
-                    var s = '000000' + hex.toString(16);
-                    hex = '0x' + s.substr(s.length - 6);
-                }
-                var result = /^0x?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-                return result ? {
-                    r: parseInt(result[1], 16),
-                    g: parseInt(result[2], 16),
-                    b: parseInt(result[3], 16)
-                } : null
-            }
-
-            /**
-             * rgb color to hex in the form of 0x123456
-             * @param  {(number|string)} r first number or 'rgb(...)' string
-             * @param  {(number|null)} g
-             * @param  {(number|null)} b
-             * @return {string}
-             */
-            function rgbToHex(r, g, b)
-            {
-                if (arguments.length === 1) {
-                    if (Array.isArray(arguments[0])) {
-                        var number = arguments[0];
-                        r = number[0];
-                        g = number[1];
-                        b = number[2];
-                    } else {
-                        var parse = r.replace(/( *rgb *\( *)|( )|(\) *;?)/,'');
-                        var numbers = parse.split(',');
-                        r = numbers[0];
-                        g = numbers[1];
-                        b = numbers[2];
-                    }
-                }
-                return '0x' + ((1 << 24) + (parseInt(r) << 16) + (parseInt(g) << 8) + parseInt(b)).toString(16).slice(1)
-            }
-
-            /**
-             * returns a random color with balanced r, g, b values (i.e., r, g, b either have the same value or are 0)
-             * @param {number} min value for random number
-             * @param {number} max value for random number
-             * @return {number} color
-             */
-            function random(min, max)
-            {
-                function random()
-                {
-                    return yyRandom.range(min, max)
-                }
-
-                var colors = [{r:1, g:1, b:1}, {r:1, g:1, b:0}, {r:1,g:0,b:1}, {r:0,g:1,b:1}, {r:1,g:0,b:0}, {r:0,g:1,b:0}, {r:0,g:0,b:1}];
-                var color = yyRandom.pick(colors);
-                min = min || 0;
-                max = max || 255;
-                return this.rgbToHex(color.r ? random() : 0, color.g ? random() : 0, color.b ? random() : 0)
-            }
-
-            // h: 0-360, s: 0-1, l: 0-1
-            /**
-             * returns a random color based on hsl
-             * @param {number} hMin [0, 360]
-             * @param {number} hMax [hMin, 360]
-             * @param {number} sMin [0, 1]
-             * @param {number} sMax [sMin, 1]
-             * @param {number} lMin [0, 1]
-             * @param {number} lMax [lMin, 1]
-             */
-            function randomHSL(hMin, hMax, sMin, sMax, lMin, lMax)
-            {
-                var color = {
-                    h: yyRandom.range(hMin, hMax),
-                    s: yyRandom.range(sMin, sMax, true),
-                    l: yyRandom.range(lMin, lMax, true)
-                };
-                return this.hslToHex(color)
-            }
-
-            /**
-             * returns random colors based on HSL with different hues
-             * based on http://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/
-             * @returns {number[]} colors in hex format (0x123456)
-             */
-            function randomGoldenRatioHSL(count, saturation, luminosity)
-            {
-                var goldenRatio = 0.618033988749895;
-                var h = yyRandom.get(1, true);
-                var colors = [];
-                for (var i = 0; i < count; i++)
-                {
-                    colors.push(this.hslToHex(h, saturation, luminosity));
-                    h = (h + goldenRatio) % 1;
-                }
-                return colors
-            }
-
-            var color = {
-                poundToHex: poundToHex,
-                hexToPound: hexToPound,
-                valueToPound: valueToPound,
-                hexToHsl: hexToHsl,
-                hslToHex: hslToHex,
-                hexToRgb: hexToRgb,
-                rgbToHex: rgbToHex,
-                darken: darken,
-                saturate: saturate,
-                desaturate: desaturate,
-                blend: blend,
-                random: random,
-                randomHSL: randomHSL,
-                randomGoldenRatioHSL: randomGoldenRatioHSL
-            };
-
-            var _createClass$5 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-            var _get$3 = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
-            function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-            function _classCallCheck$5(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-            function _possibleConstructorReturn$4(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-            function _inherits$4(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-            var tint = function (_wait) {
-                _inherits$4(tint, _wait);
-
-                /**
-                 * @param {PIXI.DisplayObject|PIXI.DisplayObject[]} object
-                 * @param {number|number[]} tint
-                 * @param {number} [duration] in milliseconds
-                 * @param {object} [options] @see {@link Wait}
-                 */
-                function tint(object, _tint, duration, options) {
-                    _classCallCheck$5(this, tint);
-
-                    options = options || {};
-
-                    var _this = _possibleConstructorReturn$4(this, (tint.__proto__ || Object.getPrototypeOf(tint)).call(this, object, options));
-
-                    _this.type = 'Tint';
-                    if (Array.isArray(object)) {
-                        _this.list = object;
-                        _this.object = _this.list[0];
-                    }
-                    _this.duration = duration;
-                    if (options.load) {
-                        _this.load(options.load);
-                    } else if (Array.isArray(_tint)) {
-                        _this.tints = [_this.object.tint].concat(_toConsumableArray(_tint));
-                    } else {
-                        _this.start = _this.object.tint;
-                        _this.to = _tint;
-                    }
-                    return _this;
-                }
-
-                _createClass$5(tint, [{
-                    key: 'save',
-                    value: function save() {
-                        var save = _get$3(tint.prototype.__proto__ || Object.getPrototypeOf(tint.prototype), 'save', this).call(this);
-                        save.start = this.start;
-                        save.to = this.to;
-                        return save;
-                    }
-                }, {
-                    key: 'load',
-                    value: function load(_load) {
-                        _get$3(tint.prototype.__proto__ || Object.getPrototypeOf(tint.prototype), 'load', this).call(this, _load);
-                        this.start = _load.start;
-                        this.to = _load.to;
-                    }
-                }, {
-                    key: 'calculate',
-                    value: function calculate() {
-                        var percent = this.options.ease(this.time, 0, 1, this.duration);
-                        if (this.tints) {
-                            var each = 1 / (this.tints.length - 1);
-                            var per = each;
-                            for (var i = 1; i < this.tints.length; i++) {
-                                if (percent <= per) {
-                                    var color$1 = color.blend(1 - (per - percent) / each, this.tints[i - 1], this.tints[i]);
-                                    if (this.list) {
-                                        var _iteratorNormalCompletion = true;
-                                        var _didIteratorError = false;
-                                        var _iteratorError = undefined;
-
-                                        try {
-                                            for (var _iterator = this.list[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                                                var object = _step.value;
-
-                                                object.tint = color$1;
-                                            }
-                                        } catch (err) {
-                                            _didIteratorError = true;
-                                            _iteratorError = err;
-                                        } finally {
-                                            try {
-                                                if (!_iteratorNormalCompletion && _iterator.return) {
-                                                    _iterator.return();
-                                                }
-                                            } finally {
-                                                if (_didIteratorError) {
-                                                    throw _iteratorError;
-                                                }
-                                            }
-                                        }
-                                    } else {
-                                        this.object.tint = color$1;
-                                    }
-                                    break;
-                                }
-                                per += each;
-                            }
-                        } else {
-                            var _color = color.blend(percent, this.start, this.to);
-                            if (this.list) {
-                                var _iteratorNormalCompletion2 = true;
-                                var _didIteratorError2 = false;
-                                var _iteratorError2 = undefined;
-
-                                try {
-                                    for (var _iterator2 = this.list[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                                        var _object = _step2.value;
-
-                                        _object.tint = _color;
-                                    }
-                                } catch (err) {
-                                    _didIteratorError2 = true;
-                                    _iteratorError2 = err;
-                                } finally {
-                                    try {
-                                        if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                                            _iterator2.return();
-                                        }
-                                    } finally {
-                                        if (_didIteratorError2) {
-                                            throw _iteratorError2;
-                                        }
-                                    }
-                                }
-                            } else {
-                                this.object.tint = _color;
-                            }
-                        }
-                    }
-                }, {
-                    key: 'reverse',
-                    value: function reverse() {
-                        if (this.tints) {
-                            var tints = [];
-                            for (var i = this.tints.length - 1; i >= 0; i--) {
-                                tints.push(this.tints[i]);
-                            }
-                            this.tints = tints;
-                        } else {
-                            var swap = this.to;
-                            this.to = this.start;
-                            this.start = swap;
-                        }
-                    }
-                }]);
-
-                return tint;
-            }(wait_1);
-
-            var tint_1 = tint;
-
-            var _createClass$6 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-            var _get$4 = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
-            function _classCallCheck$6(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-            function _possibleConstructorReturn$5(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-            function _inherits$5(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-            /**
-             * shakes an object or list of objects
-             */
-
-            var shake = function (_wait) {
-                _inherits$5(shake, _wait);
-
-                /**
-                 * @param {object|array} object or list of objects to shake
-                 * @param {number} amount to shake
-                 * @param {number} duration (in milliseconds) to shake
-                 * @param {object} options (see Animate.wait)
-                 */
-                function shake(object, amount, duration, options) {
-                    _classCallCheck$6(this, shake);
-
-                    options = options || {};
-
-                    var _this = _possibleConstructorReturn$5(this, (shake.__proto__ || Object.getPrototypeOf(shake)).call(this, object, options));
-
-                    _this.type = 'Shake';
-                    if (Array.isArray(object)) {
-                        _this.array = true;
-                        _this.list = object;
-                    }
-                    if (options.load) {
-                        _this.load(options.load);
-                    } else {
-                        if (_this.list) {
-                            _this.start = [];
-                            for (var i = 0; i < object.length; i++) {
-                                var target = object[i];
-                                _this.start[i] = { x: target.x, y: target.y };
-                            }
-                        } else {
-                            _this.start = { x: object.x, y: object.y };
-                        }
-                        _this.amount = amount;
-                        _this.duration = duration;
-                    }
-                    return _this;
-                }
-
-                _createClass$6(shake, [{
-                    key: 'save',
-                    value: function save() {
-                        var save = _get$4(shake.prototype.__proto__ || Object.getPrototypeOf(shake.prototype), 'save', this).call(this);
-                        save.start = this.start;
-                        save.amount = this.amount;
-                        return save;
-                    }
-                }, {
-                    key: 'load',
-                    value: function load(_load) {
-                        _get$4(shake.prototype.__proto__ || Object.getPrototypeOf(shake.prototype), 'load', this).call(this, _load);
-                        this.start = _load.start;
-                        this.amount = _load.amount;
-                    }
-                }, {
-                    key: 'calculate',
-                    value: function calculate() /*elapsed*/{
-                        var object = this.object;
-                        var start = this.start;
-                        var amount = this.amount;
-                        if (this.array) {
-                            var list = this.list;
-                            for (var i = 0; i < list.length; i++) {
-                                var _object = list[i];
-                                var actual = start[i];
-                                _object.x = actual.x + Math.floor(Math.random() * amount * 2) - amount;
-                                _object.y = actual.y + Math.floor(Math.random() * amount * 2) - amount;
-                            }
-                        }
-                        object.x = start.x + Math.floor(Math.random() * amount * 2) - amount;
-                        object.y = start.y + Math.floor(Math.random() * amount * 2) - amount;
-                    }
-                }, {
-                    key: 'done',
-                    value: function done() {
-                        var object = this.object;
-                        var start = this.start;
-                        if (this.array) {
-                            var list = this.list;
-                            for (var i = 0; i < list.length; i++) {
-                                var _object2 = list[i];
-                                var actual = start[i];
-                                _object2.x = actual.x;
-                                _object2.y = actual.y;
-                            }
-                        } else {
-                            object.x = start.x;
-                            object.y = start.y;
-                        }
-                    }
-                }]);
-
-                return shake;
-            }(wait_1);
-
-            var shake_1 = shake;
-
-            var _createClass$7 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-            var _get$5 = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
-            function _classCallCheck$7(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-            function _possibleConstructorReturn$6(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-            function _inherits$6(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-            /** move an object to a target's location */
-
-            var target = function (_wait) {
-                _inherits$6(target, _wait);
-
-                /**
-                 * move to a target
-                 * @param {object} object - object to animate
-                 * @param {object} target - object needs to contain {x: x, y: y}
-                 * @param {number} speed - number of pixels to move per millisecond
-                 * @param {object} [options] @see {@link Wait}
-                 * @param {boolean} [options.keepAlive] don't cancel the animation when target is reached
-                 */
-                function target(object, _target, speed, options) {
-                    _classCallCheck$7(this, target);
-
-                    options = options || {};
-
-                    var _this = _possibleConstructorReturn$6(this, (target.__proto__ || Object.getPrototypeOf(target)).call(this, object, options));
-
-                    _this.type = 'Target';
-                    _this.target = _target;
-                    if (options.load) {
-                        _this.load(options.load);
-                    } else {
-                        _this.speed = speed;
-                    }
-                    return _this;
-                }
-
-                _createClass$7(target, [{
-                    key: 'save',
-                    value: function save() {
-                        var save = _get$5(target.prototype.__proto__ || Object.getPrototypeOf(target.prototype), 'save', this).call(this);
-                        save.speed = this.speed;
-                        save.keepAlive = this.options.keepAlive;
-                        return save;
-                    }
-                }, {
-                    key: 'load',
-                    value: function load(_load) {
-                        _get$5(target.prototype.__proto__ || Object.getPrototypeOf(target.prototype), 'load', this).call(this, _load);
-                        this.speed = _load.speed;
-                        this.options.keepAlive = _load.keepAlive;
-                    }
-                }, {
-                    key: 'calculate',
-                    value: function calculate(elapsed) {
-                        var deltaX = this.target.x - this.object.x;
-                        var deltaY = this.target.y - this.object.y;
-                        if (deltaX === 0 && deltaY === 0) {
-                            this.emit('done', this.object);
-                            if (!this.options.keepAlive) {
-                                return true;
-                            }
-                        } else {
-                            var angle = Math.atan2(deltaY, deltaX);
-                            this.object.x += Math.cos(angle) * elapsed * this.speed;
-                            this.object.y += Math.sin(angle) * elapsed * this.speed;
-                            if (deltaX >= 0 !== this.target.x - this.object.x >= 0) {
-                                this.object.x = this.target.x;
-                            }
-                            if (deltaY >= 0 !== this.target.y - this.object.y >= 0) {
-                                this.object.y = this.target.y;
-                            }
-                        }
-                    }
-                }]);
-
-                return target;
-            }(wait_1);
-
-            var target_1 = target;
-
-            var _createClass$8 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-            var _get$6 = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
-            function _classCallCheck$8(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-            function _possibleConstructorReturn$7(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-            function _inherits$7(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-            /**
-             * animate a movie of textures
-             */
-
-            var movie = function (_wait) {
-                _inherits$7(movie, _wait);
-
-                /**
-                 * @param {object} object to animate
-                 * @param {PIXI.Texture[]} textures
-                 * @param {number} [duration=0] time to run (use 0 for infinite duration--should only be used with customized easing functions)
-                 * @param {object} [options]
-                 * @param {number} [options.wait=0] n milliseconds before starting animation (can also be used to pause animation for a length of time)
-                 * @param {boolean} [options.pause] start the animation paused
-                 * @param {(boolean|number)} [options.repeat] true: repeat animation forever n: repeat animation n times
-                 * @param {(boolean|number)} [options.reverse] true: reverse animation (if combined with repeat, then pulse) n: reverse animation n times
-                 * @param {(boolean|number)} [options.continue] true: continue animation with new starting values n: continue animation n times
-                 * @param {Function} [options.load] loads an animation using a .save() object note the * parameters below cannot be loaded and must be re-set
-                 * @param {Function} [options.ease] function from easing.js (see http://easings.net for examples)
-                 * @emits {done} animation expires
-                 * @emits {wait} each update during a wait
-                 * @emits {first} first update when animation starts
-                 * @emits {each} each update while animation is running
-                 * @emits {loop} when animation is repeated
-                 * @emits {reverse} when animation is reversed
-                 */
-                function movie(object, textures, duration, options) {
-                    _classCallCheck$8(this, movie);
-
-                    options = options || {};
-
-                    var _this = _possibleConstructorReturn$7(this, (movie.__proto__ || Object.getPrototypeOf(movie)).call(this, object, options));
-
-                    _this.type = 'Movie';
-                    if (Array.isArray(object)) {
-                        _this.list = object;
-                        _this.object = _this.list[0];
-                    }
-                    if (options.load) {
-                        _this.load(options.load);
-                    } else {
-                        _this.textures = textures;
-                        _this.duration = duration;
-                        _this.current = 0;
-                        _this.length = textures.length;
-                        _this.interval = duration / _this.length;
-                        _this.isReverse = false;
-                        _this.restart();
-                    }
-                    return _this;
-                }
-
-                _createClass$8(movie, [{
-                    key: 'save',
-                    value: function save() {
-                        var save = _get$6(movie.prototype.__proto__ || Object.getPrototypeOf(movie.prototype), 'save', this).call(this);
-                        save.goto = this.goto;
-                        save.current = this.current;
-                        save.length = this.length;
-                        save.interval = this.interval;
-                        return save;
-                    }
-                }, {
-                    key: 'load',
-                    value: function load(_load) {
-                        _get$6(movie.prototype.__proto__ || Object.getPrototypeOf(movie.prototype), 'load', this).call(this, _load);
-                        this.goto = _load.goto;
-                        this.current = _load.current;
-                        this.interval = _load.current;
-                    }
-                }, {
-                    key: 'restart',
-                    value: function restart() {
-                        this.current = 0;
-                        this.time = 0;
-                        this.isReverse = false;
-                    }
-                }, {
-                    key: 'reverse',
-                    value: function reverse() {
-                        this.isReverse = !this.isReverse;
-                    }
-                }, {
-                    key: 'calculate',
-                    value: function calculate() {
-                        var index = Math.round(this.options.ease(this.time, 0, this.length - 1, this.duration));
-                        if (this.isReverse) {
-                            index = this.length - 1 - index;
-                        }
-                        if (this.list) {
-                            for (var i = 0; i < this.list.length; i++) {
-                                this.list[i].texture = this.textures[index];
-                            }
-                        } else {
-                            this.object.texture = this.textures[index];
-                        }
-                    }
-                }]);
-
-                return movie;
-            }(wait_1);
-
-            var movie_1 = movie;
-
-            /**
-             * restart an animation = requires a saved state
-             * @param {object} object(s) to animate
-             */
-            function load(object, load) {
-                if (!load) {
-                    return null;
-                }
-                var options = { load: load };
-                switch (load.type) {
-                    case 'Wait':
-                        return new wait_1(object, options);
-                    case 'To':
-                        return new to_1(object, null, null, options);
-                    case 'Tint':
-                        return new tint_1(object, null, null, options);
-                    case 'Shake':
-                        return new shake_1(object, null, null, options);
-                    case 'Angle':
-                        return new angle_1(object, null, null, null, options);
-                    case 'Face':
-                        return new face_1(object[0], object[1], null, options);
-                    case 'Target':
-                        return new target_1(object[0], object[1], null, options);
-                    case 'Movie':
-                        return new movie_1(object, object[1], null, options);
-                }
-            }
-
-            var load_1 = load;
-
-            var _createClass$9 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-            function _classCallCheck$9(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-            function _possibleConstructorReturn$8(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-            function _inherits$8(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            var Ease = function (_Events) {
-                _inherits$8(Ease, _Events);
-
-                /**
-                 * Main class for creating eases
-                 * @param {object} [options]
-                 * @param {boolean} [options.noTicker] don't add the update function to PIXI.ticker
-                 * @param {PIXI.ticker} [options.ticker=PIXI.ticker.shared|PIXI.Ticker.shared] use this PIXI.ticker for the list
-                 * @extends eventemitter
-                 * @fire done
-                 * @fire each
-                 */
-                function Ease(options) {
-                    _classCallCheck$9(this, Ease);
-
-                    options = options || {};
-
-                    var _this = _possibleConstructorReturn$8(this, (Ease.__proto__ || Object.getPrototypeOf(Ease)).call(this));
-
-                    if (!options.noTicker) {
-                        var ticker = options.ticker || (PIXI.Ticker ? PIXI.Ticker.shared : PIXI.ticker.shared);
-                        ticker.add(function () {
-                            return _this.update(ticker.deltaTime * 16.66);
-                        });
-                    }
-                    _this.list = [];
-                    _this.empty = true;
-                    _this.removeWaiting = [];
-                    _this.removeAllWaiting = false;
-                    return _this;
-                }
-
-                /**
-                 * Add animation(s) to animation list
-                 * @param {(object|object[])} any animation class
-                 * @return {object} first animation
-                 */
-
-
-                _createClass$9(Ease, [{
-                    key: 'add',
-                    value: function add() {
-                        var first = void 0;
-                        var _iteratorNormalCompletion = true;
-                        var _didIteratorError = false;
-                        var _iteratorError = undefined;
-
-                        try {
-                            for (var _iterator = arguments[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                                var arg = _step.value;
-
-                                if (Array.isArray(arg)) {
-                                    var _iteratorNormalCompletion2 = true;
-                                    var _didIteratorError2 = false;
-                                    var _iteratorError2 = undefined;
-
-                                    try {
-                                        for (var _iterator2 = arg[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                                            var entry = _step2.value;
-
-                                            if (!first) {
-                                                first = entry;
-                                            }
-                                            this.list.push(entry);
-                                        }
-                                    } catch (err) {
-                                        _didIteratorError2 = true;
-                                        _iteratorError2 = err;
-                                    } finally {
-                                        try {
-                                            if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                                                _iterator2.return();
-                                            }
-                                        } finally {
-                                            if (_didIteratorError2) {
-                                                throw _iteratorError2;
-                                            }
-                                        }
-                                    }
-                                } else {
-                                    first = arg;
-                                    this.list.push(arg);
-                                }
-                            }
-                        } catch (err) {
-                            _didIteratorError = true;
-                            _iteratorError = err;
-                        } finally {
-                            try {
-                                if (!_iteratorNormalCompletion && _iterator.return) {
-                                    _iterator.return();
-                                }
-                            } finally {
-                                if (_didIteratorError) {
-                                    throw _iteratorError;
-                                }
-                            }
-                        }
-
-                        this.empty = false;
-                        return first;
-                    }
-
-                    /**
-                     * remove animation(s)
-                     * @param {object|array} animate - the animation (or array of animations) to remove; can be null
-                     */
-
-                }, {
-                    key: 'remove',
-                    value: function remove(animate) {
-                        if (this.inUpdate) {
-                            this.removeWaiting.push(animate);
-                        } else {
-                            if (Array.isArray(animate)) {
-                                var _iteratorNormalCompletion3 = true;
-                                var _didIteratorError3 = false;
-                                var _iteratorError3 = undefined;
-
-                                try {
-                                    for (var _iterator3 = animate[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                                        var each = _step3.value;
-
-                                        var index = this.list.indexOf(each);
-                                        if (index !== -1) {
-                                            this.list.splice(index, 1);
-                                        }
-                                    }
-                                } catch (err) {
-                                    _didIteratorError3 = true;
-                                    _iteratorError3 = err;
-                                } finally {
-                                    try {
-                                        if (!_iteratorNormalCompletion3 && _iterator3.return) {
-                                            _iterator3.return();
-                                        }
-                                    } finally {
-                                        if (_didIteratorError3) {
-                                            throw _iteratorError3;
-                                        }
-                                    }
-                                }
-                            } else {
-                                var _index = this.list.indexOf(animate);
-                                if (_index !== -1) {
-                                    this.list.splice(_index, 1);
-                                }
-                            }
-                        }
-                    }
-
-                    /**
-                     * remove all animations from list
-                     * @inherited from yy-loop
-                     */
-
-                }, {
-                    key: 'removeAll',
-                    value: function removeAll() {
-                        if (this.inUpdate) {
-                            this.removeAllWaiting = true;
-                        } else {
-                            this.list = [];
-                        }
-                    }
-
-                    /**
-                     * update frame
-                     * this is automatically added to PIXI.ticker unless options.noTicker is set
-                     * if using options.noTicker, this should be called manually
-                     * @param {number} elasped time in MS since last update
-                     */
-
-                }, {
-                    key: 'update',
-                    value: function update(elapsed) {
-                        this.inUpdate = true;
-                        for (var i = 0, _i = this.list.length; i < _i; i++) {
-                            if (this.list[i] && this.list[i].update(elapsed)) {
-                                this.list.splice(i, 1);
-                                i--;
-                                _i--;
-                            }
-                        }
-                        this.emit('each', this);
-                        if (this.list.length === 0 && !this.empty) {
-                            this.emit('done', this);
-                            this.empty = true;
-                        }
-                        this.inUpdate = false;
-                        if (this.removeAllWaiting) {
-                            this.removeAll();
-                            this.removeAllWaiting = false;
-                        }
-                        while (this.removeWaiting.length) {
-                            this.remove(this.removeWaiting.pop());
-                        }
-                    }
-
-                    /**
-                     * number of animations
-                     * @type {number}
-                     */
-
-                }, {
-                    key: 'to',
-
-
-                    /**
-                     * default options for all eases
-                     * @typedef {object} EaseOptions
-                     * @param {object} [EaseOptions.options]
-                     * @param {number} [EaseOptions.options.wait=0] n milliseconds before starting animation (can also be used to pause animation for a length of time)
-                     * @param {boolean} [EaseOptions.options.pause] start the animation paused
-                     * @param {boolean|number} [EaseOptions.options.repeat] true: repeat animation forever n: repeat animation n times
-                     * @param {boolean|number} [EaseOptions.options.reverse] true: reverse animation (if combined with repeat, then pulse) n: reverse animation n times
-                     * @param {Function} [EaseOptions.options.load] loads an animation using an .save() object note the * parameters below cannot be loaded and must be re-set
-                     * @param {string|Function} [EaseOptions.options.ease] name or function from easing.js (see http://easings.net for examples)
-                     */
-
-                    /**
-                     * ease parameters of object
-                     * @param {PIXI.DisplayObject} object to animate
-                     * @param {object} goto - parameters to animate, e.g.: {alpha: 5, scale: {3, 5}, scale: 5, rotation: Math.PI}
-                     * @param {number} duration - time to run
-                     * @fires done
-                     * @fires wait
-                     * @fires first
-                     * @fires each
-                     * @fires loop
-                     * @fires reverse
-                     */
-                    value: function to() {
-                        return this.add(new (Function.prototype.bind.apply(to_1, [null].concat(Array.prototype.slice.call(arguments))))());
-                    }
-
-                    /**
-                     * animate object's {x, y} using an angle
-                     * @param {object} object to animate
-                     * @param {number} angle in radians
-                     * @param {number} speed in pixels/millisecond
-                     * @param {number} [duration=0] in milliseconds; if 0, then continues forever
-                     * @param {object} [options] @see {@link Wait}
-                     */
-
-                }, {
-                    key: 'angle',
-                    value: function angle() {
-                        return this.add(new (Function.prototype.bind.apply(angle_1, [null].concat(Array.prototype.slice.call(arguments))))());
-                    }
-
-                    /** helper to add to the list a new Ease.face class; see Ease.to class below for parameters */
-
-                }, {
-                    key: 'face',
-                    value: function face() {
-                        return this.add(new (Function.prototype.bind.apply(face_1, [null].concat(Array.prototype.slice.call(arguments))))());
-                    }
-
-                    /** helper to add to the list a new Ease.load class; see Ease.to class below for parameters */
-
-                }, {
-                    key: 'load',
-                    value: function load() {
-                        return this.add(new (Function.prototype.bind.apply(load_1, [null].concat(Array.prototype.slice.call(arguments))))());
-                    }
-
-                    /** helper to add to the list a new Ease.movie class; see Ease.to class below for parameters */
-
-                }, {
-                    key: 'movie',
-                    value: function movie() {
-                        return this.add(new (Function.prototype.bind.apply(movie_1, [null].concat(Array.prototype.slice.call(arguments))))());
-                    }
-
-                    /** helper to add to the list a new Ease.shake class; see Ease.to class below for parameters */
-
-                }, {
-                    key: 'shake',
-                    value: function shake() {
-                        return this.add(new (Function.prototype.bind.apply(shake_1, [null].concat(Array.prototype.slice.call(arguments))))());
-                    }
-
-                    /** helper to add to the list a new Ease.target class; see Ease.to class below for parameters */
-
-                }, {
-                    key: 'target',
-                    value: function target() {
-                        return this.add(new (Function.prototype.bind.apply(target_1, [null].concat(Array.prototype.slice.call(arguments))))());
-                    }
-
-                    /** helper to add to the list a new Ease.angle tint; see Ease.to class below for parameters */
-
-                }, {
-                    key: 'tint',
-                    value: function tint() {
-                        return this.add(new (Function.prototype.bind.apply(tint_1, [null].concat(Array.prototype.slice.call(arguments))))());
-                    }
-
-                    /** helper to add to the list a new Ease.wait class; see Ease.to class below for parameters */
-
-                }, {
-                    key: 'wait',
-                    value: function wait() {
-                        return this.add(new (Function.prototype.bind.apply(wait_1, [null].concat(Array.prototype.slice.call(arguments))))());
-                    }
-                }, {
-                    key: 'count',
-                    get: function get() {
-                        return this.list.length;
-                    }
-
-                    /**
-                     * number of active animations
-                     * @type {number}
-                     */
-
-                }, {
-                    key: 'countRunning',
-                    get: function get() {
-                        var count = 0;
-                        var _iteratorNormalCompletion4 = true;
-                        var _didIteratorError4 = false;
-                        var _iteratorError4 = undefined;
-
-                        try {
-                            for (var _iterator4 = this.list[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-                                var entry = _step4.value;
-
-                                if (!entry.pause) {
-                                    count++;
-                                }
-                            }
-                        } catch (err) {
-                            _didIteratorError4 = true;
-                            _iteratorError4 = err;
-                        } finally {
-                            try {
-                                if (!_iteratorNormalCompletion4 && _iterator4.return) {
-                                    _iterator4.return();
-                                }
-                            } finally {
-                                if (_didIteratorError4) {
-                                    throw _iteratorError4;
-                                }
-                            }
-                        }
-
-                        return count;
-                    }
-                }]);
-
-                return Ease;
-            }(eventemitter3);
-
-            var list = Ease;
-
-            var Ease$1 = {
-                list: list,
-                wait: wait_1,
-                to: to_1,
-                shake: shake_1,
-                tint: tint_1,
-                face: face_1,
-                angle: angle_1,
-                target: target_1,
-                movie: movie_1,
-                load: load_1
-            };
-
-            var dist = Ease$1;
-
-            var alea$1 = createCommonjsModule(function (module) {
-            // A port of an algorithm by Johannes Baagøe <baagoe@baagoe.com>, 2010
-            // http://baagoe.com/en/RandomMusings/javascript/
-            // https://github.com/nquinlan/better-random-numbers-for-javascript-mirror
-            // Original work is under MIT license -
-
-            // Copyright (C) 2010 by Johannes Baagøe <baagoe@baagoe.org>
-            //
-            // Permission is hereby granted, free of charge, to any person obtaining a copy
-            // of this software and associated documentation files (the "Software"), to deal
-            // in the Software without restriction, including without limitation the rights
-            // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-            // copies of the Software, and to permit persons to whom the Software is
-            // furnished to do so, subject to the following conditions:
-            //
-            // The above copyright notice and this permission notice shall be included in
-            // all copies or substantial portions of the Software.
-            //
-            // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-            // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-            // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-            // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-            // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-            // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-            // THE SOFTWARE.
-
-
-
-            (function(global, module, define) {
-
-            function Alea(seed) {
-              var me = this, mash = Mash();
-
-              me.next = function() {
-                var t = 2091639 * me.s0 + me.c * 2.3283064365386963e-10; // 2^-32
-                me.s0 = me.s1;
-                me.s1 = me.s2;
-                return me.s2 = t - (me.c = t | 0);
-              };
-
-              // Apply the seeding algorithm from Baagoe.
-              me.c = 1;
-              me.s0 = mash(' ');
-              me.s1 = mash(' ');
-              me.s2 = mash(' ');
-              me.s0 -= mash(seed);
-              if (me.s0 < 0) { me.s0 += 1; }
-              me.s1 -= mash(seed);
-              if (me.s1 < 0) { me.s1 += 1; }
-              me.s2 -= mash(seed);
-              if (me.s2 < 0) { me.s2 += 1; }
-              mash = null;
-            }
-
-            function copy(f, t) {
-              t.c = f.c;
-              t.s0 = f.s0;
-              t.s1 = f.s1;
-              t.s2 = f.s2;
-              return t;
-            }
-
-            function impl(seed, opts) {
-              var xg = new Alea(seed),
-                  state = opts && opts.state,
-                  prng = xg.next;
-              prng.int32 = function() { return (xg.next() * 0x100000000) | 0; };
-              prng.double = function() {
-                return prng() + (prng() * 0x200000 | 0) * 1.1102230246251565e-16; // 2^-53
-              };
-              prng.quick = prng;
-              if (state) {
-                if (typeof(state) == 'object') copy(state, xg);
-                prng.state = function() { return copy(xg, {}); };
-              }
-              return prng;
-            }
-
-            function Mash() {
-              var n = 0xefc8249d;
-
-              var mash = function(data) {
-                data = String(data);
-                for (var i = 0; i < data.length; i++) {
-                  n += data.charCodeAt(i);
-                  var h = 0.02519603282416938 * n;
-                  n = h >>> 0;
-                  h -= n;
-                  h *= n;
-                  n = h >>> 0;
-                  h -= n;
-                  n += h * 0x100000000; // 2^32
-                }
-                return (n >>> 0) * 2.3283064365386963e-10; // 2^-32
-              };
-
-              return mash;
-            }
-
-
-            if (module && module.exports) {
-              module.exports = impl;
-            } else if (define && define.amd) {
-              define(function() { return impl; });
-            } else {
-              this.alea = impl;
-            }
-
-            })(
-              commonjsGlobal,
-               module,    // present in node.js
-              (typeof undefined) == 'function'    // present with an AMD loader
-            );
-            });
-
-            var xor128$1 = createCommonjsModule(function (module) {
-            // A Javascript implementaion of the "xor128" prng algorithm by
-            // George Marsaglia.  See http://www.jstatsoft.org/v08/i14/paper
-
-            (function(global, module, define) {
-
-            function XorGen(seed) {
-              var me = this, strseed = '';
-
-              me.x = 0;
-              me.y = 0;
-              me.z = 0;
-              me.w = 0;
-
-              // Set up generator function.
-              me.next = function() {
-                var t = me.x ^ (me.x << 11);
-                me.x = me.y;
-                me.y = me.z;
-                me.z = me.w;
-                return me.w ^= (me.w >>> 19) ^ t ^ (t >>> 8);
-              };
-
-              if (seed === (seed | 0)) {
-                // Integer seed.
-                me.x = seed;
-              } else {
-                // String seed.
-                strseed += seed;
-              }
-
-              // Mix in string seed, then discard an initial batch of 64 values.
-              for (var k = 0; k < strseed.length + 64; k++) {
-                me.x ^= strseed.charCodeAt(k) | 0;
-                me.next();
-              }
-            }
-
-            function copy(f, t) {
-              t.x = f.x;
-              t.y = f.y;
-              t.z = f.z;
-              t.w = f.w;
-              return t;
-            }
-
-            function impl(seed, opts) {
-              var xg = new XorGen(seed),
-                  state = opts && opts.state,
-                  prng = function() { return (xg.next() >>> 0) / 0x100000000; };
-              prng.double = function() {
-                do {
-                  var top = xg.next() >>> 11,
-                      bot = (xg.next() >>> 0) / 0x100000000,
-                      result = (top + bot) / (1 << 21);
-                } while (result === 0);
-                return result;
-              };
-              prng.int32 = xg.next;
-              prng.quick = prng;
-              if (state) {
-                if (typeof(state) == 'object') copy(state, xg);
-                prng.state = function() { return copy(xg, {}); };
-              }
-              return prng;
-            }
-
-            if (module && module.exports) {
-              module.exports = impl;
-            } else if (define && define.amd) {
-              define(function() { return impl; });
-            } else {
-              this.xor128 = impl;
-            }
-
-            })(
-              commonjsGlobal,
-               module,    // present in node.js
-              (typeof undefined) == 'function'    // present with an AMD loader
-            );
-            });
-
-            var xorwow$1 = createCommonjsModule(function (module) {
-            // A Javascript implementaion of the "xorwow" prng algorithm by
-            // George Marsaglia.  See http://www.jstatsoft.org/v08/i14/paper
-
-            (function(global, module, define) {
-
-            function XorGen(seed) {
-              var me = this, strseed = '';
-
-              // Set up generator function.
-              me.next = function() {
-                var t = (me.x ^ (me.x >>> 2));
-                me.x = me.y; me.y = me.z; me.z = me.w; me.w = me.v;
-                return (me.d = (me.d + 362437 | 0)) +
-                   (me.v = (me.v ^ (me.v << 4)) ^ (t ^ (t << 1))) | 0;
-              };
-
-              me.x = 0;
-              me.y = 0;
-              me.z = 0;
-              me.w = 0;
-              me.v = 0;
-
-              if (seed === (seed | 0)) {
-                // Integer seed.
-                me.x = seed;
-              } else {
-                // String seed.
-                strseed += seed;
-              }
-
-              // Mix in string seed, then discard an initial batch of 64 values.
-              for (var k = 0; k < strseed.length + 64; k++) {
-                me.x ^= strseed.charCodeAt(k) | 0;
-                if (k == strseed.length) {
-                  me.d = me.x << 10 ^ me.x >>> 4;
-                }
-                me.next();
-              }
-            }
-
-            function copy(f, t) {
-              t.x = f.x;
-              t.y = f.y;
-              t.z = f.z;
-              t.w = f.w;
-              t.v = f.v;
-              t.d = f.d;
-              return t;
-            }
-
-            function impl(seed, opts) {
-              var xg = new XorGen(seed),
-                  state = opts && opts.state,
-                  prng = function() { return (xg.next() >>> 0) / 0x100000000; };
-              prng.double = function() {
-                do {
-                  var top = xg.next() >>> 11,
-                      bot = (xg.next() >>> 0) / 0x100000000,
-                      result = (top + bot) / (1 << 21);
-                } while (result === 0);
-                return result;
-              };
-              prng.int32 = xg.next;
-              prng.quick = prng;
-              if (state) {
-                if (typeof(state) == 'object') copy(state, xg);
-                prng.state = function() { return copy(xg, {}); };
-              }
-              return prng;
-            }
-
-            if (module && module.exports) {
-              module.exports = impl;
-            } else if (define && define.amd) {
-              define(function() { return impl; });
-            } else {
-              this.xorwow = impl;
-            }
-
-            })(
-              commonjsGlobal,
-               module,    // present in node.js
-              (typeof undefined) == 'function'    // present with an AMD loader
-            );
-            });
-
-            var xorshift7$1 = createCommonjsModule(function (module) {
-            // A Javascript implementaion of the "xorshift7" algorithm by
-            // François Panneton and Pierre L'ecuyer:
-            // "On the Xorgshift Random Number Generators"
-            // http://saluc.engr.uconn.edu/refs/crypto/rng/panneton05onthexorshift.pdf
-
-            (function(global, module, define) {
-
-            function XorGen(seed) {
-              var me = this;
-
-              // Set up generator function.
-              me.next = function() {
-                // Update xor generator.
-                var X = me.x, i = me.i, t, v;
-                t = X[i]; t ^= (t >>> 7); v = t ^ (t << 24);
-                t = X[(i + 1) & 7]; v ^= t ^ (t >>> 10);
-                t = X[(i + 3) & 7]; v ^= t ^ (t >>> 3);
-                t = X[(i + 4) & 7]; v ^= t ^ (t << 7);
-                t = X[(i + 7) & 7]; t = t ^ (t << 13); v ^= t ^ (t << 9);
-                X[i] = v;
-                me.i = (i + 1) & 7;
-                return v;
-              };
-
-              function init(me, seed) {
-                var j, w, X = [];
-
-                if (seed === (seed | 0)) {
-                  // Seed state array using a 32-bit integer.
-                  w = X[0] = seed;
-                } else {
-                  // Seed state using a string.
-                  seed = '' + seed;
-                  for (j = 0; j < seed.length; ++j) {
-                    X[j & 7] = (X[j & 7] << 15) ^
-                        (seed.charCodeAt(j) + X[(j + 1) & 7] << 13);
-                  }
-                }
-                // Enforce an array length of 8, not all zeroes.
-                while (X.length < 8) X.push(0);
-                for (j = 0; j < 8 && X[j] === 0; ++j);
-                if (j == 8) w = X[7] = -1; else w = X[j];
-
-                me.x = X;
-                me.i = 0;
-
-                // Discard an initial 256 values.
-                for (j = 256; j > 0; --j) {
-                  me.next();
-                }
-              }
-
-              init(me, seed);
-            }
-
-            function copy(f, t) {
-              t.x = f.x.slice();
-              t.i = f.i;
-              return t;
-            }
-
-            function impl(seed, opts) {
-              if (seed == null) seed = +(new Date);
-              var xg = new XorGen(seed),
-                  state = opts && opts.state,
-                  prng = function() { return (xg.next() >>> 0) / 0x100000000; };
-              prng.double = function() {
-                do {
-                  var top = xg.next() >>> 11,
-                      bot = (xg.next() >>> 0) / 0x100000000,
-                      result = (top + bot) / (1 << 21);
-                } while (result === 0);
-                return result;
-              };
-              prng.int32 = xg.next;
-              prng.quick = prng;
-              if (state) {
-                if (state.x) copy(state, xg);
-                prng.state = function() { return copy(xg, {}); };
-              }
-              return prng;
-            }
-
-            if (module && module.exports) {
-              module.exports = impl;
-            } else if (define && define.amd) {
-              define(function() { return impl; });
-            } else {
-              this.xorshift7 = impl;
-            }
-
-            })(
-              commonjsGlobal,
-               module,    // present in node.js
-              (typeof undefined) == 'function'    // present with an AMD loader
-            );
-            });
-
-            var xor4096$1 = createCommonjsModule(function (module) {
-            // A Javascript implementaion of Richard Brent's Xorgens xor4096 algorithm.
-            //
-            // This fast non-cryptographic random number generator is designed for
-            // use in Monte-Carlo algorithms. It combines a long-period xorshift
-            // generator with a Weyl generator, and it passes all common batteries
-            // of stasticial tests for randomness while consuming only a few nanoseconds
-            // for each prng generated.  For background on the generator, see Brent's
-            // paper: "Some long-period random number generators using shifts and xors."
-            // http://arxiv.org/pdf/1004.3115v1.pdf
-            //
-            // Usage:
-            //
-            // var xor4096 = require('xor4096');
-            // random = xor4096(1);                        // Seed with int32 or string.
-            // assert.equal(random(), 0.1520436450538547); // (0, 1) range, 53 bits.
-            // assert.equal(random.int32(), 1806534897);   // signed int32, 32 bits.
-            //
-            // For nonzero numeric keys, this impelementation provides a sequence
-            // identical to that by Brent's xorgens 3 implementaion in C.  This
-            // implementation also provides for initalizing the generator with
-            // string seeds, or for saving and restoring the state of the generator.
-            //
-            // On Chrome, this prng benchmarks about 2.1 times slower than
-            // Javascript's built-in Math.random().
-
-            (function(global, module, define) {
-
-            function XorGen(seed) {
-              var me = this;
-
-              // Set up generator function.
-              me.next = function() {
-                var w = me.w,
-                    X = me.X, i = me.i, t, v;
-                // Update Weyl generator.
-                me.w = w = (w + 0x61c88647) | 0;
-                // Update xor generator.
-                v = X[(i + 34) & 127];
-                t = X[i = ((i + 1) & 127)];
-                v ^= v << 13;
-                t ^= t << 17;
-                v ^= v >>> 15;
-                t ^= t >>> 12;
-                // Update Xor generator array state.
-                v = X[i] = v ^ t;
-                me.i = i;
-                // Result is the combination.
-                return (v + (w ^ (w >>> 16))) | 0;
-              };
-
-              function init(me, seed) {
-                var t, v, i, j, w, X = [], limit = 128;
-                if (seed === (seed | 0)) {
-                  // Numeric seeds initialize v, which is used to generates X.
-                  v = seed;
-                  seed = null;
-                } else {
-                  // String seeds are mixed into v and X one character at a time.
-                  seed = seed + '\0';
-                  v = 0;
-                  limit = Math.max(limit, seed.length);
-                }
-                // Initialize circular array and weyl value.
-                for (i = 0, j = -32; j < limit; ++j) {
-                  // Put the unicode characters into the array, and shuffle them.
-                  if (seed) v ^= seed.charCodeAt((j + 32) % seed.length);
-                  // After 32 shuffles, take v as the starting w value.
-                  if (j === 0) w = v;
-                  v ^= v << 10;
-                  v ^= v >>> 15;
-                  v ^= v << 4;
-                  v ^= v >>> 13;
-                  if (j >= 0) {
-                    w = (w + 0x61c88647) | 0;     // Weyl.
-                    t = (X[j & 127] ^= (v + w));  // Combine xor and weyl to init array.
-                    i = (0 == t) ? i + 1 : 0;     // Count zeroes.
-                  }
-                }
-                // We have detected all zeroes; make the key nonzero.
-                if (i >= 128) {
-                  X[(seed && seed.length || 0) & 127] = -1;
-                }
-                // Run the generator 512 times to further mix the state before using it.
-                // Factoring this as a function slows the main generator, so it is just
-                // unrolled here.  The weyl generator is not advanced while warming up.
-                i = 127;
-                for (j = 4 * 128; j > 0; --j) {
-                  v = X[(i + 34) & 127];
-                  t = X[i = ((i + 1) & 127)];
-                  v ^= v << 13;
-                  t ^= t << 17;
-                  v ^= v >>> 15;
-                  t ^= t >>> 12;
-                  X[i] = v ^ t;
-                }
-                // Storing state as object members is faster than using closure variables.
-                me.w = w;
-                me.X = X;
-                me.i = i;
-              }
-
-              init(me, seed);
-            }
-
-            function copy(f, t) {
-              t.i = f.i;
-              t.w = f.w;
-              t.X = f.X.slice();
-              return t;
-            }
-            function impl(seed, opts) {
-              if (seed == null) seed = +(new Date);
-              var xg = new XorGen(seed),
-                  state = opts && opts.state,
-                  prng = function() { return (xg.next() >>> 0) / 0x100000000; };
-              prng.double = function() {
-                do {
-                  var top = xg.next() >>> 11,
-                      bot = (xg.next() >>> 0) / 0x100000000,
-                      result = (top + bot) / (1 << 21);
-                } while (result === 0);
-                return result;
-              };
-              prng.int32 = xg.next;
-              prng.quick = prng;
-              if (state) {
-                if (state.X) copy(state, xg);
-                prng.state = function() { return copy(xg, {}); };
-              }
-              return prng;
-            }
-
-            if (module && module.exports) {
-              module.exports = impl;
-            } else if (define && define.amd) {
-              define(function() { return impl; });
-            } else {
-              this.xor4096 = impl;
-            }
-
-            })(
-              commonjsGlobal,                                     // window object or global
-               module,    // present in node.js
-              (typeof undefined) == 'function'    // present with an AMD loader
-            );
-            });
-
-            var tychei$1 = createCommonjsModule(function (module) {
-            // A Javascript implementaion of the "Tyche-i" prng algorithm by
-            // Samuel Neves and Filipe Araujo.
-            // See https://eden.dei.uc.pt/~sneves/pubs/2011-snfa2.pdf
-
-            (function(global, module, define) {
-
-            function XorGen(seed) {
-              var me = this, strseed = '';
-
-              // Set up generator function.
-              me.next = function() {
-                var b = me.b, c = me.c, d = me.d, a = me.a;
-                b = (b << 25) ^ (b >>> 7) ^ c;
-                c = (c - d) | 0;
-                d = (d << 24) ^ (d >>> 8) ^ a;
-                a = (a - b) | 0;
-                me.b = b = (b << 20) ^ (b >>> 12) ^ c;
-                me.c = c = (c - d) | 0;
-                me.d = (d << 16) ^ (c >>> 16) ^ a;
-                return me.a = (a - b) | 0;
-              };
-
-              /* The following is non-inverted tyche, which has better internal
-               * bit diffusion, but which is about 25% slower than tyche-i in JS.
-              me.next = function() {
-                var a = me.a, b = me.b, c = me.c, d = me.d;
-                a = (me.a + me.b | 0) >>> 0;
-                d = me.d ^ a; d = d << 16 ^ d >>> 16;
-                c = me.c + d | 0;
-                b = me.b ^ c; b = b << 12 ^ d >>> 20;
-                me.a = a = a + b | 0;
-                d = d ^ a; me.d = d = d << 8 ^ d >>> 24;
-                me.c = c = c + d | 0;
-                b = b ^ c;
-                return me.b = (b << 7 ^ b >>> 25);
-              }
-              */
-
-              me.a = 0;
-              me.b = 0;
-              me.c = 2654435769 | 0;
-              me.d = 1367130551;
-
-              if (seed === Math.floor(seed)) {
-                // Integer seed.
-                me.a = (seed / 0x100000000) | 0;
-                me.b = seed | 0;
-              } else {
-                // String seed.
-                strseed += seed;
-              }
-
-              // Mix in string seed, then discard an initial batch of 64 values.
-              for (var k = 0; k < strseed.length + 20; k++) {
-                me.b ^= strseed.charCodeAt(k) | 0;
-                me.next();
-              }
-            }
-
-            function copy(f, t) {
-              t.a = f.a;
-              t.b = f.b;
-              t.c = f.c;
-              t.d = f.d;
-              return t;
-            }
-            function impl(seed, opts) {
-              var xg = new XorGen(seed),
-                  state = opts && opts.state,
-                  prng = function() { return (xg.next() >>> 0) / 0x100000000; };
-              prng.double = function() {
-                do {
-                  var top = xg.next() >>> 11,
-                      bot = (xg.next() >>> 0) / 0x100000000,
-                      result = (top + bot) / (1 << 21);
-                } while (result === 0);
-                return result;
-              };
-              prng.int32 = xg.next;
-              prng.quick = prng;
-              if (state) {
-                if (typeof(state) == 'object') copy(state, xg);
-                prng.state = function() { return copy(xg, {}); };
-              }
-              return prng;
-            }
-
-            if (module && module.exports) {
-              module.exports = impl;
-            } else if (define && define.amd) {
-              define(function() { return impl; });
-            } else {
-              this.tychei = impl;
-            }
-
-            })(
-              commonjsGlobal,
-               module,    // present in node.js
-              (typeof undefined) == 'function'    // present with an AMD loader
-            );
-            });
-
-            var seedrandom$2 = createCommonjsModule(function (module) {
-            /*
-            Copyright 2014 David Bau.
-
-            Permission is hereby granted, free of charge, to any person obtaining
-            a copy of this software and associated documentation files (the
-            "Software"), to deal in the Software without restriction, including
-            without limitation the rights to use, copy, modify, merge, publish,
-            distribute, sublicense, and/or sell copies of the Software, and to
-            permit persons to whom the Software is furnished to do so, subject to
-            the following conditions:
-
-            The above copyright notice and this permission notice shall be
-            included in all copies or substantial portions of the Software.
-
-            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-            EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-            MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-            IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-            CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-            TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-            SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-            */
-
-            (function (pool, math) {
-            //
-            // The following constants are related to IEEE 754 limits.
-            //
-
-            // Detect the global object, even if operating in strict mode.
-            // http://stackoverflow.com/a/14387057/265298
-            var global = (0, eval)('this'),
-                width = 256,        // each RC4 output is 0 <= x < 256
-                chunks = 6,         // at least six RC4 outputs for each double
-                digits = 52,        // there are 52 significant digits in a double
-                rngname = 'random', // rngname: name for Math.random and Math.seedrandom
-                startdenom = math.pow(width, chunks),
-                significance = math.pow(2, digits),
-                overflow = significance * 2,
-                mask = width - 1,
-                nodecrypto;         // node.js crypto module, initialized at the bottom.
-
-            //
-            // seedrandom()
-            // This is the seedrandom function described above.
-            //
-            function seedrandom(seed, options, callback) {
-              var key = [];
-              options = (options == true) ? { entropy: true } : (options || {});
-
-              // Flatten the seed string or build one from local entropy if needed.
-              var shortseed = mixkey(flatten(
-                options.entropy ? [seed, tostring(pool)] :
-                (seed == null) ? autoseed() : seed, 3), key);
-
-              // Use the seed to initialize an ARC4 generator.
-              var arc4 = new ARC4(key);
-
-              // This function returns a random double in [0, 1) that contains
-              // randomness in every bit of the mantissa of the IEEE 754 value.
-              var prng = function() {
-                var n = arc4.g(chunks),             // Start with a numerator n < 2 ^ 48
-                    d = startdenom,                 //   and denominator d = 2 ^ 48.
-                    x = 0;                          //   and no 'extra last byte'.
-                while (n < significance) {          // Fill up all significant digits by
-                  n = (n + x) * width;              //   shifting numerator and
-                  d *= width;                       //   denominator and generating a
-                  x = arc4.g(1);                    //   new least-significant-byte.
-                }
-                while (n >= overflow) {             // To avoid rounding up, before adding
-                  n /= 2;                           //   last byte, shift everything
-                  d /= 2;                           //   right using integer math until
-                  x >>>= 1;                         //   we have exactly the desired bits.
-                }
-                return (n + x) / d;                 // Form the number within [0, 1).
-              };
-
-              prng.int32 = function() { return arc4.g(4) | 0; };
-              prng.quick = function() { return arc4.g(4) / 0x100000000; };
-              prng.double = prng;
-
-              // Mix the randomness into accumulated entropy.
-              mixkey(tostring(arc4.S), pool);
-
-              // Calling convention: what to return as a function of prng, seed, is_math.
-              return (options.pass || callback ||
-                  function(prng, seed, is_math_call, state) {
-                    if (state) {
-                      // Load the arc4 state from the given state if it has an S array.
-                      if (state.S) { copy(state, arc4); }
-                      // Only provide the .state method if requested via options.state.
-                      prng.state = function() { return copy(arc4, {}); };
-                    }
-
-                    // If called as a method of Math (Math.seedrandom()), mutate
-                    // Math.random because that is how seedrandom.js has worked since v1.0.
-                    if (is_math_call) { math[rngname] = prng; return seed; }
-
-                    // Otherwise, it is a newer calling convention, so return the
-                    // prng directly.
-                    else return prng;
-                  })(
-              prng,
-              shortseed,
-              'global' in options ? options.global : (this == math),
-              options.state);
-            }
-
-            //
-            // ARC4
-            //
-            // An ARC4 implementation.  The constructor takes a key in the form of
-            // an array of at most (width) integers that should be 0 <= x < (width).
-            //
-            // The g(count) method returns a pseudorandom integer that concatenates
-            // the next (count) outputs from ARC4.  Its return value is a number x
-            // that is in the range 0 <= x < (width ^ count).
-            //
-            function ARC4(key) {
-              var t, keylen = key.length,
-                  me = this, i = 0, j = me.i = me.j = 0, s = me.S = [];
-
-              // The empty key [] is treated as [0].
-              if (!keylen) { key = [keylen++]; }
-
-              // Set up S using the standard key scheduling algorithm.
-              while (i < width) {
-                s[i] = i++;
-              }
-              for (i = 0; i < width; i++) {
-                s[i] = s[j = mask & (j + key[i % keylen] + (t = s[i]))];
-                s[j] = t;
-              }
-
-              // The "g" method returns the next (count) outputs as one number.
-              (me.g = function(count) {
-                // Using instance members instead of closure state nearly doubles speed.
-                var t, r = 0,
-                    i = me.i, j = me.j, s = me.S;
-                while (count--) {
-                  t = s[i = mask & (i + 1)];
-                  r = r * width + s[mask & ((s[i] = s[j = mask & (j + t)]) + (s[j] = t))];
-                }
-                me.i = i; me.j = j;
-                return r;
-                // For robust unpredictability, the function call below automatically
-                // discards an initial batch of values.  This is called RC4-drop[256].
-                // See http://google.com/search?q=rsa+fluhrer+response&btnI
-              })(width);
-            }
-
-            //
-            // copy()
-            // Copies internal state of ARC4 to or from a plain object.
-            //
-            function copy(f, t) {
-              t.i = f.i;
-              t.j = f.j;
-              t.S = f.S.slice();
-              return t;
-            }
-            //
-            // flatten()
-            // Converts an object tree to nested arrays of strings.
-            //
-            function flatten(obj, depth) {
-              var result = [], typ = (typeof obj), prop;
-              if (depth && typ == 'object') {
-                for (prop in obj) {
-                  try { result.push(flatten(obj[prop], depth - 1)); } catch (e) {}
-                }
-              }
-              return (result.length ? result : typ == 'string' ? obj : obj + '\0');
-            }
-
-            //
-            // mixkey()
-            // Mixes a string seed into a key that is an array of integers, and
-            // returns a shortened string seed that is equivalent to the result key.
-            //
-            function mixkey(seed, key) {
-              var stringseed = seed + '', smear, j = 0;
-              while (j < stringseed.length) {
-                key[mask & j] =
-                  mask & ((smear ^= key[mask & j] * 19) + stringseed.charCodeAt(j++));
-              }
-              return tostring(key);
-            }
-
-            //
-            // autoseed()
-            // Returns an object for autoseeding, using window.crypto and Node crypto
-            // module if available.
-            //
-            function autoseed() {
-              try {
-                var out;
-                if (nodecrypto && (out = nodecrypto.randomBytes)) {
-                  // The use of 'out' to remember randomBytes makes tight minified code.
-                  out = out(width);
-                } else {
-                  out = new Uint8Array(width);
-                  (global.crypto || global.msCrypto).getRandomValues(out);
-                }
-                return tostring(out);
-              } catch (e) {
-                var browser = global.navigator,
-                    plugins = browser && browser.plugins;
-                return [+new Date, global, plugins, global.screen, tostring(pool)];
-              }
-            }
-
-            //
-            // tostring()
-            // Converts an array of charcodes to a string
-            //
-            function tostring(a) {
-              return String.fromCharCode.apply(0, a);
-            }
-
-            //
-            // When seedrandom.js is loaded, we immediately mix a few bits
-            // from the built-in RNG into the entropy pool.  Because we do
-            // not want to interfere with deterministic PRNG state later,
-            // seedrandom will not call math.random on its own again after
-            // initialization.
-            //
-            mixkey(math.random(), pool);
-
-            //
-            // Nodejs and AMD support: export the implementation as a module using
-            // either convention.
-            //
-            if ( module.exports) {
-              module.exports = seedrandom;
-              // When in node.js, try using crypto package for autoseeding.
-              try {
-                nodecrypto = require$$0;
-              } catch (ex) {}
-            } else {
-              // When included as a plain script, set up Math.seedrandom global.
-              math['seed' + rngname] = seedrandom;
-            }
-
-
-            // End anonymous scope, and pass initial values.
-            })(
-              [],     // pool: entropy pool starts empty
-              Math    // math: package containing random, pow, and seedrandom
-            );
-            });
-
-            // A library of seedable RNGs implemented in Javascript.
-            //
-            // Usage:
-            //
-            // var seedrandom = require('seedrandom');
-            // var random = seedrandom(1); // or any seed.
-            // var x = random();       // 0 <= x < 1.  Every bit is random.
-            // var x = random.quick(); // 0 <= x < 1.  32 bits of randomness.
-
-            // alea, a 53-bit multiply-with-carry generator by Johannes Baagøe.
-            // Period: ~2^116
-            // Reported to pass all BigCrush tests.
-
-
-            // xor128, a pure xor-shift generator by George Marsaglia.
-            // Period: 2^128-1.
-            // Reported to fail: MatrixRank and LinearComp.
-
-
-            // xorwow, George Marsaglia's 160-bit xor-shift combined plus weyl.
-            // Period: 2^192-2^32
-            // Reported to fail: CollisionOver, SimpPoker, and LinearComp.
-
-
-            // xorshift7, by François Panneton and Pierre L'ecuyer, takes
-            // a different approach: it adds robustness by allowing more shifts
-            // than Marsaglia's original three.  It is a 7-shift generator
-            // with 256 bits, that passes BigCrush with no systmatic failures.
-            // Period 2^256-1.
-            // No systematic BigCrush failures reported.
-
-
-            // xor4096, by Richard Brent, is a 4096-bit xor-shift with a
-            // very long period that also adds a Weyl generator. It also passes
-            // BigCrush with no systematic failures.  Its long period may
-            // be useful if you have many generators and need to avoid
-            // collisions.
-            // Period: 2^4128-2^32.
-            // No systematic BigCrush failures reported.
-
-
-            // Tyche-i, by Samuel Neves and Filipe Araujo, is a bit-shifting random
-            // number generator derived from ChaCha, a modern stream cipher.
-            // https://eden.dei.uc.pt/~sneves/pubs/2011-snfa2.pdf
-            // Period: ~2^127
-            // No systematic BigCrush failures reported.
-
-
-            // The original ARC4-based prng included in this library.
-            // Period: ~2^1600
-
-
-            seedrandom$2.alea = alea$1;
-            seedrandom$2.xor128 = xor128$1;
-            seedrandom$2.xorwow = xorwow$1;
-            seedrandom$2.xorshift7 = xorshift7$1;
-            seedrandom$2.xor4096 = xor4096$1;
-            seedrandom$2.tychei = tychei$1;
-
-            var seedrandom$3 = seedrandom$2;
-
-            var _createClass$a = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-            function _classCallCheck$a(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-            // yy-random
-            // by David Figatner
-            // MIT license
-            // copyright YOPEY YOPEY LLC 2016-17
-            // https://github.com/davidfig/random
-
-
-
-            var Random$1 = function () {
-                function Random() {
-                    _classCallCheck$a(this, Random);
-
-                    this.generator = Math.random;
-                }
-
-                /**
-                 * generates a seeded number
-                 * @param {number} seed
-                 * @param {object} [options]
-                 * @param {string} [PRNG="alea"] - name of algorithm, see https://github.com/davidbau/seedrandom
-                 * @param {(boolean|string)} [state] - can include the state returned from save()
-                 */
-
-
-                _createClass$a(Random, [{
-                    key: 'seed',
-                    value: function seed(_seed, options) {
-                        options = options || {};
-                        this.generator = seedrandom$3[options.PRNG || 'alea'](_seed, { state: options.state });
-                        this.options = options;
-                    }
-
-                    /**
-                     * saves the state of the random generator
-                     * can only be used after Random.seed() is called with options.state = true
-                     * @returns {number} state
-                     */
-
-                }, {
-                    key: 'save',
-                    value: function save() {
-                        if (this.generator !== Math.random) {
-                            return this.generator.state();
-                        }
-                    }
-
-                    /**
-                     * restores the state of the random generator
-                     * @param {number} state
-                     */
-
-                }, {
-                    key: 'restore',
-                    value: function restore(state) {
-                        this.generator = seedrandom$3[this.options.PRNG || 'alea']('', { state: state });
-                    }
-
-                    /**
-                     * changes the generator to use the old Math.sin-based random function
-                     * based on : http://stackoverflow.com/questions/521295/javascript-random-seeds
-                     * (deprecated) Use only for compatibility purposes
-                     * @param {number} seed
-                     */
-
-                }, {
-                    key: 'seedOld',
-                    value: function seedOld(seed) {
-                        this.generator = function () {
-                            var x = Math.sin(seed++) * 10000;
-                            return x - Math.floor(x);
-                        };
-                    }
-
-                    /**
-                     * create a separate random generator using the seed
-                     * @param {number} seed
-                     * @return {object}
-                     */
-
-                }, {
-                    key: 'separateSeed',
-                    value: function separateSeed(seed) {
-                        var random = new Random();
-                        random.seed(seed);
-                        return random;
-                    }
-
-                    /**
-                     * resets the random number this.generator to Math.random()
-                     */
-
-                }, {
-                    key: 'reset',
-                    value: function reset() {
-                        this.generator = Math.random;
-                    }
-
-                    /**
-                     * returns a random number using the this.generator between [0, ceiling - 1]
-                     * @param {number} ceiling
-                     * @param {boolean} [useFloat=false]
-                     * @return {number}
-                     */
-
-                }, {
-                    key: 'get',
-                    value: function get(ceiling, useFloat) {
-                        var negative = ceiling < 0 ? -1 : 1;
-                        ceiling *= negative;
-                        var result = void 0;
-                        if (useFloat) {
-                            result = this.generator() * ceiling;
-                        } else {
-                            result = Math.floor(this.generator() * ceiling);
-                        }
-                        return result * negative;
-                    }
-
-                    /**
-                     * returns a random integer between 0 - Number.MAX_SAFE_INTEGER
-                     * @return {number}
-                     */
-
-                }, {
-                    key: 'getHuge',
-                    value: function getHuge() {
-                        return this.get(Number.MAX_SAFE_INTEGER);
-                    }
-
-                    /**
-                     * random number [middle - range, middle + range]
-                     * @param {number} middle
-                     * @param {number} delta
-                     * @param {boolean} [useFloat=false]
-                     * @return {number}
-                     */
-
-                }, {
-                    key: 'middle',
-                    value: function middle(_middle, delta, useFloat) {
-                        var half = delta / 2;
-                        return this.range(_middle - half, _middle + half, useFloat);
-                    }
-
-                    /**
-                     * random number [start, end]
-                     * @param {number} start
-                     * @param {number} end
-                     * @param {boolean} [useFloat=false] if true, then range is (start, end)--i.e., not inclusive to start and end
-                     * @return {number}
-                     */
-
-                }, {
-                    key: 'range',
-                    value: function range(start, end, useFloat) {
-                        // case where there is no range
-                        if (end === start) {
-                            return end;
-                        }
-
-                        if (useFloat) {
-                            return this.get(end - start, true) + start;
-                        } else {
-                            var range = void 0;
-                            if (start < 0 && end > 0) {
-                                range = -start + end + 1;
-                            } else if (start === 0 && end > 0) {
-                                range = end + 1;
-                            } else if (start < 0 && end === 0) {
-                                range = start - 1;
-                                start = 1;
-                            } else if (start < 0 && end < 0) {
-                                range = end - start - 1;
-                            } else {
-                                range = end - start + 1;
-                            }
-                            return Math.floor(this.generator() * range) + start;
-                        }
-                    }
-
-                    /**
-                     * an array of random numbers between [start, end]
-                     * @param {number} start
-                     * @param {number} end
-                     * @param {number} count
-                     * @param {boolean} [useFloat=false]
-                     * @return {number[]}
-                     */
-
-                }, {
-                    key: 'rangeMultiple',
-                    value: function rangeMultiple(start, end, count, useFloat) {
-                        var array = [];
-                        for (var i = 0; i < count; i++) {
-                            array.push(this.range(start, end, useFloat));
-                        }
-                        return array;
-                    }
-
-                    /**
-                     * an array of random numbers between [middle - range, middle + range]
-                     * @param {number} middle
-                     * @param {number} range
-                     * @param {number} count
-                     * @param {boolean} [useFloat=false]
-                     * @return {number[]}
-                     */
-
-                }, {
-                    key: 'middleMultiple',
-                    value: function middleMultiple(middle, range, count, useFloat) {
-                        var array = [];
-                        for (var i = 0; i < count; i++) {
-                            array.push(middle(middle, range, useFloat));
-                        }
-                        return array;
-                    }
-
-                    /**
-                     * @param {number} [chance=0.5]
-                     * returns random sign (either +1 or -1)
-                     * @return {number}
-                     */
-
-                }, {
-                    key: 'sign',
-                    value: function sign(chance) {
-                        chance = chance || 0.5;
-                        return this.generator() < chance ? 1 : -1;
-                    }
-
-                    /**
-                     * tells you whether a random chance was achieved
-                     * @param {number} [percent=0.5]
-                     * @return {boolean}
-                     */
-
-                }, {
-                    key: 'chance',
-                    value: function chance(percent) {
-                        return this.generator() < (percent || 0.5);
-                    }
-
-                    /**
-                     * returns a random angle in radians [0 - 2 * Math.PI)
-                     */
-
-                }, {
-                    key: 'angle',
-                    value: function angle() {
-                        return this.get(Math.PI * 2, true);
-                    }
-
-                    /**
-                     * Shuffle array (either in place or copied)
-                     * from http://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-                     * @param {Array} array
-                     * @param {boolean} [copy=false] whether to shuffle in place (default) or return a new shuffled array
-                     * @return {Array} a shuffled array
-                     */
-
-                }, {
-                    key: 'shuffle',
-                    value: function shuffle(array, copy) {
-                        if (copy) {
-                            array = array.slice();
-                        }
-                        if (array.length === 0) {
-                            return array;
-                        }
-
-                        var currentIndex = array.length,
-                            temporaryValue = void 0,
-                            randomIndex = void 0;
-
-                        // While there remain elements to shuffle...
-                        while (0 !== currentIndex) {
-                            // Pick a remaining element...
-                            randomIndex = this.get(currentIndex);
-                            currentIndex -= 1;
-
-                            // And swap it with the current element.
-                            temporaryValue = array[currentIndex];
-                            array[currentIndex] = array[randomIndex];
-                            array[randomIndex] = temporaryValue;
-                        }
-                        return array;
-                    }
-
-                    /**
-                     * picks a random element from an array
-                     * @param {Array} array
-                     * @return {*}
-                     */
-
-                }, {
-                    key: 'pick',
-                    value: function pick(array, remove) {
-                        if (!remove) {
-                            return array[this.get(array.length)];
-                        } else {
-                            var pick = this.get(array.length);
-                            var temp = array[pick];
-                            array.splice(pick, 1);
-                            return temp;
-                        }
-                    }
-
-                    /**
-                     * returns a random property from an object
-                     * from http://stackoverflow.com/questions/2532218/pick-random-property-from-a-javascript-object
-                     * @param {object} obj
-                     * @return {*}
-                     */
-
-                }, {
-                    key: 'property',
-                    value: function property(obj) {
-                        var result;
-                        var count = 0;
-                        for (var prop in obj) {
-                            if (this.chance(1 / ++count)) {
-                                result = prop;
-                            }
-                        }
-                        return result;
-                    }
-
-                    /**
-                     * creates a random set where each entry is a value between [min, max]
-                     * @param {number} min
-                     * @param {number} max
-                     * @param {number} amount of numbers in set
-                     * @param {number[]}
-                     */
-
-                }, {
-                    key: 'set',
-                    value: function set(min, max, amount) {
-                        var set = [],
-                            all = [],
-                            i;
-                        for (i = min; i < max; i++) {
-                            all.push(i);
-                        }
-
-                        for (i = 0; i < amount; i++) {
-                            var found = this.get(all.length);
-                            set.push(all[found]);
-                            all.splice(found, 1);
-                        }
-                        return set;
-                    }
-
-                    /**
-                     * returns a set of numbers with a randomly even distribution (i.e., no overlapping and filling the space)
-                     * @param {number} start position
-                     * @param {number} end position
-                     * @param {number} count of non-start/end points
-                     * @param {boolean} [includeStart=false] includes start point (count++)
-                     * @param {boolean} [includeEnd=false] includes end point (count++)
-                     * @param {boolean} [useFloat=false]
-                     * @param {number[]}
-                     */
-
-                }, {
-                    key: 'distribution',
-                    value: function distribution(start, end, count, includeStart, includeEnd, useFloat) {
-                        var interval = Math.floor((end - start) / count);
-                        var halfInterval = interval / 2;
-                        var quarterInterval = interval / 4;
-                        var set = [];
-                        if (includeStart) {
-                            set.push(start);
-                        }
-                        for (var i = 0; i < count; i++) {
-                            set.push(start + i * interval + halfInterval + this.range(-quarterInterval, quarterInterval, useFloat));
-                        }
-                        if (includeEnd) {
-                            set.push(end);
-                        }
-                        return set;
-                    }
-
-                    /**
-                     * returns a random number based on weighted probability between [min, max]
-                     * from http://stackoverflow.com/questions/22656126/javascript-random-number-with-weighted-probability
-                     * @param {number} min value
-                     * @param {number} max value
-                     * @param {number} target for average value
-                     * @param {number} stddev - standard deviation
-                     */
-
-                }, {
-                    key: 'weightedProbabilityInt',
-                    value: function weightedProbabilityInt(min, max, target, stddev) {
-                        function normRand() {
-                            var x1 = void 0,
-                                x2 = void 0,
-                                rad = void 0;
-                            do {
-                                x1 = 2 * this.get(1, true) - 1;
-                                x2 = 2 * this.get(1, true) - 1;
-                                rad = x1 * x1 + x2 * x2;
-                            } while (rad >= 1 || rad === 0);
-                            var c = Math.sqrt(-2 * Math.log(rad) / rad);
-                            return x1 * c;
-                        }
-
-                        stddev = stddev || 1;
-                        if (Math.random() < 0.81546) {
-                            while (true) {
-                                var sample = normRand() * stddev + target;
-                                if (sample >= min && sample <= max) {
-                                    return sample;
-                                }
-                            }
-                        } else {
-                            return this.range(min, max);
-                        }
-                    }
-
-                    /*
-                     * returns a random hex color (0 - 0xffffff)
-                     * @return {number}
-                     */
-
-                }, {
-                    key: 'color',
-                    value: function color() {
-                        return this.get(0xffffff);
-                    }
-                }]);
-
-                return Random;
-            }();
-
-            var yyRandom$1 = new Random$1();
 
             // yy-counter
             // In-browser counter to watch changeable values like counters or FPS
@@ -51875,9 +48887,9 @@
             })(Math);
             });
 
-            var _createClass$b = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+            var _createClass$2 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-            function _classCallCheck$b(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+            function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 
 
@@ -51909,7 +48921,7 @@
                  * @param {string} [options.text=" FPS"] change the text to the right of the FPS
                  */
                 function FPS(options) {
-                    _classCallCheck$b(this, FPS);
+                    _classCallCheck$1(this, FPS);
 
                     this.options = options || {};
                     this.tolerance = this.options.tolerance || 1;
@@ -51934,7 +48946,7 @@
                  */
 
 
-                _createClass$b(FPS, [{
+                _createClass$2(FPS, [{
                     key: 'remove',
 
 
@@ -52099,9 +49111,9 @@
                 return FPS;
             }();
 
-            var _createClass$c = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+            var _createClass$3 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-            function _classCallCheck$c(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+            function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
             /**
              * Javascript: create click event for both mouse and touch
@@ -52144,7 +49156,7 @@
                 function Clicked(element, callback, options) {
                     var _this = this;
 
-                    _classCallCheck$c(this, Clicked);
+                    _classCallCheck$2(this, Clicked);
 
                     if (typeof element === 'string') {
                         element = document.querySelector(element);
@@ -52186,7 +49198,7 @@
                  */
 
 
-                _createClass$c(Clicked, [{
+                _createClass$3(Clicked, [{
                     key: 'destroy',
                     value: function destroy() {
                         this.element.removeEventListener('click', this.events.mouseclick);
@@ -52246,6 +49258,1133 @@
             }();
 
             var clicked_1 = clicked;
+
+            var penner$1 = createCommonjsModule(function (module, exports) {
+            /*
+            	Copyright © 2001 Robert Penner
+            	All rights reserved.
+
+            	Redistribution and use in source and binary forms, with or without modification, 
+            	are permitted provided that the following conditions are met:
+
+            	Redistributions of source code must retain the above copyright notice, this list of 
+            	conditions and the following disclaimer.
+            	Redistributions in binary form must reproduce the above copyright notice, this list 
+            	of conditions and the following disclaimer in the documentation and/or other materials 
+            	provided with the distribution.
+
+            	Neither the name of the author nor the names of contributors may be used to endorse 
+            	or promote products derived from this software without specific prior written permission.
+
+            	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY 
+            	EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+            	MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+            	COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+            	EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+            	GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED 
+            	AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+            	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+            	OF THE POSSIBILITY OF SUCH DAMAGE.
+             */
+
+            (function() {
+              var penner, umd;
+
+              umd = function(factory) {
+                {
+                  return module.exports = factory;
+                }
+              };
+
+              penner = {
+                linear: function(t, b, c, d) {
+                  return c * t / d + b;
+                },
+                easeInQuad: function(t, b, c, d) {
+                  return c * (t /= d) * t + b;
+                },
+                easeOutQuad: function(t, b, c, d) {
+                  return -c * (t /= d) * (t - 2) + b;
+                },
+                easeInOutQuad: function(t, b, c, d) {
+                  if ((t /= d / 2) < 1) {
+                    return c / 2 * t * t + b;
+                  } else {
+                    return -c / 2 * ((--t) * (t - 2) - 1) + b;
+                  }
+                },
+                easeInCubic: function(t, b, c, d) {
+                  return c * (t /= d) * t * t + b;
+                },
+                easeOutCubic: function(t, b, c, d) {
+                  return c * ((t = t / d - 1) * t * t + 1) + b;
+                },
+                easeInOutCubic: function(t, b, c, d) {
+                  if ((t /= d / 2) < 1) {
+                    return c / 2 * t * t * t + b;
+                  } else {
+                    return c / 2 * ((t -= 2) * t * t + 2) + b;
+                  }
+                },
+                easeInQuart: function(t, b, c, d) {
+                  return c * (t /= d) * t * t * t + b;
+                },
+                easeOutQuart: function(t, b, c, d) {
+                  return -c * ((t = t / d - 1) * t * t * t - 1) + b;
+                },
+                easeInOutQuart: function(t, b, c, d) {
+                  if ((t /= d / 2) < 1) {
+                    return c / 2 * t * t * t * t + b;
+                  } else {
+                    return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
+                  }
+                },
+                easeInQuint: function(t, b, c, d) {
+                  return c * (t /= d) * t * t * t * t + b;
+                },
+                easeOutQuint: function(t, b, c, d) {
+                  return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
+                },
+                easeInOutQuint: function(t, b, c, d) {
+                  if ((t /= d / 2) < 1) {
+                    return c / 2 * t * t * t * t * t + b;
+                  } else {
+                    return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
+                  }
+                },
+                easeInSine: function(t, b, c, d) {
+                  return -c * Math.cos(t / d * (Math.PI / 2)) + c + b;
+                },
+                easeOutSine: function(t, b, c, d) {
+                  return c * Math.sin(t / d * (Math.PI / 2)) + b;
+                },
+                easeInOutSine: function(t, b, c, d) {
+                  return -c / 2 * (Math.cos(Math.PI * t / d) - 1) + b;
+                },
+                easeInExpo: function(t, b, c, d) {
+                  if (t === 0) {
+                    return b;
+                  } else {
+                    return c * Math.pow(2, 10 * (t / d - 1)) + b;
+                  }
+                },
+                easeOutExpo: function(t, b, c, d) {
+                  if (t === d) {
+                    return b + c;
+                  } else {
+                    return c * (-Math.pow(2, -10 * t / d) + 1) + b;
+                  }
+                },
+                easeInOutExpo: function(t, b, c, d) {
+                  if ((t /= d / 2) < 1) {
+                    return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
+                  } else {
+                    return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
+                  }
+                },
+                easeInCirc: function(t, b, c, d) {
+                  return -c * (Math.sqrt(1 - (t /= d) * t) - 1) + b;
+                },
+                easeOutCirc: function(t, b, c, d) {
+                  return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
+                },
+                easeInOutCirc: function(t, b, c, d) {
+                  if ((t /= d / 2) < 1) {
+                    return -c / 2 * (Math.sqrt(1 - t * t) - 1) + b;
+                  } else {
+                    return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
+                  }
+                },
+                easeInElastic: function(t, b, c, d) {
+                  var a, p, s;
+                  s = 1.70158;
+                  p = 0;
+                  a = c;
+                  if (t === 0) ; else if ((t /= d) === 1) ;
+                  if (!p) {
+                    p = d * .3;
+                  }
+                  if (a < Math.abs(c)) {
+                    a = c;
+                    s = p / 4;
+                  } else {
+                    s = p / (2 * Math.PI) * Math.asin(c / a);
+                  }
+                  return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+                },
+                easeOutElastic: function(t, b, c, d) {
+                  var a, p, s;
+                  s = 1.70158;
+                  p = 0;
+                  a = c;
+                  if (t === 0) ; else if ((t /= d) === 1) ;
+                  if (!p) {
+                    p = d * .3;
+                  }
+                  if (a < Math.abs(c)) {
+                    a = c;
+                    s = p / 4;
+                  } else {
+                    s = p / (2 * Math.PI) * Math.asin(c / a);
+                  }
+                  return a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b;
+                },
+                easeInOutElastic: function(t, b, c, d) {
+                  var a, p, s;
+                  s = 1.70158;
+                  p = 0;
+                  a = c;
+                  if (t === 0) ; else if ((t /= d / 2) === 2) ;
+                  if (!p) {
+                    p = d * (.3 * 1.5);
+                  }
+                  if (a < Math.abs(c)) {
+                    a = c;
+                    s = p / 4;
+                  } else {
+                    s = p / (2 * Math.PI) * Math.asin(c / a);
+                  }
+                  if (t < 1) {
+                    return -.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+                  } else {
+                    return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p) * .5 + c + b;
+                  }
+                },
+                easeInBack: function(t, b, c, d, s) {
+                  if (s === void 0) {
+                    s = 1.70158;
+                  }
+                  return c * (t /= d) * t * ((s + 1) * t - s) + b;
+                },
+                easeOutBack: function(t, b, c, d, s) {
+                  if (s === void 0) {
+                    s = 1.70158;
+                  }
+                  return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
+                },
+                easeInOutBack: function(t, b, c, d, s) {
+                  if (s === void 0) {
+                    s = 1.70158;
+                  }
+                  if ((t /= d / 2) < 1) {
+                    return c / 2 * (t * t * (((s *= 1.525) + 1) * t - s)) + b;
+                  } else {
+                    return c / 2 * ((t -= 2) * t * (((s *= 1.525) + 1) * t + s) + 2) + b;
+                  }
+                },
+                easeInBounce: function(t, b, c, d) {
+                  var v;
+                  v = penner.easeOutBounce(d - t, 0, c, d);
+                  return c - v + b;
+                },
+                easeOutBounce: function(t, b, c, d) {
+                  if ((t /= d) < 1 / 2.75) {
+                    return c * (7.5625 * t * t) + b;
+                  } else if (t < 2 / 2.75) {
+                    return c * (7.5625 * (t -= 1.5 / 2.75) * t + .75) + b;
+                  } else if (t < 2.5 / 2.75) {
+                    return c * (7.5625 * (t -= 2.25 / 2.75) * t + .9375) + b;
+                  } else {
+                    return c * (7.5625 * (t -= 2.625 / 2.75) * t + .984375) + b;
+                  }
+                },
+                easeInOutBounce: function(t, b, c, d) {
+                  var v;
+                  if (t < d / 2) {
+                    v = penner.easeInBounce(t * 2, 0, c, d);
+                    return v * .5 + b;
+                  } else {
+                    v = penner.easeOutBounce(t * 2 - d, 0, c, d);
+                    return v * .5 + c * .5 + b;
+                  }
+                }
+              };
+
+              umd(penner);
+
+            }).call(commonjsGlobal);
+            });
+
+            var _createClass$4 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+            function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+            /**
+             * create number entry
+             * @private
+             * @param {string} entry
+             * @param {number} start
+             * @param {number} to
+             * @param {string} [units]
+             */
+            var number = function () {
+                function Number(element, entry, start, to, units) {
+                    _classCallCheck$3(this, Number);
+
+                    this.element = element;
+                    this.entry = entry;
+                    this.to = to;
+                    this.start = start;
+                    this.delta = to - start;
+                    this.units = units || '';
+                }
+
+                _createClass$4(Number, [{
+                    key: 'update',
+                    value: function update(percent) {
+                        this.element.style[this.entry] = this.start + this.delta * percent + this.units;
+                    }
+                }, {
+                    key: 'reverse',
+                    value: function reverse() {
+                        var swap = this.to;
+                        this.to = this.start;
+                        this.start = swap;
+                        this.delta = -this.delta;
+                    }
+                }]);
+
+                return Number;
+            }();
+
+            var _createClass$5 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+            function _classCallCheck$4(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+            var color = function () {
+                function Color(element, style, colors, interval) {
+                    _classCallCheck$4(this, Color);
+
+                    this.element = element;
+                    this.style = style;
+                    if (Array.isArray(colors)) {
+                        this.colors = colors;
+                    } else {
+                        this.colors = [colors];
+                    }
+                    this.colors.push(element.style[style]);
+                    this.interval = interval;
+                }
+
+                _createClass$5(Color, [{
+                    key: "update",
+                    value: function update(percent, time) {
+                        var elementStyle = this.element.style;
+                        var style = this.style;
+                        var colors = this.colors;
+                        var i = Math.floor(time / this.interval);
+                        var color = colors[i];
+                        if (elementStyle[style] !== color) {
+                            elementStyle[style] = colors[i];
+                        }
+                    }
+                }, {
+                    key: "reverse",
+                    value: function reverse() {
+                        var reverse = [];
+                        var colors = this.colors;
+                        for (var color in colors) {
+                            reverse.unshift(colors[color]);
+                        }
+                        reverse.push(reverse.shift());
+                        this.colors = reverse;
+                    }
+                }]);
+
+                return Color;
+            }();
+
+            var _createClass$6 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+            function _classCallCheck$5(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+            var transform = function () {
+                function Transform(element, entry, to) {
+                    _classCallCheck$5(this, Transform);
+
+                    this.element = element;
+                    this.transforms = [];
+                    var transform = element.style.transform;
+                    var inside = void 0,
+                        name = '',
+                        values = void 0;
+                    for (var i = 0, _i = transform.length; i < _i; i++) {
+                        var letter = transform[i];
+                        if (inside) {
+                            if (letter === ')') {
+                                inside = false;
+                                this.transforms.push({ name: name, values: values });
+                                name = '';
+                            } else {
+                                values += letter;
+                            }
+                        } else {
+                            if (letter === '(') {
+                                values = '';
+                                inside = true;
+                            } else if (letter !== ' ') {
+                                name += letter;
+                            }
+                        }
+                    }
+                    this.add(entry, to);
+                }
+
+                _createClass$6(Transform, [{
+                    key: 'add',
+                    value: function add(entry, to) {
+                        var _iteratorNormalCompletion = true;
+                        var _didIteratorError = false;
+                        var _iteratorError = undefined;
+
+                        try {
+                            for (var _iterator = this.transforms[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                                var _transform = _step.value;
+
+                                if (_transform.name === entry) {
+                                    _transform.start = parseFloat(_transform.values);
+                                    _transform.to = to;
+                                    _transform.delta = _transform.to - _transform.start;
+                                    return;
+                                }
+                            }
+                        } catch (err) {
+                            _didIteratorError = true;
+                            _iteratorError = err;
+                        } finally {
+                            try {
+                                if (!_iteratorNormalCompletion && _iterator.return) {
+                                    _iterator.return();
+                                }
+                            } finally {
+                                if (_didIteratorError) {
+                                    throw _iteratorError;
+                                }
+                            }
+                        }
+
+                        this.transforms.push({ name: entry, start: 1, to: to, delta: to - 1 });
+                    }
+                }, {
+                    key: 'update',
+                    value: function update(percent) {
+                        var _iteratorNormalCompletion2 = true;
+                        var _didIteratorError2 = false;
+                        var _iteratorError2 = undefined;
+
+                        try {
+                            for (var _iterator2 = this.transforms[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                                var _transform2 = _step2.value;
+
+                                _transform2.values = _transform2.start + _transform2.delta * percent;
+                            }
+                        } catch (err) {
+                            _didIteratorError2 = true;
+                            _iteratorError2 = err;
+                        } finally {
+                            try {
+                                if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                                    _iterator2.return();
+                                }
+                            } finally {
+                                if (_didIteratorError2) {
+                                    throw _iteratorError2;
+                                }
+                            }
+                        }
+
+                        var s = '';
+                        var _iteratorNormalCompletion3 = true;
+                        var _didIteratorError3 = false;
+                        var _iteratorError3 = undefined;
+
+                        try {
+                            for (var _iterator3 = this.transforms[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                                var _transform3 = _step3.value;
+
+                                s += _transform3.name + '(' + _transform3.values + ') ';
+                            }
+                        } catch (err) {
+                            _didIteratorError3 = true;
+                            _iteratorError3 = err;
+                        } finally {
+                            try {
+                                if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                                    _iterator3.return();
+                                }
+                            } finally {
+                                if (_didIteratorError3) {
+                                    throw _iteratorError3;
+                                }
+                            }
+                        }
+
+                        this.element.style.transform = s;
+                    }
+                }, {
+                    key: 'reverse',
+                    value: function reverse() {
+                        var _iteratorNormalCompletion4 = true;
+                        var _didIteratorError4 = false;
+                        var _iteratorError4 = undefined;
+
+                        try {
+                            for (var _iterator4 = this.transforms[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+                                var _transform4 = _step4.value;
+
+                                var swap = _transform4.to;
+                                _transform4.to = _transform4.start;
+                                _transform4.start = swap;
+                                _transform4.delta = -_transform4.delta;
+                            }
+                        } catch (err) {
+                            _didIteratorError4 = true;
+                            _iteratorError4 = err;
+                        } finally {
+                            try {
+                                if (!_iteratorNormalCompletion4 && _iterator4.return) {
+                                    _iterator4.return();
+                                }
+                            } finally {
+                                if (_didIteratorError4) {
+                                    throw _iteratorError4;
+                                }
+                            }
+                        }
+                    }
+                }]);
+
+                return Transform;
+            }();
+
+            function getComputed(el, style) {
+                return document.defaultView.getComputedStyle(el, '').getPropertyValue(style);
+            }
+
+            var utils = {
+                getComputed: getComputed
+            };
+
+            var _createClass$7 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+            function _classCallCheck$6(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+            var ORDER = ['marginTop', 'marginRight', 'marginBottom', 'marginLeft'];
+
+            var margin = function () {
+                function Margin(element, entry, to) {
+                    _classCallCheck$6(this, Margin);
+
+                    this.element = element;
+                    this.margins = {
+                        marginTop: { start: parseInt(utils.getComputed(element, 'margin-top')) },
+                        marginRight: { start: parseInt(utils.getComputed(element, 'margin-right')) },
+                        marginBottom: { start: parseInt(utils.getComputed(element, 'margin-bottom')) },
+                        marginLeft: { start: parseInt(utils.getComputed(element, 'margin-left')) }
+                    };
+                    this.add(entry, to);
+                }
+
+                _createClass$7(Margin, [{
+                    key: 'add',
+                    value: function add(entry, to) {
+                        var margin = this.margins[entry];
+                        margin.animate = true;
+                        margin.to = to;
+                        margin.delta = to - margin.start;
+                    }
+                }, {
+                    key: 'update',
+                    value: function update(percent) {
+                        var value = '';
+                        var _iteratorNormalCompletion = true;
+                        var _didIteratorError = false;
+                        var _iteratorError = undefined;
+
+                        try {
+                            for (var _iterator = ORDER[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                                var key = _step.value;
+
+                                var margin = this.margins[key];
+                                if (margin.animate) {
+                                    value += Math.round(margin.start + margin.delta * percent) + 'px ';
+                                } else {
+                                    value += margin.start + 'px ';
+                                }
+                            }
+                        } catch (err) {
+                            _didIteratorError = true;
+                            _iteratorError = err;
+                        } finally {
+                            try {
+                                if (!_iteratorNormalCompletion && _iterator.return) {
+                                    _iterator.return();
+                                }
+                            } finally {
+                                if (_didIteratorError) {
+                                    throw _iteratorError;
+                                }
+                            }
+                        }
+
+                        this.element.style.margin = value;
+                    }
+                }, {
+                    key: 'reverse',
+                    value: function reverse() {
+                        var _iteratorNormalCompletion2 = true;
+                        var _didIteratorError2 = false;
+                        var _iteratorError2 = undefined;
+
+                        try {
+                            for (var _iterator2 = ORDER[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                                var order = _step2.value;
+
+                                var margin = this.margins[order];
+                                if (margin.animate) {
+                                    var swap = margin.to;
+                                    margin.to = margin.start;
+                                    margin.start = swap;
+                                    margin.delta = -margin.delta;
+                                }
+                            }
+                        } catch (err) {
+                            _didIteratorError2 = true;
+                            _iteratorError2 = err;
+                        } finally {
+                            try {
+                                if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                                    _iterator2.return();
+                                }
+                            } finally {
+                                if (_didIteratorError2) {
+                                    throw _iteratorError2;
+                                }
+                            }
+                        }
+                    }
+                }]);
+
+                return Margin;
+            }();
+
+            var _createClass$8 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+            function _classCallCheck$7(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+            function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+            function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+
+            var Ease$1 = function (_EventEmitter) {
+                _inherits(Ease, _EventEmitter);
+
+                /**
+                 * Ease class returned by DomEase.add()
+                 * @extends EventEmitter
+                 * @param {HTMLElement} element
+                 * @param {object} params
+                 * @param {number} [params.left] in px
+                 * @param {number} [params.right] in px
+                 * @param {number} [params.top] in px
+                 * @param {number} [params.bottom] in px
+                 * @param {number} [params.width] in px
+                 * @param {number} [params.height] in px
+                 * @param {number} [params.scale]
+                 * @param {number} [params.scaleX]
+                 * @param {number} [params.scaleY]
+                 * @param {number} [params.opacity]
+                 * @param {number} [params.marginLeft] in px
+                 * @param {number} [params.marginRight] in px
+                 * @param {number} [params.marginTop] in px
+                 * @param {number} [params.marginBottom] in px
+                 * @param {(color|color[])} [params.color]
+                 * @param {(color|color[])} [params.backgroundColor]
+                 * @param {object} [options]
+                 * @param {number} [options.start] use this as the starting value
+                 * @param {number} [options.duration]
+                 * @param {(string|function)} [options.ease]
+                 * @param {(boolean|number)} [options.repeat]
+                 * @param {boolean} [options.reverse]
+                 * @param {number} [options.wait]
+                 * @returns {Ease}
+                 * @fires Ease#each
+                 * @fires Ease#complete
+                 * @fires Ease#loop
+                 * @hideconstructor
+                 */
+                function Ease(element, params, options) {
+                    _classCallCheck$7(this, Ease);
+
+                    var _this = _possibleConstructorReturn(this, (Ease.__proto__ || Object.getPrototypeOf(Ease)).call(this));
+
+                    _this.element = element;
+                    _this.list = [];
+                    _this.time = 0;
+                    _this.duration = options.duration;
+                    _this.ease = options.ease;
+                    _this.repeat = options.repeat;
+                    _this.reverse = options.reverse;
+                    _this.wait = options.wait || 0;
+                    for (var entry in params) {
+                        switch (entry) {
+                            case 'left':
+                                _this.list.push(new number(element, entry, element.offsetLeft, params[entry], 'px'));
+                                break;
+
+                            case 'top':
+                                _this.list.push(new number(element, entry, element.offsetTop, params[entry], 'px'));
+                                break;
+
+                            case 'bottom':
+                                _this.list.push(new number(element, entry, element.parentNode.offsetHeight - (element.offsetTop + element.offsetHeight), params[entry], 'px'));
+                                break;
+
+                            case 'right':
+                                _this.list.push(new number(element, entry, element.parentNode.offsetWidth - (element.offsetLeft + element.offsetWidth), params[entry], 'px'));
+                                break;
+
+                            case 'color':
+                                _this.list.push(new color(element, 'color', params[entry], _this.duration / (1 + params[entry].length)));
+                                break;
+
+                            case 'backgroundColor':
+                                _this.list.push(new color(element, 'backgroundColor', _this.duration / (1 + params[entry].length)));
+                                break;
+
+                            case 'scale':
+                                if (_this.transform) {
+                                    _this.transform.add('scaleX', params[entry]);
+                                } else {
+                                    _this.transform = new transform(element, 'scaleX', params[entry]);
+                                    _this.list.push(_this.transform);
+                                }
+                                _this.transform.add('scaleY', params[entry]);
+                                break;
+
+                            case 'scaleX':
+                            case 'scaleY':
+                                if (_this.transform) {
+                                    _this.transform.add(entry, params[entry]);
+                                } else {
+                                    _this.transform = new transform(element, entry, params[entry]);
+                                    _this.list.push(_this.transform);
+                                }
+                                break;
+
+                            case 'opacity':
+                                _this.list.push(new number(element, entry, parseFloat(utils.getComputed(element, 'opacity')), params[entry]));
+                                break;
+
+                            case 'width':
+                                _this.list.push(new number(element, entry, element.offsetWidth, params[entry], 'px'));
+                                break;
+
+                            case 'height':
+                                _this.list.push(new number(element, entry, element.offsetHeight, params[entry], 'px'));
+                                break;
+
+                            case 'marginLeft':
+                            case 'marginRight':
+                            case 'marginTop':
+                            case 'marginBottom':
+                                if (_this.margin) {
+                                    _this.margin.add(entry, params[entry]);
+                                } else {
+                                    _this.margin = new margin(element, entry, params[entry]);
+                                    _this.list.push(_this.margin);
+                                }
+                                break;
+
+                            default:
+                                console.warn(entry + ' not setup for animation in dom-ease.');
+                        }
+                    }
+                    return _this;
+                }
+
+                _createClass$8(Ease, [{
+                    key: 'update',
+                    value: function update(elapsed) {
+                        if (this.wait) {
+                            this.wait -= elapsed;
+                            if (this.wait < 0) {
+                                elapsed = -this.wait;
+                                this.wait = 0;
+                            } else {
+                                return;
+                            }
+                        }
+                        var list = this.list;
+                        var leftover = null;
+                        this.time += elapsed;
+                        if (this.time >= this.duration) {
+                            leftover = this.time - this.duration;
+                            this.time -= leftover;
+                        }
+                        var percent = this.ease(this.time, 0, 1, this.duration);
+                        for (var i = 0, _i = list.length; i < _i; i++) {
+                            list[i].update(percent, this.time);
+                        }
+                        this.emit('each', this);
+
+                        // handle end of duration
+                        if (leftover !== null) {
+                            if (this.reverse) {
+                                this.reverseEases();
+                                this.time = leftover;
+                                this.emit('loop', this);
+                                if (!this.repeat) {
+                                    this.reverse = false;
+                                } else if (this.repeat !== true) {
+                                    this.repeat--;
+                                }
+                            } else if (this.repeat) {
+                                this.emit('loop', this);
+                                this.time = leftover;
+                                if (this.repeat !== true) {
+                                    this.repeat--;
+                                }
+                            } else {
+                                this.emit('complete', this);
+                                return true;
+                            }
+                        }
+                    }
+                }, {
+                    key: 'reverseEases',
+                    value: function reverseEases() {
+                        var list = this.list;
+                        for (var i = 0, _i = list.length; i < _i; i++) {
+                            var ease = list[i];
+                            ease.reverse();
+                        }
+                    }
+                }]);
+
+                return Ease;
+            }(eventemitter3);
+
+            /**
+             * fires when eases are complete
+             * @event Ease#complete
+             * @type {Ease}
+             */
+
+            /**
+             * fires on each loop while eases are running
+             * @event Ease#each
+             * @type {Ease}
+             */
+
+            /**
+             * fires when eases repeat or reverse
+             * @event Ease#loop
+             * @type {Ease}
+             */
+
+            var ease$1 = Ease$1;
+
+            var _createClass$9 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+            function _classCallCheck$8(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+            function _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+            function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+            /**
+             * Manages all eases
+             * @extends EventEmitter
+             * @example
+             * var Ease = require('dom-ease');
+             * var ease = new Ease({ duration: 3000, ease: 'easeInOutSine' });
+             *
+             * var test = document.getElementById('test')
+             * ease.add(test, { left: 20, top: 15, opacity: 0.25 }, { repeat: true, reverse: true })
+             */
+
+            var DomEase = function (_EventEmitter) {
+                _inherits$1(DomEase, _EventEmitter);
+
+                /**
+                 * @param {object} [options]
+                 * @param {number} [options.duration=1000] default duration
+                 * @param {(string|function)} [options.ease=penner.linear] default ease
+                 * @param {(string|function)} [options.autostart=true]
+                 * @param {number} [options.maximumFrameRate=16.667]
+                 * @param {boolean} [options.pauseOnBlur] pause timer on blur, resume on focus
+                 * @fires DomEase#each
+                 * @fires DomEase#complete
+                 */
+                function DomEase(options) {
+                    _classCallCheck$8(this, DomEase);
+
+                    var _this = _possibleConstructorReturn$1(this, (DomEase.__proto__ || Object.getPrototypeOf(DomEase)).call(this));
+
+                    _this.options = options || {};
+                    _this.options.duration = _this.options.duration || 1000;
+                    _this.options.ease = _this.options.ease || penner$1.linear;
+                    _this.options.maximumFrameRate = _this.options.maximumFrameRate || 16.667;
+                    _this.list = [];
+                    _this.empty = true;
+                    if (!_this.options.autostart) {
+                        _this.start();
+                    }
+                    if (_this.options.pauseOnBlur) {
+                        window.addEventListener('blur', function () {
+                            return _this.blur();
+                        });
+                        window.addEventListener('focus', function () {
+                            return _this.focus();
+                        });
+                    }
+                    return _this;
+                }
+
+                /**
+                 * start animation loop (automatically called unless options.autostart=false)
+                 */
+
+
+                _createClass$9(DomEase, [{
+                    key: 'start',
+                    value: function start() {
+                        if (!this._requested) {
+                            this._requested = true;
+                            this.loop();
+                            this.running = true;
+                        }
+                    }
+                }, {
+                    key: 'blur',
+                    value: function blur() {
+                        if (this.running) {
+                            this.stop();
+                            this.running = true;
+                        }
+                    }
+                }, {
+                    key: 'focus',
+                    value: function focus() {
+                        if (this.running) {
+                            this.start();
+                        }
+                    }
+                }, {
+                    key: 'loop',
+                    value: function loop(time) {
+                        var _this2 = this;
+
+                        if (time) {
+                            var elapsed = this._last ? time - this._last : 0;
+                            elapsed = elapsed > this.options.maximumFrameRate ? this.options.maximumFrameRate : elapsed;
+                            this.update(elapsed);
+                        }
+                        this._last = time;
+                        this._requestId = window.requestAnimationFrame(function (time) {
+                            return _this2.loop(time);
+                        });
+                    }
+
+                    /**
+                     * stop animation loop
+                     */
+
+                }, {
+                    key: 'stop',
+                    value: function stop() {
+                        if (this._requested) {
+                            window.cancelAnimationFrame(this._requestId);
+                            this._requested = false;
+                            this.running = false;
+                        }
+                    }
+
+                    /**
+                     * add ease(s) to one or more elements
+                     * @param {(HTMLElement|HTMLElement[])} element(s)
+                     * @param {object} params
+                     * @param {number} [params.left] in px
+                     * @param {number} [params.top] in px
+                     * @param {number} [params.width] in px
+                     * @param {number} [params.height] in px
+                     * @param {number} [params.scale]
+                     * @param {number} [params.scaleX]
+                     * @param {number} [params.scaleY]
+                     * @param {number} [params.opacity]
+                     * @param {number} [params.marginTop] in px
+                     * @param {number} [params.marginRight] in px
+                     * @param {number} [params.marginBottom] in px
+                     * @param {number} [params.marginLeft] in px
+                     * @param {(color|color[])} [params.color]
+                     * @param {(color|color[])} [params.backgroundColor]
+                     * @param {object} [options]
+                     * @param {number} [options.duration]
+                     * @param {(string|function)} [options.ease]
+                     * @param {(boolean|number)} [options.repeat]
+                     * @param {boolean} [options.reverse]
+                     * @returns {(Ease|Ease[])} ease(s) for each element
+                     */
+
+                }, {
+                    key: 'add',
+                    value: function add(element, params, options) {
+                        // set up default options
+                        options = options || {};
+                        options.duration = typeof options.duration !== 'undefined' ? options.duration : this.options.duration;
+                        options.ease = options.ease || this.options.ease;
+                        if (typeof options.ease === 'string') {
+                            options.ease = penner$1[options.ease];
+                        }
+                        if (Array.isArray(element)) {
+                            var eases = [];
+                            var _iteratorNormalCompletion = true;
+                            var _didIteratorError = false;
+                            var _iteratorError = undefined;
+
+                            try {
+                                for (var _iterator = element[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                                    var el = _step.value;
+
+                                    var ease = new ease$1(el, params, options);
+                                    this.list.push(ease);
+                                    eases.push(ease);
+                                }
+                            } catch (err) {
+                                _didIteratorError = true;
+                                _iteratorError = err;
+                            } finally {
+                                try {
+                                    if (!_iteratorNormalCompletion && _iterator.return) {
+                                        _iterator.return();
+                                    }
+                                } finally {
+                                    if (_didIteratorError) {
+                                        throw _iteratorError;
+                                    }
+                                }
+                            }
+
+                            return eases;
+                        } else {
+                            var _ease = new ease$1(element, params, options);
+                            this.list.push(_ease);
+                            return _ease;
+                        }
+                    }
+
+                    /**
+                     * remove all eases on element
+                     * @param {HTMLElement} element
+                     */
+
+                }, {
+                    key: 'removeObjectEases',
+                    value: function removeObjectEases(element) {
+                        var list = this.list;
+                        for (var i = 0, _i = list.length; i < _i; i++) {
+                            var ease = list[i];
+                            if (ease.element === element) {
+                                list.splice(i, 1);
+                                i--;
+                                _i--;
+                            }
+                        }
+                    }
+
+                    /**
+                     * remove eases using Ease object returned by add()
+                     * @param {Ease} ease
+                     */
+
+                }, {
+                    key: 'remove',
+                    value: function remove(ease) {
+                        var list = this.list;
+                        for (var i = 0, _i = list.length; i < _i; i++) {
+                            if (list[i] === ease) {
+                                list.splice(i, 1);
+                                return;
+                            }
+                        }
+                    }
+
+                    /**
+                     * remove all eases
+                     */
+
+                }, {
+                    key: 'removeAll',
+                    value: function removeAll() {
+                        this.list = [];
+                    }
+
+                    /**
+                     * update frame; this is called automatically if start() is used
+                     * @param {number} elapsed time in ms
+                     */
+
+                }, {
+                    key: 'update',
+                    value: function update(elapsed) {
+                        for (var i = 0, _i = this.list.length; i < _i; i++) {
+                            if (this.list[i].update(elapsed)) {
+                                this.list.splice(i, 1);
+                                i--;
+                                _i--;
+                            }
+                        }
+                        this.emit('each', this);
+                        if (!this.empty && this.list.length === 0) {
+                            this.emit('complete', this);
+                            this.empty = true;
+                        }
+                    }
+
+                    /**
+                     * number of eases
+                     * @returns {number}
+                     */
+
+                }, {
+                    key: 'getCount',
+                    value: function getCount() {
+                        return this.list.length;
+                    }
+                }]);
+
+                return DomEase;
+            }(eventemitter3);
+
+            /**
+             * fires when there are no more animations for a DOM element
+             * @event DomEase#complete
+             * @type {DomEase}
+             */
+
+            /**
+             * fires on each loop for a DOM element where there are animations
+             * @event DomEase#each
+             * @type {DomEase}
+             */
+
+            var domEase = DomEase;
 
             /**
              * @typedef ViewportTouch
@@ -52841,7 +50980,7 @@
              * @property {(boolean|string)} [clampWheel=false] clamp wheel(to avoid weird bounce with mouse wheel)
              * @property {string} [underflow=center] where to place world if too small for screen
              * @property {number} [factor=1] factor to multiply drag to increase the speed of movement
-             * @property {string} [mouseButtons=all] changes which mouse buttons trigger drag, use: 'all', 'left', right' 'middle', or some combination, like, 'middle-right'
+             * @property {string} [mouseButtons=all] changes which mouse buttons trigger drag, use: 'all', 'left', right' 'middle', or some combination, like, 'middle-right'; you may want to set viewport.options.disableOnContextMenu if you want to use right-click dragging
              */
 
             const dragOptions = {
@@ -53687,7 +51826,7 @@
                     {
                         this.parent.x += this.x * elapsed;
                         this.x *= this.percentChangeX;
-                        if (Math.abs(this.x) < this.minSpeed)
+                        if (Math.abs(this.x) < this.options.minSpeed)
                         {
                             this.x = 0;
                         }
@@ -53697,7 +51836,7 @@
                     {
                         this.parent.y += this.y * elapsed;
                         this.y *= this.percentChangeY;
-                        if (Math.abs(this.y) < this.minSpeed)
+                        if (Math.abs(this.y) < this.options.minSpeed)
                         {
                             this.y = 0;
                         }
@@ -53720,11 +51859,11 @@
              * @param {(function|string)} [ease]
              * @param {defaults} default penner equation to use if none is provided
              */
-            function ease(ease, defaults)
+            function ease$2(ease, defaults)
             {
                 if (!ease)
                 {
-                    return penner[defaults]
+                    return penner$1[defaults]
                 }
                 else if (typeof ease === 'function')
                 {
@@ -53732,7 +51871,7 @@
                 }
                 else if (typeof ease === 'string')
                 {
-                    return penner[ease]
+                    return penner$1[ease]
                 }
             }
 
@@ -53768,7 +51907,7 @@
                 {
                     super(parent);
                     this.options = Object.assign({}, bounceOptions, options);
-                    this.ease = ease(this.options.ease, 'easeInOutSine');
+                    this.ease = ease$2(this.options.ease, 'easeInOutSine');
                     if (this.options.sides)
                     {
                         if (this.options.sides === 'all')
@@ -54016,12 +52155,12 @@
                 {
                     super(parent);
                     this.options = Object.assign({}, snapOptions, options);
-                    this.ease = ease(options.ease, 'easeInOutSine');
+                    this.ease = ease$2(options.ease, 'easeInOutSine');
                     this.x = x;
                     this.y = y;
                     if (this.options.forceStart)
                     {
-                        this.startEase();
+                        this.snapStart();
                     }
                 }
 
@@ -54165,6 +52304,7 @@
                 {
                     super(parent);
                     this.options = Object.assign({}, snapZoomOptions, options);
+                    this.ease = ease$2(this.options.ease);
                     if (this.options.width > 0)
                     {
                         this.x_scale = parent.screenWidth / this.options.width;
@@ -54281,8 +52421,8 @@
                         else
                         {
                             const snapping = this.snapping;
-                            this.parent.scale.x = ease(snapping.time, snapping.startX, snapping.deltaX, this.options.time);
-                            this.parent.scale.y = ease(snapping.time, snapping.startY, snapping.deltaY, this.options.time);
+                            this.parent.scale.x = this.ease(snapping.time, snapping.startX, snapping.deltaX, this.options.time);
+                            this.parent.scale.y = this.ease(snapping.time, snapping.startY, snapping.deltaY, this.options.time);
                         }
                         const clamp = this.parent.plugins.get('clamp-zoom');
                         if (clamp)
@@ -54363,6 +52503,7 @@
                             return
                         }
                     }
+
                     const deltaX = toX - center.x;
                     const deltaY = toY - center.y;
                     if (deltaX || deltaY)
@@ -54608,15 +52749,15 @@
                     {
                         this.left = distance;
                         this.top = distance;
-                        this.right = window.innerWidth - distance;
-                        this.bottom = window.innerHeight - distance;
+                        this.right = this.parent.worldScreenWidth - distance;
+                        this.bottom = this.parent.worldScreenHeight - distance;
                     }
                     else if (!this.radius)
                     {
                         this.left = this.options.left;
                         this.top = this.options.top;
-                        this.right = this.options.right === null ? null : window.innerWidth - this.options.right;
-                        this.bottom = this.options.bottom === null ? null : window.innerHeight - this.options.bottom;
+                        this.right = this.options.right === null ? null : this.parent.worldScreenWidth - this.options.right;
+                        this.bottom = this.options.bottom === null ? null : this.parent.worldScreenHeight - this.options.bottom;
                     }
                 }
 
@@ -54768,7 +52909,7 @@
              * @property {PIXI.Ticker} [ticker=PIXI.Ticker.shared] use this PIXI.ticker for updates
              * @property {PIXI.InteractionManager} [interaction=null] InteractionManager, available from instantiated WebGLRenderer/CanvasRenderer.plugins.interaction - used to calculate pointer postion relative to canvas location on screen
              * @property {HTMLElement} [divWheel=document.body] div to attach the wheel event
-             * @property {boolean} [noOnContextMenu] remove oncontextmenu=() => {} from the divWheel element (this is enabled to allow for right-click dragging)
+             * @property {boolean} [disableOnContextMenu] remove oncontextmenu=() => {} from the divWheel element
              */
 
             const viewportOptions = {
@@ -54782,7 +52923,7 @@
                 forceHitArea: null,
                 noTicker: false,
                 interaction: null,
-                noOnContextMenu: false
+                disableOnContextMenu: false
             };
 
             /**
@@ -54821,6 +52962,7 @@
                  * @fires moved-end
                  * @fires zoomed
                  * @fires zoomed-end
+                 * @fires frame-end
                  */
                 constructor(options = {})
                 {
@@ -54867,7 +53009,7 @@
 
                     this.options.divWheel = this.options.divWheel || document.body;
 
-                    if (!this.options.noOnContextMenu)
+                    if (this.options.disableOnContextMenu)
                     {
                         this.options.divWheel.oncontextmenu = e => e.preventDefault();
                     }
@@ -54960,6 +53102,7 @@
                             scaleX: this.scale.x,
                             scaleY: this.scale.y
                         };
+                        this.emit('frame-end', this);
                     }
                 }
 
@@ -55371,6 +53514,19 @@
                 }
 
                 /**
+                 * changes scale of viewport and maintains center of viewport--same as calling setScale(scale, true)
+                 * @type {number}
+                 */
+                set scaled(scale)
+                {
+                    this.setZoom(scale, true);
+                }
+                get scaled()
+                {
+                    return this.scale.x
+                }
+
+                /**
                  * @param {SnapZoomOptions} options
                  */
                 snapZoom(options)
@@ -55491,6 +53647,7 @@
 
                 /**
                  * enable one-finger touch to drag
+                 * NOTE: if you expect users to use right-click dragging, you should enable viewport.options.disableOnContextMenu to avoid the context menu popping up on each right-click drag
                  * @param {DragOptions} [options]
                  * @returns {Viewport} this
                  */
@@ -55516,6 +53673,7 @@
 
                 /**
                  * decelerate after a move
+                 * NOTE: this fires 'moved' event during deceleration
                  * @param {DecelerateOptions} [options]
                  * @return {Viewport} this
                  */
@@ -55527,7 +53685,9 @@
 
                 /**
                  * bounce on borders
-                 * NOTE: screenWidth, screenHeight, worldWidth, and worldHeight needs to be set for this to work properly
+                 * NOTES:
+                 *    screenWidth, screenHeight, worldWidth, and worldHeight needs to be set for this to work properly
+                 *    fires 'moved', 'bounce-x-start', 'bounce-y-start', 'bounce-x-end', and 'bounce-y-end' events
                  * @param {object} [options]
                  * @param {string} [options.sides=all] all, horizontal, vertical, or combination of top, bottom, right, left (e.g., 'top-bottom-right')
                  * @param {number} [options.friction=0.5] friction to apply to decelerate if active
@@ -55569,9 +53729,10 @@
                 /**
                  * follow a target
                  * NOTES:
-                 *    - uses the (x, y) as the center to follow; for PIXI.Sprite to work properly, use sprite.anchor.set(0.5)
-                 *    - options.acceleration is not perfect as it doesn't know the velocity of the target
-                 *    - it adds acceleration to the start of movement and deceleration to the end of movement when the target is stopped
+                 *    uses the (x, y) as the center to follow; for PIXI.Sprite to work properly, use sprite.anchor.set(0.5)
+                 *    options.acceleration is not perfect as it doesn't know the velocity of the target
+                 *    it adds acceleration to the start of movement and deceleration to the end of movement when the target is stopped
+                 *    fires 'moved' event
                  * @param {PIXI.DisplayObject} target to follow
                  * @param {FollowOptions} [options]
                  * @returns {Viewport} this
@@ -55606,6 +53767,7 @@
 
                 /**
                  * Scroll viewport when mouse hovers near one of the edges or radius-distance from center of screen.
+                 * NOTE: fires 'moved' event
                  * @param {MouseEdgesOptions} [options]
                  */
                 mouseEdges(options)
@@ -55795,14 +53957,20 @@
              */
 
             /**
-             * fires when viewport stops moving for any reason
+             * fires when viewport stops moving
              * @event Viewport#moved-end
              * @type {Viewport}
              */
 
             /**
-             * fires when viewport stops zooming for any rason
+             * fires when viewport stops zooming
              * @event Viewport#zoomed-end
+             * @type {Viewport}
+             */
+
+             /**
+             * fires at the end of an update frame
+             * @event Viewport#frame-end
              * @type {Viewport}
              */
 
@@ -55909,13 +54077,13 @@
                 }
             }
 
-            var commonjsGlobal$2 = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global$1 !== 'undefined' ? global$1 : typeof self !== 'undefined' ? self : {};
+            var commonjsGlobal$3 = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global$1 !== 'undefined' ? global$1 : typeof self !== 'undefined' ? self : {};
 
             function createCommonjsModule$2(fn, module) {
             	return module = { exports: {} }, fn(module, module.exports), module.exports;
             }
 
-            var penner$1 = createCommonjsModule$2(function (module, exports) {
+            var penner$2 = createCommonjsModule$2(function (module, exports) {
             /*
             	Copyright © 2001 Robert Penner
             	All rights reserved.
@@ -56158,7 +54326,7 @@
 
               umd(penner);
 
-            }).call(commonjsGlobal$2);
+            }).call(commonjsGlobal$3);
             });
 
             /**
@@ -56175,7 +54343,7 @@
              * @property {PIXI.Ticker} [ticker=PIXI.Ticker.shared] use this PIXI.ticker for updates
              * @property {PIXI.InteractionManager} [interaction=null] InteractionManager, available from instantiated WebGLRenderer/CanvasRenderer.plugins.interaction - used to calculate pointer postion relative to canvas location on screen
              * @property {HTMLElement} [divWheel=document.body] div to attach the wheel event
-             * @property {boolean} [noOnContextMenu] remove oncontextmenu=() => {} from the divWheel element (this is enabled to allow for right-click dragging)
+             * @property {boolean} [disableOnContextMenu] remove oncontextmenu=() => {} from the divWheel element
              */
 
             const viewportOptions$1 = {
@@ -56189,9 +54357,8 @@
                 forceHitArea: null,
                 noTicker: false,
                 interaction: null,
-                noOnContextMenu: false
+                disableOnContextMenu: false
             };
-            //# sourceMappingURL=viewport.es.js.map
 
             class UserPlugin extends Plugin$1
             {
@@ -56821,7 +54988,7 @@
             const OBJECT_SPEED = 0.25;
             const FADE_TIME = 2000;
 
-            let _fps, _application, _viewport$1, _ease, _object, _stars = [];
+            let _fps, _application, _viewport$1, _object, _stars = [], domEase$1;
 
             function viewport()
             {
@@ -56837,6 +55004,9 @@
                     .decelerate()
                     .on('clicked', click);
                 resize();
+
+                domEase$1 = new domEase({ duration: FADE_TIME });
+                ease.duration = FADE_TIME;
 
                 // test for x/y independent scaling
                 // _viewport.scale.y = 1.5
@@ -56857,8 +55027,8 @@
             {
                 const counter$1 = new counter({ side: 'top-left' });
                 counter$1.log(name);
-                const ease = _ease.to(counter$1.div.style, { opacity: 0 }, FADE_TIME, { ease: 'easeInOutSine' });
-                ease.once('done', () => counter$1.div.remove());
+                const e = domEase$1.add(counter$1.div, { opacity: 0 });
+                e.once('complete', () => counter$1.div.remove());
             }
 
             function events()
@@ -56896,28 +55066,20 @@
                 {
                     const star = _viewport$1.addChild(new Sprite(Texture.WHITE));
                     star.anchor.set(0.5);
-                    star.tint = yyRandom$1.color();
+                    star.tint = yyRandom.color();
                     star.width = star.height = STAR_SIZE;
-                    star.alpha = yyRandom$1.range(0.25, 1, true);
-                    star.position.set(yyRandom$1.range(STAR_SIZE / 2 + BORDER, _viewport$1.worldWidth - STAR_SIZE - BORDER), yyRandom$1.range(BORDER, _viewport$1.worldHeight - BORDER - STAR_SIZE));
+                    star.alpha = yyRandom.range(0.25, 1, true);
+                    star.position.set(yyRandom.range(STAR_SIZE / 2 + BORDER, _viewport$1.worldWidth - STAR_SIZE - BORDER), yyRandom.range(BORDER, _viewport$1.worldHeight - BORDER - STAR_SIZE));
                     _stars.push(star);
                 }
             }
 
             function createTarget()
             {
-                if (yyRandom$1.chance(0.75))
-                {
-                    const x = yyRandom$1.range(OBJECT_SIZE / 2 + BORDER, _viewport$1.worldWidth - OBJECT_SIZE / 2 - BORDER);
-                    const y = yyRandom$1.range(OBJECT_SIZE / 2 + BORDER, _viewport$1.worldHeight - OBJECT_SIZE / 2 - BORDER);
-                    const target = _ease.target(_object, { x, y }, OBJECT_SPEED);
-                    target.once('done', createTarget);
-                }
-                else
-                {
-                    const target = _ease.wait(_object, { wait: yyRandom$1.range(500, 3000) });
-                    target.once('done', createTarget);
-                }
+                const x = yyRandom.range(OBJECT_SIZE / 2 + BORDER, _viewport$1.worldWidth - OBJECT_SIZE / 2 - BORDER);
+                const y = yyRandom.range(OBJECT_SIZE / 2 + BORDER, _viewport$1.worldHeight - OBJECT_SIZE / 2 - BORDER);
+                const target = ease.target(_object, { x, y }, OBJECT_SPEED, { wait: yyRandom.chance(0.75) ? yyRandom.range(500, 3000) : null });
+                target.once('complete', createTarget);
             }
 
             function object()
@@ -56927,7 +55089,7 @@
                 _object.tint = 0;
                 _object.width = _object.height = OBJECT_SIZE;
                 _object.position.set(100, 100);
-                _ease.to(_object, { rotation: Math.PI * 2 }, OBJECT_ROTATION_TIME, { repeat: true });
+                ease.add(_object, { rotation: Math.PI * 2 }, { duration: OBJECT_ROTATION_TIME, repeat: true, ease: 'linear' });
                 createTarget();
             }
 
@@ -56937,21 +55099,21 @@
                 {
                     if (star.containsPoint(data.screen))
                     {
-                        _ease.to(star, { width: STAR_SIZE * 3, height: STAR_SIZE * 3 }, FADE_TIME, { reverse: true, ease: 'easeInOutSine' });
+                        ease.add(star, { width: STAR_SIZE * 3, height: STAR_SIZE * 3 }, { reverse: true });
                         return
                     }
                 }
                 const sprite = _viewport$1.addChild(new Text('click', { fill: 0xff0000 }));
                 sprite.anchor.set(0.5);
-                sprite.rotation = yyRandom$1.range(-0.1, 0.1);
+                sprite.rotation = yyRandom.range(-0.1, 0.1);
                 sprite.position = data.world;
-                const fade = _ease.to(sprite, { alpha: 0 }, FADE_TIME);
+                const fade = ease.add(sprite, { alpha: 0 });
                 fade.on('done', () => _viewport$1.removeChild(sprite));
             }
 
             function drawWorld()
             {
-                _ease.removeAll();
+                ease.removeAll();
                 _viewport$1.removeChildren();
                 stars();
                 object();
@@ -56987,7 +55149,6 @@
 
                 window.addEventListener('resize', resize);
 
-                _ease = new dist.list();
                 drawWorld();
                 events();
 
