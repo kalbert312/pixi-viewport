@@ -284,6 +284,8 @@
             
                 <li class="parent  " data-name="Viewport#OOB"><a href="Viewport.html#OOB">OOB</a></li>
             
+                <li class="parent  " data-name="Viewport#paint"><a href="Viewport.html#paint">paint</a></li>
+            
                 <li class="parent  " data-name="Viewport#pinch"><a href="Viewport.html#pinch">pinch</a></li>
             
                 <li class="parent  " data-name="Viewport#resize"><a href="Viewport.html#resize">resize</a></li>
@@ -334,6 +336,12 @@
                 <li class="parent" data-name="Viewport#event:moved"><a href="Viewport.html#event:moved">moved</a></li>
             
                 <li class="parent" data-name="Viewport#event:moved-end"><a href="Viewport.html#event:moved-end">moved-end</a></li>
+            
+                <li class="parent" data-name="Viewport#event:paint-end"><a href="Viewport.html#event:paint-end">paint-end</a></li>
+            
+                <li class="parent" data-name="Viewport#event:paint-start"><a href="Viewport.html#event:paint-start">paint-start</a></li>
+            
+                <li class="parent" data-name="Viewport#event:painted"><a href="Viewport.html#event:painted">painted</a></li>
             
                 <li class="parent" data-name="Viewport#event:pinch-end"><a href="Viewport.html#event:pinch-end">pinch-end</a></li>
             
@@ -402,7 +410,7 @@
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line87">viewport.js:87</a>
+            <a href="src_viewport.js.html#line90">viewport.js:90</a>
         </div>
         
     </div>
@@ -505,6 +513,12 @@
         <li>event:drag-end</li>
     
         <li>event:drag-remove</li>
+    
+        <li>event:paint-start</li>
+    
+        <li>event:painted</li>
+    
+        <li>event:paint-end</li>
     
         <li>event:pinch-start</li>
     
@@ -1631,7 +1645,7 @@ NOTE: if not set then hitArea = PIXI.Rectangle(Viewport.left, Viewport.top, View
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line819">viewport.js:819</a>
+            <a href="src_viewport.js.html#line833">viewport.js:833</a>
         </div>
         
     </div>
@@ -1998,7 +2012,7 @@ fires 'moved', 'bounce-x-start', 'bounce-y-start', 'bounce-x-end', and 'bounce-y
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line788">viewport.js:788</a>
+            <a href="src_viewport.js.html#line802">viewport.js:802</a>
         </div>
         
     </div>
@@ -2158,7 +2172,7 @@ screenWidth, screenHeight, worldWidth, and worldHeight needs to be set for this 
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line882">viewport.js:882</a>
+            <a href="src_viewport.js.html#line896">viewport.js:896</a>
         </div>
         
     </div>
@@ -2315,7 +2329,7 @@ screenWidth, screenHeight, worldWidth, and worldHeight needs to be set for this 
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line800">viewport.js:800</a>
+            <a href="src_viewport.js.html#line814">viewport.js:814</a>
         </div>
         
     </div>
@@ -2473,7 +2487,7 @@ NOTE: this fires 'moved' event during deceleration</p>
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line158">viewport.js:158</a>
+            <a href="src_viewport.js.html#line161">viewport.js:161</a>
         </div>
         
     </div>
@@ -2736,7 +2750,7 @@ NOTE: this fires 'moved' event during deceleration</p>
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line774">viewport.js:774</a>
+            <a href="src_viewport.js.html#line777">viewport.js:777</a>
         </div>
         
     </div>
@@ -2894,7 +2908,7 @@ NOTE: if you expect users to use right-click dragging, you should enable viewpor
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line926">viewport.js:926</a>
+            <a href="src_viewport.js.html#line940">viewport.js:940</a>
         </div>
         
     </div>
@@ -3084,7 +3098,7 @@ NOTE: if you expect users to use right-click dragging, you should enable viewpor
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line558">viewport.js:558</a>
+            <a href="src_viewport.js.html#line561">viewport.js:561</a>
         </div>
         
     </div>
@@ -3319,7 +3333,7 @@ NOTE: if you expect users to use right-click dragging, you should enable viewpor
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line488">viewport.js:488</a>
+            <a href="src_viewport.js.html#line491">viewport.js:491</a>
         </div>
         
     </div>
@@ -3588,7 +3602,7 @@ NOTE: if you expect users to use right-click dragging, you should enable viewpor
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line453">viewport.js:453</a>
+            <a href="src_viewport.js.html#line456">viewport.js:456</a>
         </div>
         
     </div>
@@ -3857,7 +3871,7 @@ NOTE: if you expect users to use right-click dragging, you should enable viewpor
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line520">viewport.js:520</a>
+            <a href="src_viewport.js.html#line523">viewport.js:523</a>
         </div>
         
     </div>
@@ -4007,7 +4021,7 @@ NOTE: if you expect users to use right-click dragging, you should enable viewpor
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line860">viewport.js:860</a>
+            <a href="src_viewport.js.html#line874">viewport.js:874</a>
         </div>
         
     </div>
@@ -4197,7 +4211,7 @@ fires 'moved' event</p>
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line297">viewport.js:297</a>
+            <a href="src_viewport.js.html#line300">viewport.js:300</a>
         </div>
         
     </div>
@@ -4302,7 +4316,7 @@ fires 'moved' event</p>
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line893">viewport.js:893</a>
+            <a href="src_viewport.js.html#line907">viewport.js:907</a>
         </div>
         
     </div>
@@ -4431,7 +4445,7 @@ NOTE: fires 'moved' event</p>
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line393">viewport.js:393</a>
+            <a href="src_viewport.js.html#line396">viewport.js:396</a>
         </div>
         
     </div>
@@ -4619,7 +4633,7 @@ NOTE: fires 'moved' event</p>
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line431">viewport.js:431</a>
+            <a href="src_viewport.js.html#line434">viewport.js:434</a>
         </div>
         
     </div>
@@ -4807,7 +4821,7 @@ NOTE: fires 'moved' event</p>
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line662">viewport.js:662</a>
+            <a href="src_viewport.js.html#line665">viewport.js:665</a>
         </div>
         
     </div>
@@ -4898,6 +4912,163 @@ NOTE: fires 'moved' event</p>
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id="paint">
+            <a class="share-icon" href="#paint"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                paint
+            </span>
+            <span class="signature">(<span class="optional">options</span>)</span><span class="type-signature"><a href="Viewport.html">Viewport</a></span>
+            
+            
+            
+            
+        </h4>
+
+        
+        <div class="tag-source">
+            <a href="src_viewport.js.html#line788">viewport.js:788</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>enable click-and-drag painting</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#PaintOptions">PaintOptions</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                </td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="Viewport.html">Viewport</a>
+                        
+                    
+            </td>
+            <td class="description last">this</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id="pinch">
             <a class="share-icon" href="#pinch"><span class="glyphicon glyphicon-link"></span></a>
             <span class="">
@@ -4912,7 +5083,7 @@ NOTE: fires 'moved' event</p>
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line830">viewport.js:830</a>
+            <a href="src_viewport.js.html#line844">viewport.js:844</a>
         </div>
         
     </div>
@@ -5069,7 +5240,7 @@ NOTE: fires 'moved' event</p>
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line236">viewport.js:236</a>
+            <a href="src_viewport.js.html#line239">viewport.js:239</a>
         </div>
         
     </div>
@@ -5309,7 +5480,7 @@ NOTE: fires 'moved' event</p>
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line593">viewport.js:593</a>
+            <a href="src_viewport.js.html#line596">viewport.js:596</a>
         </div>
         
     </div>
@@ -5494,7 +5665,7 @@ NOTE: fires 'moved' event</p>
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line843">viewport.js:843</a>
+            <a href="src_viewport.js.html#line857">viewport.js:857</a>
         </div>
         
     </div>
@@ -5707,7 +5878,7 @@ NOTE: fires 'moved' event</p>
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line652">viewport.js:652</a>
+            <a href="src_viewport.js.html#line655">viewport.js:655</a>
         </div>
         
     </div>
@@ -5824,7 +5995,7 @@ NOTE: fires 'moved' event</p>
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line326">viewport.js:326</a>
+            <a href="src_viewport.js.html#line329">viewport.js:329</a>
         </div>
         
     </div>
@@ -6012,7 +6183,7 @@ NOTE: fires 'moved' event</p>
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line308">viewport.js:308</a>
+            <a href="src_viewport.js.html#line311">viewport.js:311</a>
         </div>
         
     </div>
@@ -6200,7 +6371,7 @@ NOTE: fires 'moved' event</p>
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line173">viewport.js:173</a>
+            <a href="src_viewport.js.html#line176">viewport.js:176</a>
         </div>
         
     </div>
@@ -6322,7 +6493,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line871">viewport.js:871</a>
+            <a href="src_viewport.js.html#line885">viewport.js:885</a>
         </div>
         
     </div>
@@ -6479,7 +6650,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line630">viewport.js:630</a>
+            <a href="src_viewport.js.html#line633">viewport.js:633</a>
         </div>
         
     </div>
@@ -6664,7 +6835,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line619">viewport.js:619</a>
+            <a href="src_viewport.js.html#line622">viewport.js:622</a>
         </div>
         
     </div>
@@ -6859,7 +7030,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line1016">viewport.js:1016</a>
+            <a href="src_viewport.js.html#line1066">viewport.js:1066</a>
         </div>
         
     </div>
@@ -6945,7 +7116,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line1010">viewport.js:1010</a>
+            <a href="src_viewport.js.html#line1060">viewport.js:1060</a>
         </div>
         
     </div>
@@ -7031,7 +7202,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line1028">viewport.js:1028</a>
+            <a href="src_viewport.js.html#line1078">viewport.js:1078</a>
         </div>
         
     </div>
@@ -7117,7 +7288,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line1022">viewport.js:1022</a>
+            <a href="src_viewport.js.html#line1072">viewport.js:1072</a>
         </div>
         
     </div>
@@ -7203,7 +7374,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line947">viewport.js:947</a>
+            <a href="src_viewport.js.html#line961">viewport.js:961</a>
         </div>
         
     </div>
@@ -7386,7 +7557,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line965">viewport.js:965</a>
+            <a href="src_viewport.js.html#line979">viewport.js:979</a>
         </div>
         
     </div>
@@ -7569,7 +7740,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line956">viewport.js:956</a>
+            <a href="src_viewport.js.html#line970">viewport.js:970</a>
         </div>
         
     </div>
@@ -7752,7 +7923,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line1091">viewport.js:1091</a>
+            <a href="src_viewport.js.html#line1141">viewport.js:1141</a>
         </div>
         
     </div>
@@ -7838,7 +8009,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line1057">viewport.js:1057</a>
+            <a href="src_viewport.js.html#line1107">viewport.js:1107</a>
         </div>
         
     </div>
@@ -7924,7 +8095,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line1051">viewport.js:1051</a>
+            <a href="src_viewport.js.html#line1101">viewport.js:1101</a>
         </div>
         
     </div>
@@ -8010,7 +8181,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line1063">viewport.js:1063</a>
+            <a href="src_viewport.js.html#line1113">viewport.js:1113</a>
         </div>
         
     </div>
@@ -8170,7 +8341,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line1079">viewport.js:1079</a>
+            <a href="src_viewport.js.html#line1129">viewport.js:1129</a>
         </div>
         
     </div>
@@ -8242,6 +8413,762 @@ by default, you do not need to call this unless you set options.noTicker=true</p
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id="event:paint-end">
+            <a class="share-icon" href="#event:paint-end"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                paint-end
+            </span>
+            
+            
+            
+            
+            
+        </h4>
+
+        
+        <div class="tag-source">
+            <a href="src_viewport.js.html#line1012">viewport.js:1012</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>fires when painting ends</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">object</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>interactionEvent</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">PIXI.interaction.InteractionEvent</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>screen</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">PIXI.Point</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>screenStart</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">PIXI.Point</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>world</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">PIXI.Point</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>worldStart</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">PIXI.Point</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>viewport</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Viewport.html">Viewport</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table></dl>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="event:paint-start">
+            <a class="share-icon" href="#event:paint-start"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                paint-start
+            </span>
+            
+            
+            
+            
+            
+        </h4>
+
+        
+        <div class="tag-source">
+            <a href="src_viewport.js.html#line988">viewport.js:988</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>fires when painting starts</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">object</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>interactionEvent</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">PIXI.interaction.InteractionEvent</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>screen</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">PIXI.Point</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>screenStart</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">PIXI.Point</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>world</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">PIXI.Point</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>worldStart</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">PIXI.Point</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>viewport</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Viewport.html">Viewport</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table></dl>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="event:painted">
+            <a class="share-icon" href="#event:painted"><span class="glyphicon glyphicon-link"></span></a>
+            <span class="">
+                painted
+            </span>
+            
+            
+            
+            
+            
+        </h4>
+
+        
+        <div class="tag-source">
+            <a href="src_viewport.js.html#line1000">viewport.js:1000</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>fires when painting is in progress</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">object</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>interactionEvent</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">PIXI.interaction.InteractionEvent</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>screen</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">PIXI.Point</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>screenStart</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">PIXI.Point</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>world</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">PIXI.Point</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>worldStart</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">PIXI.Point</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>viewport</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Viewport.html">Viewport</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table></dl>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id="event:pinch-end">
             <a class="share-icon" href="#event:pinch-end"><span class="glyphicon glyphicon-link"></span></a>
             <span class="">
@@ -8256,7 +9183,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line980">viewport.js:980</a>
+            <a href="src_viewport.js.html#line1030">viewport.js:1030</a>
         </div>
         
     </div>
@@ -8342,7 +9269,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line974">viewport.js:974</a>
+            <a href="src_viewport.js.html#line1024">viewport.js:1024</a>
         </div>
         
     </div>
@@ -8428,7 +9355,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line992">viewport.js:992</a>
+            <a href="src_viewport.js.html#line1042">viewport.js:1042</a>
         </div>
         
     </div>
@@ -8514,7 +9441,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line986">viewport.js:986</a>
+            <a href="src_viewport.js.html#line1036">viewport.js:1036</a>
         </div>
         
     </div>
@@ -8600,7 +9527,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line1004">viewport.js:1004</a>
+            <a href="src_viewport.js.html#line1054">viewport.js:1054</a>
         </div>
         
     </div>
@@ -8686,7 +9613,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line998">viewport.js:998</a>
+            <a href="src_viewport.js.html#line1048">viewport.js:1048</a>
         </div>
         
     </div>
@@ -8772,7 +9699,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line1034">viewport.js:1034</a>
+            <a href="src_viewport.js.html#line1084">viewport.js:1084</a>
         </div>
         
     </div>
@@ -9025,7 +9952,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line1045">viewport.js:1045</a>
+            <a href="src_viewport.js.html#line1095">viewport.js:1095</a>
         </div>
         
     </div>
@@ -9111,7 +10038,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line1071">viewport.js:1071</a>
+            <a href="src_viewport.js.html#line1121">viewport.js:1121</a>
         </div>
         
     </div>
@@ -9271,7 +10198,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         
         <div class="tag-source">
-            <a href="src_viewport.js.html#line1085">viewport.js:1085</a>
+            <a href="src_viewport.js.html#line1135">viewport.js:1135</a>
         </div>
         
     </div>
@@ -9353,7 +10280,7 @@ by default, you do not need to call this unless you set options.noTicker=true</p
 
         <footer class="content-size">
             <div class="footer">
-                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Aug 11 2019 10:13:16 GMT-0400 (Eastern Daylight Time)
+                Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Aug 11 2019 10:29:37 GMT-0400 (Eastern Daylight Time)
             </div>
         </footer>
     </div>

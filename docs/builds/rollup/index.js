@@ -47661,6 +47661,9 @@
                  * @fires drag-start
                  * @fires drag-end
                  * @fires drag-remove
+                 * @fires paint-start
+                 * @fires painted
+                 * @fires paint-end
                  * @fires pinch-start
                  * @fires pinch-end
                  * @fires pinch-remove
@@ -48378,6 +48381,17 @@
                 drag(options)
                 {
                     this.plugins.add('drag', new Drag(this, options));
+                    return this
+                }
+                
+                /**
+                 * enable click-and-drag painting
+                 * @param {PaintOptions} [options]
+                 * @returns {Viewport} this
+                 */
+                paint(options)
+                {
+                    this.plugins.add('paint', new Paint(this, options));
                     return this
                 }
 

@@ -2804,6 +2804,9 @@ class Viewport extends Container
      * @fires drag-start
      * @fires drag-end
      * @fires drag-remove
+     * @fires paint-start
+     * @fires painted
+     * @fires paint-end
      * @fires pinch-start
      * @fires pinch-end
      * @fires pinch-remove
@@ -3523,6 +3526,17 @@ class Viewport extends Container
         this.plugins.add('drag', new Drag(this, options));
         return this
     }
+    
+    /**
+     * enable click-and-drag painting
+     * @param {PaintOptions} [options]
+     * @returns {Viewport} this
+     */
+    paint(options)
+    {
+        this.plugins.add('paint', new Paint(this, options));
+        return this
+    }
 
     /**
      * clamp to world boundaries or other provided boundaries
@@ -3715,6 +3729,42 @@ class Viewport extends Container
  * @type {object}
  * @property {PIXI.Point} screen
  * @property {PIXI.Point} world
+ * @property {Viewport} viewport
+ */
+
+/**
+ * fires when painting starts
+ * @event Viewport#paint-start
+ * @type {object}
+ * @property {PIXI.interaction.InteractionEvent} interactionEvent
+ * @property {PIXI.Point} screen
+ * @property {PIXI.Point} screenStart
+ * @property {PIXI.Point} world
+ * @property {PIXI.Point} worldStart
+ * @property {Viewport} viewport
+ */
+
+/**
+ * fires when painting is in progress
+ * @event Viewport#painted
+ * @type {object}
+ * @property {PIXI.interaction.InteractionEvent} interactionEvent
+ * @property {PIXI.Point} screen
+ * @property {PIXI.Point} screenStart
+ * @property {PIXI.Point} world
+ * @property {PIXI.Point} worldStart
+ * @property {Viewport} viewport
+ */
+
+/**
+ * fires when painting ends
+ * @event Viewport#paint-end
+ * @type {object}
+ * @property {PIXI.interaction.InteractionEvent} interactionEvent
+ * @property {PIXI.Point} screen
+ * @property {PIXI.Point} screenStart
+ * @property {PIXI.Point} world
+ * @property {PIXI.Point} worldStart
  * @property {Viewport} viewport
  */
 
