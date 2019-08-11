@@ -13,6 +13,7 @@ import { SnapZoom } from './plugins/snap-zoom'
 import { Follow } from './plugins/follow'
 import { Wheel } from './plugins/wheel'
 import { MouseEdges } from './plugins/mouse-edges'
+import { Paint } from './plugins/paint'
 export { Plugin } from './plugins/plugin'
 
 /**
