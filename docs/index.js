@@ -44747,37 +44747,7 @@
                         VERSION: VERSION$1,
                         filters: filters,
                         useDeprecated: useDeprecated,
-                        Bounds: Bounds,
-                        Container: Container,
-                        DisplayObject: DisplayObject,
                         Application: Application,
-                        AppLoaderPlugin: AppLoaderPlugin,
-                        Loader: Loader$1,
-                        LoaderResource: LoaderResource,
-                        TextureLoader: TextureLoader,
-                        ParticleContainer: ParticleContainer,
-                        ParticleRenderer: ParticleRenderer,
-                        Spritesheet: Spritesheet,
-                        SpritesheetLoader: SpritesheetLoader,
-                        TilingSprite: TilingSprite,
-                        TilingSpriteRenderer: TilingSpriteRenderer,
-                        BitmapFontLoader: BitmapFontLoader,
-                        BitmapText: BitmapText,
-                        Ticker: Ticker,
-                        TickerPlugin: TickerPlugin,
-                        UPDATE_PRIORITY: UPDATE_PRIORITY,
-                        BLEND_MODES: BLEND_MODES,
-                        DRAW_MODES: DRAW_MODES,
-                        ENV: ENV,
-                        FORMATS: FORMATS,
-                        GC_MODES: GC_MODES,
-                        MIPMAP_MODES: MIPMAP_MODES,
-                        PRECISION: PRECISION,
-                        RENDERER_TYPE: RENDERER_TYPE,
-                        SCALE_MODES: SCALE_MODES,
-                        TARGETS: TARGETS,
-                        TYPES: TYPES,
-                        WRAP_MODES: WRAP_MODES,
                         AbstractBatchRenderer: AbstractBatchRenderer,
                         AbstractRenderer: AbstractRenderer,
                         Attribute: Attribute,
@@ -44817,6 +44787,36 @@
                         defaultVertex: _default,
                         resources: index,
                         systems: systems,
+                        AppLoaderPlugin: AppLoaderPlugin,
+                        Loader: Loader$1,
+                        LoaderResource: LoaderResource,
+                        TextureLoader: TextureLoader,
+                        ParticleContainer: ParticleContainer,
+                        ParticleRenderer: ParticleRenderer,
+                        Spritesheet: Spritesheet,
+                        SpritesheetLoader: SpritesheetLoader,
+                        TilingSprite: TilingSprite,
+                        TilingSpriteRenderer: TilingSpriteRenderer,
+                        BitmapFontLoader: BitmapFontLoader,
+                        BitmapText: BitmapText,
+                        Ticker: Ticker,
+                        TickerPlugin: TickerPlugin,
+                        UPDATE_PRIORITY: UPDATE_PRIORITY,
+                        BLEND_MODES: BLEND_MODES,
+                        DRAW_MODES: DRAW_MODES,
+                        ENV: ENV,
+                        FORMATS: FORMATS,
+                        GC_MODES: GC_MODES,
+                        MIPMAP_MODES: MIPMAP_MODES,
+                        PRECISION: PRECISION,
+                        RENDERER_TYPE: RENDERER_TYPE,
+                        SCALE_MODES: SCALE_MODES,
+                        TARGETS: TARGETS,
+                        TYPES: TYPES,
+                        WRAP_MODES: WRAP_MODES,
+                        Bounds: Bounds,
+                        Container: Container,
+                        DisplayObject: DisplayObject,
                         FillStyle: FillStyle,
                         GRAPHICS_CURVES: GRAPHICS_CURVES,
                         Graphics: Graphics,
@@ -50554,7 +50554,7 @@
 
                     if (this.clickedAvailable && this.count() === 0)
                     {
-                        this.viewport.emit('clicked', { screen: this.last, world: this.viewport.toWorld(this.last), viewport: this });
+                        this.viewport.emit('clicked', { interactionEvent: event, screen: this.last, world: this.viewport.toWorld(this.last), viewport: this });
                         this.clickedAvailable = false;
                     }
 
@@ -50651,7 +50651,7 @@
                 }
             }
 
-            const PLUGIN_ORDER = ['drag', 'pinch', 'wheel', 'follow', 'mouse-edges', 'decelerate', 'bounce', 'snap-zoom', 'clamp-zoom', 'snap', 'clamp'];
+            const PLUGIN_ORDER = ['drag', 'paint', 'pinch', 'wheel', 'follow', 'mouse-edges', 'decelerate', 'bounce', 'snap-zoom', 'clamp-zoom', 'snap', 'clamp'];
 
             /**
              * Use this to access current plugins or add user-defined plugins
@@ -50671,7 +50671,7 @@
 
                 /**
                  * Inserts a named plugin or a user plugin into the viewport
-                 * default plugin order: 'drag', 'pinch', 'wheel', 'follow', 'mouse-edges', 'decelerate', 'bounce', 'snap-zoom', 'clamp-zoom', 'snap', 'clamp'
+                 * default plugin order: 'drag', 'paint', 'pinch', 'wheel', 'follow', 'mouse-edges', 'decelerate', 'bounce', 'snap-zoom', 'clamp-zoom', 'snap', 'clamp'
                  * @param {string} name of plugin
                  * @param {Plugin} plugin - instantiated Plugin class
                  * @param {number} index to insert userPlugin (otherwise inserts it at the end)
@@ -51127,7 +51127,7 @@
                                 this.last = newPoint;
                                 if (!this.moved)
                                 {
-                                    this.parent.emit('drag-start', { screen: new Point(this.last.x, this.last.y), world: this.parent.toWorld(new Point(this.last.x, this.last.y)), viewport: this.parent});
+                                    this.parent.emit('drag-start', { interactionEvent: event, screen: new Point(this.last.x, this.last.y), world: this.parent.toWorld(new Point(this.last.x, this.last.y)), viewport: this.parent});
                                 }
                                 this.moved = true;
                                 this.parent.emit('moved', { viewport: this.parent, type: 'drag' });
@@ -51145,7 +51145,7 @@
                  * @param {PIXI.interaction.InteractionEvent} event
                  * @returns {boolean}
                  */
-                up()
+                up(event)
                 {
                     const touches = this.parent.input.touches;
                     if (touches.length === 1)
@@ -51164,7 +51164,7 @@
                         if (this.moved)
                         {
                             const screen = new Point(this.last.x, this.last.y);
-                            this.parent.emit('drag-end', {screen, world: this.parent.toWorld(screen), viewport: this.parent});
+                            this.parent.emit('drag-end', { interactionEvent: event, screen, world: this.parent.toWorld(screen), viewport: this.parent });
                             this.last = null;
                             this.moved = false;
                             return true

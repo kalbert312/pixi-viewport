@@ -4,7 +4,7 @@ const Viewport = require('../dist/viewport.js').Viewport
 
 describe('follow', () =>
 {
-    it('default options', () =>
+    xit('default options', () =>
     {
         const viewport = new Viewport({ screenWidth: 100, screenHeight: 200 })
         const target = { x: 10, y: 11 }
